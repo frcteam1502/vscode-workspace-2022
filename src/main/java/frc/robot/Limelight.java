@@ -1,7 +1,9 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Constants.Cameras;
 
 
 public class Limelight {
@@ -23,15 +25,22 @@ public class Limelight {
         // Skew or rotation (-90deg to 0deg)
         
         public double skew;
+
+        // public static NetworkTable table;
+
+        
     
         Target(double h, double v, double a, double s) {
           horizontalOffset = h;
           verticalOffset = v;
           area = a;
           skew = s;
-        }
+          // Limelight.table = NetworkTableInstance.getDefault().getTable("limelight");
+        
       }
     
+     
+
       public static Target getTarget() {
         double isVisible = getTableEntry("tv").getDouble(0);
         if (isVisible == 0)
@@ -44,6 +53,19 @@ public class Limelight {
       }
     
       private static NetworkTableEntry getTableEntry(String entry) {
+
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry(entry);
       }
+    }
+
+    NetworkTableInstance table;
+
+    public static void setLightsOn(boolean isOn, NetworkTableInstance table) {
+      if (isOn){
+        table.getEntry("ledMode").setNumber(3);
+      } else {
+        table.getEntry("ledMode").setNumber(1);
+      
+    }
+}
 }
