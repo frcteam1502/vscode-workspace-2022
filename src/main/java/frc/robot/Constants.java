@@ -6,15 +6,8 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
->>>>>>> 917cf093955caef38baf244b40eb2fdcfe27c873
-=======
->>>>>>> da5feb1547906532dd54f9507119ba4d387b4f18
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -26,7 +19,6 @@ import edu.wpi.first.wpilibj.Joystick;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-<<<<<<< HEAD
     //Motors
     public static final int DRIVE_FRONT_LEFT = 1;
     public static final int DRIVE_BACK_LEFT = 3;
@@ -35,6 +27,7 @@ public final class Constants {
 
     //Joysticks
     public static final int RIGHT_JOYSTICK = 1;
+    public static final int LEFT_JOYSTICK = 2;
 
     public final static class Motors {
         public static final CANSparkMax frontLeft = new CANSparkMax(DRIVE_FRONT_LEFT, MotorType.kBrushless);
@@ -45,20 +38,10 @@ public final class Constants {
 
     public final static class Joysticks {
         public static final Joystick rightJoystick = new Joystick(RIGHT_JOYSTICK);
-=======
-    public static final class Motors {
-        public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(0, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(2, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(3, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(4, MotorType.kBrushless);
+        public static final Joystick leftJoystick = new Joystick(LEFT_JOYSTICK);
     }
-    public static final class Joysticks {
-        public static final Joystick RIGHT_JOYSTICK = new Joystick(1);
-        // public static final XboxController XBOX_CONTROLLER = new XboxController(0);
-        public static final Joystick LEFT_JOYSTICKS = new Joystick(0);
-    }
+    
     public static final class Cameras {
         // public static final NetworkTableInstance NETWORK_TABLE = NetworkTableInstance.getDefault();
->>>>>>> 917cf093955caef38baf244b40eb2fdcfe27c873
     }
 }
