@@ -5,18 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Joysticks;
-import frc.robot.Constants.Motors;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.Limelight;
 
-public class DriveByJoysticks extends CommandBase {
-  private Drivetrain drivetrain = new Drivetrain(Motors.frontLeft, Motors.frontRight, Motors.backLeft, Motors.backRight);
-  
-  // Creates a new DriveByJoysticks. 
-  public DriveByJoysticks(Drivetrain subsystem) {
+public class LimelightNumbers extends CommandBase {
+  /** Creates a new LimelightNumbers. */
+  public LimelightNumbers() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
-    drivetrain = subsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -26,10 +20,7 @@ public class DriveByJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(
-      Joysticks.rightJoystick.getX(),
-      Joysticks.rightJoystick.getY(),
-      Joysticks.rightJoystick.getZ());
+    Limelight.logToShuffleboard();
   }
 
   // Called once the command ends or is interrupted.

@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.TurnLEDSOn;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.PathFindingConstants.AutoConstants;
@@ -36,6 +38,8 @@ import java.util.List;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final Vision vision = new Vision();
+  private final TurnLEDSOn turnLEDSOn = new TurnLEDSOn(vision);
   private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

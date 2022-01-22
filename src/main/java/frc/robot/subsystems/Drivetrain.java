@@ -14,12 +14,12 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax frontLeft, frontRight, backLeft, backRight;
 
   /** Creates a new Drivetrain. */
-  public Drivetrain(CANSparkMax frontleft, CANSparkMax frontRight, CANSparkMax backLeft, CANSparkMax backRight ) {
+  public Drivetrain(CANSparkMax driveFrontLeft, CANSparkMax driveFrontRight, CANSparkMax driveBackLeft, CANSparkMax driveBackRight ) {
     setDefaultCommand(new DriveByJoysticks(this));
-    this.frontLeft = frontleft;
-    this.frontRight = frontRight;
-    this.backLeft = backLeft;
-    this.backRight = backRight;
+    this.frontLeft = driveFrontLeft;
+    this.frontRight = driveFrontRight;
+    this.backLeft = driveBackLeft;
+    this.backRight = driveBackRight;
   }
 
   @Override
