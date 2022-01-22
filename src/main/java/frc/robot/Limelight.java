@@ -9,7 +9,10 @@ import edu.wpi.first.networktables.NetworkTable;
 public class Limelight {
     private static Limelight inst;
 
-    private final NetworkTable subtable;
+    private static NetworkTable subtable;
+
+   
+    
 
     private Limelight() {
         subtable = NetworkTableInstance.getDefault().getTable("limelight");
@@ -28,10 +31,11 @@ public class Limelight {
 
     /**
      * <p>logs limelight data to the shuffleboard
+     * @return 
      * 
      * @return void, so don't use it in an expression!
      */
-    public void logToShuffleboard() {
+    public static void logToShuffleboard() {
         NetworkTableEntry tx = getEntry("tx");
         NetworkTableEntry ty = getEntry("ty");
         NetworkTableEntry ta = getEntry("ta");
@@ -77,7 +81,7 @@ public class Limelight {
      * @param entry String specifying table entry
      * @return the entry: NetworkTableEntry
      */
-    public NetworkTableEntry getEntry(String entry) {
+    public static NetworkTableEntry getEntry(String entry) {
         switch (entry) {
         case "tx":
             break;
@@ -105,5 +109,6 @@ public class Limelight {
         if(entry < 0 || entry > 3) return null;
         return getEntries()[entry];
     }
+    
 
 }
