@@ -8,10 +8,13 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 >>>>>>> 917cf093955caef38baf244b40eb2fdcfe27c873
+=======
+>>>>>>> da5feb1547906532dd54f9507119ba4d387b4f18
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
