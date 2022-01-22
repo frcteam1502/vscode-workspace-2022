@@ -1,71 +1,109 @@
-package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTable;
+package frc.robot;
+// I hope this works
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.robot.Constants.Cameras;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
 
 public class Limelight {
-    
-    public static class Target {
-        
-        // Horizontal offset from crosshair to target (+-29.8)
-         
-        public double horizontalOffset;
-        
-        // Vertical offset from crosshair to target (+-24.85)
-        
-        public double verticalOffset;
-        
-        // Target area of total image (0% to 100%)
-        
-        public double area;
-        
-        // Skew or rotation (-90deg to 0deg)
-        
-        public double skew;
+    private static Limelight inst;
 
-        // public static NetworkTable table;
+    private final NetworkTable subtable;
 
-        
-    
-        Target(double h, double v, double a, double s) {
-          horizontalOffset = h;
-          verticalOffset = v;
-          area = a;
-          skew = s;
-          // Limelight.table = NetworkTableInstance.getDefault().getTable("limelight");
-        
-      }
-    
-     
-
-      public static Target getTarget() {
-        double isVisible = getTableEntry("tv").getDouble(0);
-        if (isVisible == 0)
-          return null;
-        double horizontalOffset = getTableEntry("tx").getDouble(0);
-        double verticalOffset = getTableEntry("ty").getDouble(0);
-        double area = getTableEntry("ta").getDouble(0);
-        double skew = getTableEntry("ts").getDouble(0);
-        return new Target(horizontalOffset, verticalOffset, area, skew);
-      }
-    
-      private static NetworkTableEntry getTableEntry(String entry) {
-
-        return NetworkTableInstance.getDefault().getTable("limelight").getEntry(entry);
-      }
+    private Limelight() {
+        subtable = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
-    NetworkTableInstance table;
-
-    public static void setLightsOn(boolean isOn, NetworkTableInstance table) {
-      if (isOn){
-        table.getEntry("ledMode").setNumber(3);
-      } else {
-        table.getEntry("ledMode").setNumber(1);
-      
+    /**
+     * <p>gets the <code>Limelight</code> instance
+     * @return the <code>Limelight</code> instance
+     */
+    public static Limelight getInstance() {
+        if (inst == null)
+            return inst = new Limelight();
+        else
+            return inst;
     }
-}
+
+    /**
+     * <p>logs limelight data to the shuffleboard
+     * 
+     * @return void, so don't use it in an expression!
+     */
+    public void logToShuffleboard() {
+        NetworkTableEntry tx = getEntry("tx");
+        NetworkTableEntry ty = getEntry("ty");
+        NetworkTableEntry ta = getEntry("ta");
+        NetworkTableEntry tv = getEntry("tv");
+
+        // read values periodically
+        double x = tx.getDouble(0.0);
+        double y = ty.getDouble(0.0);
+        double area = ta.getDouble(0.0);
+        boolean target = tv.getFlags() == 1;
+
+        // post to smart dashboard periodically
+        SmartDashboard.putNumber("LimelightX", x);
+        SmartDashboard.putNumber("LimelightY", y);
+        SmartDashboard.putNumber("LimelightArea", area);
+        SmartDashboard.putBoolean("LimelightTargetExistence", target);
+    }
+
+    /**
+     * <p>gets the limelight network table
+     * @return limelight table
+     */
+    public NetworkTable getTable() {
+        return subtable;
+    }
+
+    /**
+     * <p>gets four entries from the limelight network table
+     * <p>edit <code>getEntry(String)</code> to access more values than provided
+     * 
+     * @return array of table entries [tx, ty, ta, tv]
+     */
+    public NetworkTableEntry[] getEntries() {
+        return new NetworkTableEntry[] { subtable.getEntry("tx"), subtable.getEntry("ty"), subtable.getEntry("ta"),
+                subtable.getEntry("tv") };
+    }
+
+    /**
+     * <p>gets an entry from the limelight network table
+     * 
+     * <p><em>use THIS NOT ANYTHING ELSE if you want to access more properties than the 4 already implemented</em>
+     * 
+     * @param entry String specifying table entry
+     * @return the entry: NetworkTableEntry
+     */
+    public NetworkTableEntry getEntry(String entry) {
+        switch (entry) {
+        case "tx":
+            break;
+        case "ty":
+            break;
+        case "ta":
+            break;
+        case "tv":
+            break;
+        default:
+            return null;
+        }
+
+        return subtable.getEntry(entry);
+    }
+
+    /**
+     * <p>gets an entry from the limelight network table
+     * <p>edit <code>getEntry(String)</code> if you need more values than those already implemented
+     * 
+     * @param entry int representing the entry
+     * @return the entry: NetworkTableEntry
+     */
+    public NetworkTableEntry getEntry(int entry) {
+        if(entry < 0 || entry > 3) return null;
+        return getEntries()[entry];
+    }
+
 }
