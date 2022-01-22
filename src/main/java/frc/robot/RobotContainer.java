@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,10 +16,13 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
+import frc.robot.PathFindingConstants.OIConstants;
 import frc.robot.subsystems.AutoDriveSubsystem;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import java.util.List;
@@ -35,18 +39,37 @@ public class RobotContainer {
   private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    // Configure default commands
+    // Set the default drive command to split-stick arcade drive
+    m_robotDrive.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        new RunCommand(
+            () ->
+                m_robotDrive.arcadeDrive(
+                    -m_driverController.getLeftY(), m_driverController.getRightX()),
+            m_robotDrive));
   }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
+   * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    // Drive at half speed when the right bumper is held
+    new JoystickButton(m_driverController, Button.kR1.value)
+        .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
+        .whenReleased(() -> m_robotDrive.setMaxOutput(1));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
