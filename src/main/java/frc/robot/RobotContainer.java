@@ -16,10 +16,7 @@ import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstrai
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-<<<<<<< HEAD
-import frc.robot.commands.TurnLEDSOn;
-import frc.robot.subsystems.Vision;
-=======
+
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
@@ -27,7 +24,7 @@ import frc.robot.subsystems.AutoDriveSubsystem;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import java.util.List;
 
->>>>>>> 2256303045f7d85ba34181b8abb8f22198ca2763
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,12 +34,10 @@ import java.util.List;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-<<<<<<< HEAD
-  private final Vision vision = new Vision();
-  private final TurnLEDSOn turnLEDSOn = new TurnLEDSOn(vision);
-=======
+
+
   private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
->>>>>>> 2256303045f7d85ba34181b8abb8f22198ca2763
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
