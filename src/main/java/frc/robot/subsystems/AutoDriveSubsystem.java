@@ -31,15 +31,15 @@ public class AutoDriveSubsystem extends SubsystemBase {
   // The left-side drive encoder
   private final Encoder m_leftEncoder =
       new Encoder(
+          DriveConstants.kLeftEncoderPorts[0],
           DriveConstants.kLeftEncoderPorts[1],
-          DriveConstants.kLeftEncoderPorts[3],
           DriveConstants.kLeftEncoderReversed);
 
   // The right-side drive encoder
   private final Encoder m_rightEncoder =
       new Encoder(
-          DriveConstants.kRightEncoderPorts[2],
-          DriveConstants.kRightEncoderPorts[4],
+          DriveConstants.kRightEncoderPorts[0],
+          DriveConstants.kRightEncoderPorts[1],
           DriveConstants.kRightEncoderReversed);
 
   // The gyro sensor
