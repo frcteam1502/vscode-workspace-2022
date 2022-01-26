@@ -19,10 +19,15 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Constants.Motors;
 import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
 import frc.robot.PathFindingConstants.OIConstants;
+import frc.robot.commands.BasicAuto;
+import frc.robot.commands.DriveByJoysticks;
+import frc.robot.commands.getAutonomousCommand;
 import frc.robot.subsystems.AutoDriveSubsystem;
+import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import java.util.List;
 
@@ -36,18 +41,14 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
 
+  private final Drivetrain m_drive = new Drivetrain(Motors.frontLeft, Motors.frontRight, Motors.backLeft, Motors.backRight);
+
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
     configureButtonBindings();
 
-    // Configure default commands
-    // Set the default drive command to split-stick arcade drive
     m_robotDrive.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
         new RunCommand(
             () ->
                 m_robotDrive.arcadeDrive(
@@ -68,13 +69,23 @@ public class RobotContainer {
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
   }
 
+  //TeleOp Commands
+  public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
+
+  //Autonomous Commands
+  public BasicAuto basic = new BasicAuto();
+
+  public getAutonomousCommand blue = new getAutonomousCommand(m_robotDrive);
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    * @param List 
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+
+  /*
+  public Command getAutonomousCommand(Object List) {
     // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
@@ -130,4 +141,5 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));
   }
+  */
 }
