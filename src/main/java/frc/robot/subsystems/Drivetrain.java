@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DriveByJoysticks;
 
@@ -35,5 +36,9 @@ public class Drivetrain extends SubsystemBase {
     frontRight.set(xSpeed - ySpeed - zRotation);
     backLeft.set(xSpeed - ySpeed + zRotation);
     backRight.set(xSpeed + ySpeed - zRotation);
+    
+    SmartDashboard.putNumber("Y Speed", ySpeed);
+    SmartDashboard.putNumber("X Speed", xSpeed);
+    SmartDashboard.putNumber("Z Rotation", zRotation);
   }
 }

@@ -23,12 +23,7 @@ public class GetEncoderValues extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    subsystem.GetEncoder("leftExtender");
-    subsystem.GetEncoder("rightExtender");
-    subsystem.GetEncoder("leftAngle");
-    subsystem.GetEncoder("rightAngle");
-    subsystem.GetEncoder("leftBaby");
-    subsystem.GetEncoder("rightBaby");
+    subsystem.GetEncoders();
   }
 
   // Called once the command ends or is interrupted.

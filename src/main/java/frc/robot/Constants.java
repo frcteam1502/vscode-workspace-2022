@@ -29,10 +29,9 @@ public final class Constants {
         public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(6, MotorType.kBrushless);
         public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(7, MotorType.kBrushless);
         public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(8, MotorType.kBrushless);
-        public static final CANSparkMax LEFT_BABY_ARM = new CANSparkMax(9, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_BABY_ARM = new CANSparkMax(10, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_BABY = new CANSparkMax(9, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(10, MotorType.kBrushless);
     }
-
     public final static class Joysticks {
         public static final Joystick rightJoystick = new Joystick(1);
         public static final Joystick leftJoystick = new Joystick(2);

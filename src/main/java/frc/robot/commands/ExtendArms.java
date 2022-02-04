@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
 import frc.robot.subsystems.Climber;
@@ -27,8 +26,6 @@ public class ExtendArms extends CommandBase {
   public void execute() {
     if(Joysticks.rightJoystick.getRawButtonPressed(1) && !Joysticks.rightJoystick.getRawButtonPressed(2)) subsystem.ExtendLongLongArms();
     else subsystem.StopLongLongArms();
-    SmartDashboard.putNumber("Left Extender Encoder", subsystem.GetEncoder("leftExtender"));
-    SmartDashboard.putNumber("Right Extender Encoder", subsystem.GetEncoder("rightExtender"));
   }
 
   // Called once the command ends or is interrupted.

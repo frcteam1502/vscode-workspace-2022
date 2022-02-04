@@ -6,12 +6,15 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.GetEncoderValues;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
   /** Creates a new Climber. */
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftAngle, CANSparkMax rightAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
+    setDefaultCommand(new GetEncoderValues(this));
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
     this.leftAngle = leftAngle;
@@ -50,24 +53,17 @@ public class Climber extends SubsystemBase {
     rightBaby.set(speed);
   }
 
-  /*
-  public double GetEncoder(String motor) {
-    switch(motor) {
-      case "leftExtender":
-        return leftExtender.getEncoder().getPosition();
-      case "rightExtender":
-        return rightExtender.getEncoder().getPosition();
-      case "leftAngle":
-        return leftAngle.getEncoder().getPosition();
-      case "rightAngle":
-        return rightAngle.getEncoder().getPosition();
-      case "leftBaby":
-        return leftBaby.getEncoder().getPosition();
-      case "rightBaby":
-        return rightBaby.getEncoder().getPosition();
-      default:
-        return 0;
-    }
+  /**
+   * 
+   * @param motor leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby
+   * @return Encoder position
+   */
+  public void GetEncoders() {
+    SmartDashboard.putNumber("Left Extender", leftExtender.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Extender", rightExtender.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Angle", leftAngle.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Angle", rightAngle.getEncoder().getPosition());
+    SmartDashboard.putNumber("Left Baby", leftBaby.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Baby", rightBaby.getEncoder().getPosition());
   }
-  */
 }

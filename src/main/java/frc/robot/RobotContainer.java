@@ -7,7 +7,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.Motors;
+import frc.robot.commands.ContractArms;
 import frc.robot.commands.DriveByJoysticks;
+import frc.robot.commands.ExtendArms;
+import frc.robot.commands.GetEncoderValues;
+import frc.robot.commands.RotateBabies;
+import frc.robot.commands.RotateLongArms;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -17,9 +23,23 @@ import frc.robot.subsystems.Drivetrain;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  public Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
+  public Drivetrain drivetrain = new Drivetrain(
+  Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
+  
+  public Climber climber = new Climber(
+  Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+  
   public DriveByJoysticks teleOpDrive = new DriveByJoysticks(drivetrain);
+  
+  public ExtendArms extendArms = new ExtendArms(climber);
+  
+  public ContractArms contractArms = new ContractArms(climber);
+  
+  public RotateLongArms rotateLongArms = new RotateLongArms(climber);
+  
+  public RotateBabies rotateBabies = new RotateBabies(climber);
+
+  public GetEncoderValues getEncoderValues = new GetEncoderValues(climber);
 
   public RobotContainer() {
     configureButtonBindings();
