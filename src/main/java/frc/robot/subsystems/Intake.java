@@ -7,11 +7,13 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.RunIntake;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeL;
   /** Creates a new Intake. */
   public Intake(CANSparkMax intakeP) {
+    setDefaultCommand(new RunIntake(this));
     intakeL = intakeP;
   }
 
