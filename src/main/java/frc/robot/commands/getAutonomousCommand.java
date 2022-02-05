@@ -4,18 +4,17 @@
 
 package frc.robot.commands;
 
-import java.util.List;
-
+import java.io.IOException;
+import java.nio.file.Path;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.PathFindingConstants.AutoConstants;
@@ -25,10 +24,12 @@ import frc.robot.subsystems.AutoDriveSubsystem;
 public class getAutonomousCommand extends CommandBase {
   AutoDriveSubsystem drive;
   RamseteCommand ramseteCommand;
+  String trajectoryJSON;
 
-  public getAutonomousCommand(AutoDriveSubsystem subsystem) {
+  public getAutonomousCommand(AutoDriveSubsystem subsystem, String path) {
     addRequirements(subsystem);
     drive = subsystem;
+    trajectoryJSON = "paths/" + path + ".wpilib.json";
   }
 
   // Called when the command is initially scheduled.
@@ -47,25 +48,32 @@ public class getAutonomousCommand extends CommandBase {
       new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
         AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-                // Add kinematics to ensure max speed is actually obeyed
                 .setKinematics(DriveConstants.kDriveKinematics)
-                // Apply the voltage constraint
                 .addConstraint(autoVoltageConstraint);
     
-    Trajectory exampleTrajectory =
-      TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        // Pass config
-        config); 
+    Trajectory trajectory = new Trajectory();
+
+    try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
+
+
+      // TrajectoryGenerator.generateTrajectory(
+      //   // Start at the origin facing the +X direction
+      //   new Pose2d(0, 0, new Rotation2d(0)),
+      //   // Pass through these two interior waypoints, making an 's' curve path
+      //   List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+      //   // End 3 meters straight ahead of where we started, facing forward
+      //   new Pose2d(3, 0, new Rotation2d(0)),
+      //   // Pass config
+      //   config); 
         
     ramseteCommand =
       new RamseteCommand(
-        exampleTrajectory,
+        trajectory,
         drive::getPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
         new SimpleMotorFeedforward(
@@ -81,7 +89,7 @@ public class getAutonomousCommand extends CommandBase {
         drive);   
         
     // Reset odometry to the starting pose of the trajectory.
-    drive.resetOdometry(exampleTrajectory.getInitialPose());
+    drive.resetOdometry(trajectory.getInitialPose());
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -1,46 +1,30 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.PathFindingConstants.DriveConstants;
+import frc.robot.Constants.Motors;
 
 public class AutoDriveSubsystem extends SubsystemBase {
-  // The motors on the left side of the drive.
-  private final MotorControllerGroup m_leftMotors =
-      new MotorControllerGroup(
-          new PWMSparkMax(DriveConstants.kLeftMotor1Port),
-          new PWMSparkMax(DriveConstants.kLeftMotor2Port));
+  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(Motors.frontLeft, Motors.backLeft);
 
-  // The motors on the right side of the drive.
-  private final MotorControllerGroup m_rightMotors =
-      new MotorControllerGroup(
-          new PWMSparkMax(DriveConstants.kRightMotor1Port),
-          new PWMSparkMax(DriveConstants.kRightMotor2Port));
+  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(Motors.frontRight, Motors.backRight);
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-  // The left-side drive encoder
-  private final Encoder m_leftEncoder =
-      new Encoder(
-          DriveConstants.kLeftEncoderPorts[0],
-          DriveConstants.kLeftEncoderPorts[1],
-          DriveConstants.kLeftEncoderReversed);
-
-  // The right-side drive encoder
-  private final Encoder m_rightEncoder =
-      new Encoder(
-          DriveConstants.kRightEncoderPorts[0],
-          DriveConstants.kRightEncoderPorts[1],
-          DriveConstants.kRightEncoderReversed);
+  // The Encoders
+  private RelativeEncoder leftFrontEncoder= Motors.frontLeft.getEncoder();
+  private RelativeEncoder leftBackEncoder= Motors.backLeft.getEncoder();
+  private RelativeEncoder rightFrontEncoder= Motors.frontRight.getEncoder();
+  private RelativeEncoder rightBackEncoder= Motors.backRight.getEncoder();
 
   // The gyro sensor
   private final Gyro m_gyro = new ADXRS450_Gyro();
@@ -56,8 +40,10 @@ public class AutoDriveSubsystem extends SubsystemBase {
     m_rightMotors.setInverted(true);
 
     // Sets the distance per pulse for the encoders
-    m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+    this.leftFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    this.leftBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    this.rightFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    this.rightBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
@@ -65,9 +51,8 @@ public class AutoDriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Update the odometry in the periodic block
     m_odometry.update(
-        m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+        m_gyro.getRotation2d(), this.leftFrontEncoder.getPosition(), this.rightFrontEncoder.getPosition());
   }
 
   /**
@@ -85,8 +70,8 @@ public class AutoDriveSubsystem extends SubsystemBase {
    * @return The current wheel speeds.
    */
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
-  }
+    return new DifferentialDriveWheelSpeeds(this.leftFrontEncoder.getVelocity(), this.rightFrontEncoder.getVelocity());
+  } 
 
   /**
    * Resets the odometry to the specified pose.
@@ -122,8 +107,10 @@ public class AutoDriveSubsystem extends SubsystemBase {
 
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+    this.leftFrontEncoder.setPosition(0);
+    this.leftBackEncoder.setPosition(0);
+    this.rightFrontEncoder.setPosition(0);
+    this.rightBackEncoder.setPosition(0);
   }
 
   /**
@@ -132,25 +119,7 @@ public class AutoDriveSubsystem extends SubsystemBase {
    * @return the average of the two encoder readings
    */
   public double getAverageEncoderDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
-  }
-
-  /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  public Encoder getLeftEncoder() {
-    return m_leftEncoder;
-  }
-
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  public Encoder getRightEncoder() {
-    return m_rightEncoder;
+    return (leftFrontEncoder.getPosition() + rightFrontEncoder.getPosition()) / 2.0;
   }
 
   /**

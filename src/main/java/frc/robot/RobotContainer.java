@@ -4,32 +4,18 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Constants.Motors;
-import frc.robot.PathFindingConstants.AutoConstants;
-import frc.robot.PathFindingConstants.DriveConstants;
 import frc.robot.PathFindingConstants.OIConstants;
-import frc.robot.commands.BasicAuto;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.getAutonomousCommand;
 import frc.robot.subsystems.AutoDriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import java.util.List;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -38,11 +24,23 @@ import java.util.List;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
-
+  //TeleOp Subsystems
   private final Drivetrain m_drive = new Drivetrain(Motors.frontLeft, Motors.frontRight, Motors.backLeft, Motors.backRight);
 
+  //TeleOp Commands
+  public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
+
+  //Autonomous Subsystems
+  private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
+
+  //Autonomous Commands
+  public getAutonomousCommand blue1_seg1 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg1");
+  public getAutonomousCommand blue1_seg2 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg2");
+  public getAutonomousCommand blue1_seg3 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg3");
+  public getAutonomousCommand blue1_seg4 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg4");
+  public getAutonomousCommand blue1_seg5 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg5");
+
+  //Controllers
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   public RobotContainer() {
@@ -68,14 +66,6 @@ public class RobotContainer {
         .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
         .whenReleased(() -> m_robotDrive.setMaxOutput(1));
   }
-
-  //TeleOp Commands
-  public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
-
-  //Autonomous Commands
-  public BasicAuto basic = new BasicAuto();
-
-  public getAutonomousCommand blue = new getAutonomousCommand(m_robotDrive);
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
