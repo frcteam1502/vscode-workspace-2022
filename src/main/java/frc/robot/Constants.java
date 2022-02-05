@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
@@ -19,6 +20,9 @@ import edu.wpi.first.wpilibj.Joystick;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final CANSparkMax INTAKE = new CANSparkMax(5, MotorType.kBrushless);
+    public static final XboxController CONTROLLER = new XboxController(4);
+
     //Motors
     public static final int DRIVE_FRONT_LEFT = 1;
     public static final int DRIVE_BACK_LEFT = 3;
