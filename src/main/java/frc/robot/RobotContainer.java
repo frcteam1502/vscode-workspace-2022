@@ -30,8 +30,6 @@ import frc.robot.commands.getAutonomousCommand;
 import frc.robot.subsystems.AutoDriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import java.util.List;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
