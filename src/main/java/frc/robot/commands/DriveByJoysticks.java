@@ -26,9 +26,9 @@ public class DriveByJoysticks extends CommandBase {
   @Override
   public void execute() {
     drivetrain.move(
-      Joysticks.rightJoystick.getX(),
-      Joysticks.rightJoystick.getY(),
-      Joysticks.rightJoystick.getZ());
+      Joysticks.RIGHT_JOYSTICK.getX(),
+      Joysticks.RIGHT_JOYSTICK.getY(),
+      Joysticks.RIGHT_JOYSTICK.getZ());
   }
 
   // Called once the command ends or is interrupted.

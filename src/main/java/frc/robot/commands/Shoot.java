@@ -5,11 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Motors;
+import frc.robot.Constants.Joysticks;
+import frc.robot.subsystems.Shooter;
 
-public class BasicAuto extends CommandBase {
-  /** Creates a new BasicAuto. */
-  public BasicAuto() {}
+
+public class Shoot extends CommandBase {
+  private Shooter shooter;
+ 
+  public Shoot(Shooter subsystem) {
+    addRequirements(subsystem);
+    shooter = subsystem;
+  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -18,15 +24,17 @@ public class BasicAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Motors.DRIVE_BACK_LEFT.set(.5);
+    if (Joysticks.CONTROLLER.getAButton() == true){
+      shooter.shoot();
+    } else {
+      shooter.noShoot();
+
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    Motors.DRIVE_BACK_LEFT.set(0);
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
