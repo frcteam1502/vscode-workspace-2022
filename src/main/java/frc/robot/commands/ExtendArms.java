@@ -24,7 +24,7 @@ public class ExtendArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Joysticks.rightJoystick.getRawButtonPressed(1) && !Joysticks.rightJoystick.getRawButtonPressed(2)) subsystem.ExtendLongLongArms();
+    if(Joysticks.JOYSTICK.getRawButtonPressed(1) && !Joysticks.JOYSTICK.getRawButtonPressed(2)) subsystem.ExtendLongLongArmsManual();
     else subsystem.StopLongLongArms();
   }
 

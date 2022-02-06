@@ -15,7 +15,7 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax frontLeft, frontRight, backLeft, backRight;
 
   /** Creates a new Drivetrain. */
-  public Drivetrain(CANSparkMax driveFrontLeft, CANSparkMax driveFrontRight, CANSparkMax driveBackLeft, CANSparkMax driveBackRight ) {
+  public Drivetrain(CANSparkMax driveFrontLeft, CANSparkMax driveFrontRight, CANSparkMax driveBackLeft, CANSparkMax driveBackRight) {
     setDefaultCommand(new DriveByJoysticks(this));
     this.frontLeft = driveFrontLeft;
     this.frontRight = driveFrontRight;
@@ -40,5 +40,14 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Y Speed", ySpeed);
     SmartDashboard.putNumber("X Speed", xSpeed);
     SmartDashboard.putNumber("Z Rotation", zRotation);
+  }
+
+  // Temporary motor test methods
+  public void testMotorOn() {
+    frontLeft.set(0.2);
+  }
+
+  public void testMotorOff() {
+    frontLeft.set(0);
   }
 }

@@ -24,7 +24,7 @@ public class ContractArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Joysticks.rightJoystick.getRawButtonPressed(2) && !Joysticks.rightJoystick.getRawButtonPressed(1)) subsystem.ContractLongLongArms();
+    if(Joysticks.JOYSTICK.getRawButtonPressed(2) && !Joysticks.JOYSTICK.getRawButtonPressed(1)) subsystem.ContractLongLongArmsManual();
   }
 
   // Called once the command ends or is interrupted.

@@ -24,15 +24,15 @@ public class RotateLongArms extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Joysticks.rightJoystick.getRawButton(5) && !Joysticks.rightJoystick.getRawButton(6)) subsystem.RotateBigArms(0.1);
-    else if(Joysticks.rightJoystick.getRawButton(6) && !Joysticks.rightJoystick.getRawButton(5)) subsystem.RotateBigArms(-0.1);
-    else subsystem.RotateBigArms(0);
+    if(Joysticks.JOYSTICK.getRawButton(5) && !Joysticks.JOYSTICK.getRawButton(6)) subsystem.RotateBigArmsManual(0.2);
+    else if(Joysticks.JOYSTICK.getRawButton(6) && !Joysticks.JOYSTICK.getRawButton(5)) subsystem.RotateBigArmsManual(-0.2);
+    else subsystem.RotateBigArmsManual(0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    subsystem.RotateBigArms(0);
+    subsystem.RotateBigArmsManual(0);
   }
 
   // Returns true when the command should end.

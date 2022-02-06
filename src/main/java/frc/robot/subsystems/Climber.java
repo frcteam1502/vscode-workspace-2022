@@ -12,6 +12,12 @@ import frc.robot.commands.GetEncoderValues;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
+  
+  // TODO: Find and save max ecoder positions
+  private final double extenderMax = 0;
+  private final double armRotateMax = 0;
+  private final double babyMax = 0;
+
   /** Creates a new Climber. */
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftAngle, CANSparkMax rightAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
     setDefaultCommand(new GetEncoderValues(this));
@@ -28,29 +34,60 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  // These two/three methods could be made into one I dont know what is better
-  public void ExtendLongLongArms() {
-    leftExtender.set(0.2);
-    rightExtender.set(0.2);
-  }
-  public void ContractLongLongArms() {
-    leftExtender.set(-0.2);
-    rightExtender.set(-0.2);
-  }
   public void StopLongLongArms() {
     leftExtender.set(0);
     rightExtender.set(0);
   }
 
-  // These two methods could be made into two methods each like the ones above I dont know what is better
-  // They could also be combined into one method but I am pretty sure that would not be better
-  public void RotateBigArms(double speed) {
+  // Manually
+  public void ExtendLongLongArmsManual() {
+    leftExtender.set(0.2);
+    rightExtender.set(0.2);
+  }
+  public void ContractLongLongArmsManual() {
+    leftExtender.set(-0.2);
+    rightExtender.set(-0.2);
+  }
+
+  public void RotateBigArmsManual(double speed) {
     leftAngle.set(speed);
     rightAngle.set(speed);
   }
-  public void RotateBabies(double speed) {
+  public void RotateBabiesManual(double speed) {
     leftBaby.set(speed);
     rightBaby.set(speed);
+  }
+
+  // Using encoders
+  public void ExtendLongLongArmsEncoder() {
+    leftExtender.getEncoder().setPosition(extenderMax);
+    rightExtender.getEncoder().setPosition(extenderMax);
+  }
+  public void ContractLongLongArmsEncoder() {
+    leftExtender.getEncoder().setPosition(0);
+    rightExtender.getEncoder().setPosition(0);
+  }
+
+  public void RotateBigArmsEcoder(double speed) {
+    if(speed > 0 && leftAngle.getEncoder().getPosition() < armRotateMax && rightAngle.getEncoder().getPosition() < armRotateMax) {
+      leftAngle.set(speed);
+      rightAngle.set(speed);
+    }
+    else if(speed < 0 && leftAngle.getEncoder().getPosition() > 0 && rightAngle.getEncoder().getPosition() > 0) {
+      leftAngle.set(speed);
+      rightAngle.set(speed);
+    }
+  }
+
+  public void RotateBabiesEncoder(double speed) {
+    if(speed > 0 && leftBaby.getEncoder().getPosition() < babyMax && rightBaby.getEncoder().getPosition() < babyMax) {
+      leftBaby.set(speed);
+      rightBaby.set(speed);
+    }
+    else if(speed < 0 && leftBaby.getEncoder().getPosition() > 0 && rightBaby.getEncoder().getPosition() > 0) {
+      leftBaby.set(speed);
+      rightBaby.set(speed);
+    }
   }
 
   /**

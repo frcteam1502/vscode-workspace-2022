@@ -24,15 +24,15 @@ public class RotateBabies extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Joysticks.rightJoystick.getRawButtonPressed(3)) subsystem.RotateBabies(0.1);
-    else if(Joysticks.rightJoystick.getRawButtonPressed(4)) subsystem.RotateBabies(-0.1);
-    else subsystem.RotateBabies(0);
+    if(Joysticks.JOYSTICK.getRawButtonPressed(3)) subsystem.RotateBabiesManual(0.1);
+    else if(Joysticks.JOYSTICK.getRawButtonPressed(4)) subsystem.RotateBabiesManual(-0.1);
+    else subsystem.RotateBabiesManual(0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    subsystem.RotateBabies(0);
+    subsystem.RotateBabiesManual(0);
   }
 
   // Returns true when the command should end.

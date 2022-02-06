@@ -5,14 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Joysticks;
 import frc.robot.subsystems.Drivetrain;
 
-public class DriveByJoysticks extends CommandBase {
+public class TempCommand extends CommandBase {
   private Drivetrain drivetrain;
-  
-  // Creates a new DriveByJoysticks. 
-  public DriveByJoysticks(Drivetrain subsystem) {
+  /** Creates a new TempCommand. */
+  public TempCommand(Drivetrain subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     drivetrain = subsystem;
@@ -25,15 +23,14 @@ public class DriveByJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getZ());
+    drivetrain.testMotorOn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    drivetrain.testMotorOff();
+  }
 
   // Returns true when the command should end.
   @Override
