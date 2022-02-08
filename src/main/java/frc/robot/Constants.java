@@ -32,7 +32,7 @@ public final class Constants {
     public final static class Joysticks {
         public static final Joystick RIGHT_JOYSTICK = new Joystick(0);
         public static final Joystick LEFT_JOYSTICK = new Joystick(1);
-        public static final XboxController CONTROLLER = new XboxController(2);
+        public static final XboxController CONTROLLER = new XboxController(0);
     }
     
     public static final class Cameras {
