@@ -21,12 +21,12 @@ import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
 import frc.robot.subsystems.AutoDriveSubsystem;
 
-public class getAutonomousCommand extends CommandBase {
+public class AutoCommand extends CommandBase {
   AutoDriveSubsystem drive;
   RamseteCommand ramseteCommand;
   String trajectoryJSON;
 
-  public getAutonomousCommand(AutoDriveSubsystem subsystem, String path) {
+  public AutoCommand(AutoDriveSubsystem subsystem, String path) {
     addRequirements(subsystem);
     drive = subsystem;
     trajectoryJSON = "paths/" + path + ".wpilib.json";

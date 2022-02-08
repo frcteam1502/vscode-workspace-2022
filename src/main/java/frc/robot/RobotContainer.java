@@ -4,14 +4,20 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.Motors;
 import frc.robot.PathFindingConstants.OIConstants;
+import frc.robot.commands.AutoIntake;
+import frc.robot.commands.AutoSimple;
 import frc.robot.commands.DriveByJoysticks;
-import frc.robot.commands.getAutonomousCommand;
+import frc.robot.commands.AutoCommand;
 import frc.robot.subsystems.AutoDriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
 
@@ -35,25 +41,41 @@ public class RobotContainer {
   private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
 
   //Autonomous Commands
-  public getAutonomousCommand blue1_seg1 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg1");
-  public getAutonomousCommand blue1_seg2 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg2");
-  public getAutonomousCommand blue1_seg3 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg3");
-  public getAutonomousCommand blue1_seg4 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg4");
-  public getAutonomousCommand blue1_seg5 = new getAutonomousCommand(m_robotDrive, "Blue1_Seg5");
+  public SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
+
+  public AutoIntake autoIntake = new AutoIntake(intake);
+  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake);
+
+    //Blue 1
+  public ParallelCommandGroup blue1_seg1 = new ParallelCommandGroup(new AutoCommand(m_robotDrive, "Blue1_Seg1"), autoIntake);
+  public AutoCommand blue1_seg2 = new AutoCommand(m_robotDrive, "Blue1_Seg2");
+  public ParallelCommandGroup blue1_seg3 = new ParallelCommandGroup(new AutoCommand(m_robotDrive, "Blue1_Seg3"), autoIntake);
+  public AutoCommand blue1_seg4 = new AutoCommand(m_robotDrive, "Blue1_Seg4");
+  public AutoCommand blue1_seg5 = new AutoCommand(m_robotDrive, "Blue1_Seg5");
+  // TODO: Need to add the "shooting" aspect
+  public SequentialCommandGroup blue1 = new SequentialCommandGroup(blue1_seg1, blue1_seg2, blue1_seg3, blue1_seg4, blue1_seg5);
 
   //Controllers
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   public RobotContainer() {
     configureButtonBindings();
+    setUpMChooser();
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
-   * {@link JoystickButton}.
-   */
+  //Sets up the sendable chooser for Autonomous
+  private void setUpMChooser() {
+    m_chooser.setDefaultOption("Simple Auto", simpleAuto);
+    m_chooser.addOption("Blue 1", blue1);
+    SmartDashboard.putData(m_chooser);
+  }
+  
+  //An accessor method to be used in Robot to find the selected Auto
+  public Command getAutonomousCommand() {
+    return m_chooser.getSelected();
+  }
+
   private void configureButtonBindings() {
   }
 }
