@@ -4,14 +4,41 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Limelight;
+import frc.robot.Constants.Joysticks;
+import frc.robot.commands.MoveTurret;
 
 public class Turret extends SubsystemBase {
-  /** Creates a new Turret. */
-  public Turret() {}
+
+  private static CANSparkMax turretMotor;
+  
+  public Turret(CANSparkMax turretMotor) {
+    setDefaultCommand(new MoveTurret(this));
+    this.turretMotor = turretMotor;
+    //setDefaultCommand(new Shoot(this));
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public static void turnTurret(){
+    
+    if ((Limelight.area > 0) && (Limelight.x < 5) && (Limelight.x > -5)){
+      turretMotor.set(0);
+    }
+
+    if ((Joysticks.CONTROLLER.getAButton() == true)){
+      turretMotor.set(0.1);
+    } else if ((Joysticks.CONTROLLER.getBButton() == true)){
+      turretMotor.set(-0.1);
+    }
+
+  }
+
 }

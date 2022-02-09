@@ -25,11 +25,13 @@ import frc.robot.PathFindingConstants.DriveConstants;
 import frc.robot.PathFindingConstants.OIConstants;
 import frc.robot.commands.BasicAuto;
 import frc.robot.commands.DriveByJoysticks;
+import frc.robot.commands.MoveTurret;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.getAutonomousCommand;
 import frc.robot.subsystems.AutoDriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -44,6 +46,8 @@ public class RobotContainer {
   private final Shooter m_robotShooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT);
   private final Shoot m_robotShoot = new Shoot(m_robotShooter);
 
+  private final Turret m_robotTurret = new Turret(Motors.TURRET);
+  private final MoveTurret m_robotMoveTurret = new MoveTurret(m_robotTurret);
 
   private final Drivetrain m_drive = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
 

@@ -27,6 +27,7 @@ public final class Constants {
         public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(4, MotorType.kBrushless);
         public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(5, MotorType.kBrushless);
         public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(6, MotorType.kBrushless);
+        public static final CANSparkMax TURRET = new CANSparkMax(7, MotorType.kBrushless);
     }
 
     public final static class Joysticks {
