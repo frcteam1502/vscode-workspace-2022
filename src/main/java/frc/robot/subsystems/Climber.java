@@ -39,6 +39,16 @@ public class Climber extends SubsystemBase {
     rightExtender.set(0);
   }
 
+  public void StopLongArmRotate() {
+    leftAngle.set(0);
+    rightAngle.set(0);
+  }
+
+  public void StopBabies() {
+    leftBaby.set(0);
+    rightBaby.set(0);
+  }
+
   // Manually
   public void ExtendLongLongArmsManual() {
     leftExtender.set(0.2);
@@ -49,13 +59,24 @@ public class Climber extends SubsystemBase {
     rightExtender.set(-0.2);
   }
 
-  public void RotateBigArmsManual(double speed) {
-    leftAngle.set(speed);
-    rightAngle.set(speed);
+  public void RotateBigArmsManualClockwise() {
+    leftAngle.set(0.1);
+    rightAngle.set(0.1);
   }
-  public void RotateBabiesManual(double speed) {
-    leftBaby.set(speed);
-    rightBaby.set(speed);
+
+  public void RotateBigArmsManualCounterClockwise() {
+    leftAngle.set(-0.1);
+    rightAngle.set(-0.1);
+  }
+
+  public void RotateBabiesManualClockwise() {
+    leftBaby.set(0.1);
+    rightBaby.set(0.1);
+  }
+
+  public void RotateBabiesManualCounterClockwise() {
+    leftBaby.set(-0.1);
+    rightBaby.set(-0.1);
   }
 
   // Using encoders

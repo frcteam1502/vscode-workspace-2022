@@ -25,10 +25,10 @@ public class DriveByJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getZ());
+    // drivetrain.move(
+    //   Joysticks.JOYSTICK.getX(),
+    //   Joysticks.JOYSTICK.getY(),
+    //   Joysticks.JOYSTICK.getZ());
   }
 
   // Called once the command ends or is interrupted.
