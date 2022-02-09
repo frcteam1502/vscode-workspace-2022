@@ -8,13 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveByJoysticks extends CommandBase {
-  private Drivetrain drivetrain;
   
   // Creates a new DriveByJoysticks. 
   public DriveByJoysticks(Drivetrain subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
-    drivetrain = subsystem;
+ 
   }
 
   // Called when the command is initially scheduled.

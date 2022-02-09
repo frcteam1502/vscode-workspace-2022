@@ -25,10 +25,21 @@ public class RunIntake extends CommandBase {
   @Override
   public void execute() {
     if(Constants.CONTROLLER.getAButton() == true) {
-      subsystemL.runIntakeForward();
+      if (Constants.RIGHT_JOYSTICK.getY() < 0.3) {
+        subsystemL.runIntakeForward(0.3);
+      }
+      else {
+        subsystemL.runIntakeForward(Constants.RIGHT_JOYSTICK.getY());
+      }
+      
     }
     else if(Constants.CONTROLLER.getBButton() == true) {
-      subsystemL.runIntakeBackward();
+      if (Constants.RIGHT_JOYSTICK.getY() < 0.3) {
+        subsystemL.runIntakeBackward(0.3);
+      }
+      else{
+        subsystemL.runIntakeBackward(Constants.RIGHT_JOYSTICK.getY());
+      }
     }
     else{
       subsystemL.stopIntake();

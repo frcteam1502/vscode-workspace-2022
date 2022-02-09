@@ -6,23 +6,32 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.RunIntake;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeL;
+  private double ySpeedD;
   /** Creates a new Intake. */
   public Intake(CANSparkMax intakeP) {
     setDefaultCommand(new RunIntake(this));
     intakeL = intakeP;
+    // Joysticks.RIGHT_JOYSTICK.getY();
   }
 
-  public void runIntakeForward(){
-    intakeL.set(0.2);
+  public void runIntakeForward(double ySpeed){
+    ySpeedD = ySpeed/5;
+    ySpeed = MathUtil.clamp(ySpeedD, -1.0, 1.0);
+    
+    intakeL.set(ySpeedD);
   }
 
-  public void runIntakeBackward(){
-    intakeL.set(-0.2);
+  public void runIntakeBackward(double ySpeed){
+    ySpeedD = ySpeed/5;
+    ySpeed = MathUtil.clamp(ySpeedD, -1.0, 1.0);
+
+    intakeL.set(ySpeedD);
   }
 
   public void stopIntake(){
