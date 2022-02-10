@@ -4,23 +4,43 @@
 
 package frc.robot.subsystems;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
 import frc.robot.commands.DriveByJoysticks;
 
 public class Drivetrain extends SubsystemBase {
-  private CANSparkMax frontLeft, frontRight, backLeft, backRight;
+  private final CANSparkMax frontLeft = new CANSparkMax(Constants.DRIVE_FRONT_LEFT, MotorType.kBrushless);
+  private final CANSparkMax backLeft = new CANSparkMax(Constants.DRIVE_BACK_LEFT, MotorType.kBrushless);
+  private final CANSparkMax frontRight = new CANSparkMax(Constants.DRIVE_FRONT_RIGHT, MotorType.kBrushless);
+  private final CANSparkMax backRight = new CANSparkMax(Constants.DRIVE_BACK_RIGHT, MotorType.kBrushless);
   
   private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(frontLeft, backLeft);
 
@@ -41,13 +61,7 @@ public class Drivetrain extends SubsystemBase {
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
 
-  public Drivetrain(CANSparkMax driveFrontLeft, CANSparkMax driveFrontRight, CANSparkMax driveBackLeft, CANSparkMax driveBackRight ) {
-    setDefaultCommand(new DriveByJoysticks(this));
-    this.frontLeft = driveFrontLeft;
-    this.frontRight = driveFrontRight;
-    this.backLeft = driveBackLeft;
-    this.backRight = driveBackRight;
-    
+  public Drivetrain() {    
     leftFrontEncoder= frontLeft.getEncoder();
     leftBackEncoder= backLeft.getEncoder();
     rightFrontEncoder= frontRight.getEncoder();
@@ -179,4 +193,59 @@ public class Drivetrain extends SubsystemBase {
   public double getTurnRate() {
     return -m_gyro.getRate();
   }
+
+  public Command createRamseteCommand(Trajectory trajectory) {
+    RamseteCommand ramseteCommand =
+      new RamseteCommand(
+        trajectory,
+        this::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(
+          DriveConstants.ksVolts,
+          DriveConstants.kvVoltSecondsPerMeter,
+          DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        this::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        this::tankDriveVolts,
+        this);
+        return ramseteCommand.andThen(() -> stopmotors());
+  }
+
+  public Command createTrajectoryCommand(String path) {
+    var trajectoryJSON = "output/" + path + ".wpilib.json";
+    var autoVoltageConstraint =
+      new DifferentialDriveVoltageConstraint(
+        new SimpleMotorFeedforward(
+          DriveConstants.ksVolts,
+          DriveConstants.kvVoltSecondsPerMeter,
+          DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        10);
+
+    TrajectoryConfig config =
+      new TrajectoryConfig(
+        AutoConstants.kMaxSpeedMetersPerSecond,
+        AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                .setKinematics(DriveConstants.kDriveKinematics)
+                .addConstraint(autoVoltageConstraint);
+    
+    Trajectory trajectory = new Trajectory();
+
+    try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
+    return createRamseteCommand(trajectory);
+  }
+
+  public void stopmotors() {
+    m_leftMotors.set(0);
+    m_rightMotors.set(0);
+  }
+
 }
