@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -19,17 +21,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
-import frc.robot.subsystems.AutoDriveSubsystem;
+import frc.robot.subsystems.Drivetrain;
 
 public class AutoCommand extends CommandBase {
-  AutoDriveSubsystem drive;
-  RamseteCommand ramseteCommand;
+  Drivetrain drive;
+  RamseteCommand ramseteCommand = null;
   String trajectoryJSON;
 
-  public AutoCommand(AutoDriveSubsystem subsystem, String path) {
+  public AutoCommand(Drivetrain subsystem, String path) {
     addRequirements(subsystem);
     drive = subsystem;
-    trajectoryJSON = "paths/" + path + ".wpilib.json";
+    trajectoryJSON = "output/" + path + ".wpilib.json";
   }
 
   // Called when the command is initially scheduled.

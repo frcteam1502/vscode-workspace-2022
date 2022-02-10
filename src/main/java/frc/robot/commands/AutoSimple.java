@@ -12,26 +12,28 @@ import frc.robot.subsystems.Intake;
 public class AutoSimple extends CommandBase {
   Drivetrain drivetrain;
   Intake intake;
+  Timer timer;
 
   public AutoSimple(Drivetrain drivetrain, Intake intake) {
     addRequirements(drivetrain);
     addRequirements(intake);
     this.drivetrain = drivetrain;
     this.intake = intake;
+    this.timer = new Timer();
   }
 
   @Override
-  public void initialize() {}
-
-  @Override
-  public void execute() {
+  public void initialize() {
     intake.runIntakeForward();
     drivetrain.move(0, .5, 0);
-    Timer.delay(1);
+    Timer.delay(1.0);
     drivetrain.move(0, 0, 0);
     intake.stopIntake();
     //shoot
   }
+
+  @Override
+  public void execute() {}
 
   @Override
   public void end(boolean interrupted) {}

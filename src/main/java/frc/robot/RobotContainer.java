@@ -20,7 +20,6 @@ import frc.robot.PathFindingConstants.OIConstants;
 import frc.robot.commands.AutoSimple;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.AutoCommand;
-import frc.robot.subsystems.AutoDriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -40,20 +39,17 @@ public class RobotContainer {
   public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
   public RunIntake runIntake = new RunIntake(intake);
 
-  //Autonomous Subsystems
-  private final AutoDriveSubsystem m_robotDrive = new AutoDriveSubsystem();
-
   //Autonomous Commands
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
   public AutoSimple simpleAuto = new AutoSimple(m_drive, intake);
 
     //Blue 1
-  public ParallelCommandGroup blue1_seg1 = new ParallelCommandGroup(new AutoCommand(m_robotDrive, "Blue1_Seg1"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
-  public AutoCommand blue1_seg2 = new AutoCommand(m_robotDrive, "Blue1_Seg2");
-  public ParallelCommandGroup blue1_seg3 = new ParallelCommandGroup(new AutoCommand(m_robotDrive, "Blue1_Seg3"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
-  public AutoCommand blue1_seg4 = new AutoCommand(m_robotDrive, "Blue1_Seg4");
-  public AutoCommand blue1_seg5 = new AutoCommand(m_robotDrive, "Blue1_Seg5");
+  public ParallelCommandGroup blue1_seg1 = new ParallelCommandGroup(new AutoCommand(m_drive, "Blue1_Seg1"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
+  public AutoCommand blue1_seg2 = new AutoCommand(m_drive, "Blue1_Seg2");
+  public ParallelCommandGroup blue1_seg3 = new ParallelCommandGroup(new AutoCommand(m_drive, "Blue1_Seg3"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
+  public AutoCommand blue1_seg4 = new AutoCommand(m_drive, "Blue1_Seg4");
+  public AutoCommand blue1_seg5 = new AutoCommand(m_drive, "Blue1_Seg5");
   // TODO: Need to add the "shooting" aspect
   public SequentialCommandGroup blue1 = new SequentialCommandGroup(blue1_seg1, blue1_seg2, blue1_seg3, blue1_seg4, blue1_seg5);
 
@@ -63,12 +59,6 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
     setUpMChooser();
-    m_robotDrive.setDefaultCommand(
-        new RunCommand(
-            () ->
-                m_robotDrive.arcadeDrive(
-                    -m_driverController.getLeftY(), m_driverController.getRightX()),
-            m_robotDrive));
   }
 
   //Sets up the sendable chooser for Autonomous
@@ -85,7 +75,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, Button.kR1.value)
-        .whenPressed(() -> m_robotDrive.setMaxOutput(0.5))
-        .whenReleased(() -> m_robotDrive.setMaxOutput(1));
+        .whenPressed(() -> m_drive.setMaxOutput(0.5))
+        .whenReleased(() -> m_drive.setMaxOutput(1));
   }
 }
