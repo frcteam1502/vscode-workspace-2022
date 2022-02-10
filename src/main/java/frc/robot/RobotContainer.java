@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.RunIntake;
@@ -15,11 +14,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.Motors;
 import frc.robot.PathFindingConstants.OIConstants;
 import frc.robot.commands.AutoSimple;
 import frc.robot.commands.DriveByJoysticks;
-import frc.robot.commands.AutoCommand;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -32,7 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   //TeleOp Subsystems
-  private final Drivetrain m_drive = new Drivetrain(Motors.frontLeft, Motors.frontRight, Motors.backLeft, Motors.backRight);
+  private final Drivetrain m_drive = new Drivetrain();
   public Intake intake = new Intake(Constants.INTAKE);
 
   //TeleOp Commands
@@ -45,11 +42,11 @@ public class RobotContainer {
   public AutoSimple simpleAuto = new AutoSimple(m_drive, intake);
 
     //Blue 1
-  public ParallelCommandGroup blue1_seg1 = new ParallelCommandGroup(new AutoCommand(m_drive, "Blue1_Seg1"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
-  public AutoCommand blue1_seg2 = new AutoCommand(m_drive, "Blue1_Seg2");
-  public ParallelCommandGroup blue1_seg3 = new ParallelCommandGroup(new AutoCommand(m_drive, "Blue1_Seg3"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
-  public AutoCommand blue1_seg4 = new AutoCommand(m_drive, "Blue1_Seg4");
-  public AutoCommand blue1_seg5 = new AutoCommand(m_drive, "Blue1_Seg5");
+  public ParallelCommandGroup blue1_seg1 = new ParallelCommandGroup(m_drive.createTrajectoryCommand("Blue1_Seg1"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
+  public Command blue1_seg2 = m_drive.createTrajectoryCommand("Blue1_Seg2");
+  public ParallelCommandGroup blue1_seg3 = new ParallelCommandGroup(m_drive.createTrajectoryCommand("Blue1_Seg3"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake));
+  public Command blue1_seg4 = m_drive.createTrajectoryCommand("Blue1_Seg4");
+  public Command blue1_seg5 = m_drive.createTrajectoryCommand("Blue1_Seg5");
   // TODO: Need to add the "shooting" aspect
   public SequentialCommandGroup blue1 = new SequentialCommandGroup(blue1_seg1, blue1_seg2, blue1_seg3, blue1_seg4, blue1_seg5);
 
@@ -57,6 +54,7 @@ public class RobotContainer {
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   public RobotContainer() {
+    m_drive.setDefaultCommand(new DriveByJoysticks(m_drive));
     configureButtonBindings();
     setUpMChooser();
   }

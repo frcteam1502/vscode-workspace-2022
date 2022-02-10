@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -18,10 +17,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Front Left Motor", Constants.Motors.frontLeft.get());
-    SmartDashboard.putNumber("Front Right Motor", Constants.Motors.frontRight.get());
-    SmartDashboard.putNumber("Back Left Motor", Constants.Motors.backLeft.get());
-    SmartDashboard.putNumber("Back Right Motor", Constants.Motors.backRight.get());
   }
   
   @Override

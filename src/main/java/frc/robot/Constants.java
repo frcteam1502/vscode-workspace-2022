@@ -33,13 +33,6 @@ public final class Constants {
     public static final int RIGHT_JOYSTICK = 1;
     public static final int LEFT_JOYSTICK = 2;
 
-    public final static class Motors {
-        public static final CANSparkMax frontLeft = new CANSparkMax(DRIVE_FRONT_LEFT, MotorType.kBrushless);
-        public static final CANSparkMax backLeft = new CANSparkMax(DRIVE_BACK_LEFT, MotorType.kBrushless);
-        public static final CANSparkMax frontRight = new CANSparkMax(DRIVE_FRONT_RIGHT, MotorType.kBrushless);
-        public static final CANSparkMax backRight = new CANSparkMax(DRIVE_BACK_RIGHT, MotorType.kBrushless);
-    }
-
     public final static class Joysticks {
         public static final Joystick rightJoystick = new Joystick(RIGHT_JOYSTICK);
         public static final Joystick leftJoystick = new Joystick(LEFT_JOYSTICK);
