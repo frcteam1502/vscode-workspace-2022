@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Constants.Buttons;
 import frc.robot.Constants.Motors;
-import frc.robot.commands.GetEncoderValues;
+import frc.robot.commands.MoveLongArms;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 
@@ -23,10 +23,9 @@ public class RobotContainer {
   Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   
   public Climber climber = new Climber(
-  Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+  Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);  
 
-  public GetEncoderValues getEncoderValues = new GetEncoderValues(climber);
-  
+  public MoveLongArms moveLongArms = new MoveLongArms(climber, Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -38,25 +37,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
    * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {
-    
-    // Buttons.BUTTON_ONE.whileHeld(new TempCommand(drivetrain));
-    // Buttons.BUTTON_ONE.whileHeld(new StartEndCommand(climber::ExtendLongLongArmsManual, climber::StopLongLongArms, drivetrain));
-
-    // Long extender
-    Buttons.J_BUTTON_ONE.whileHeld(new StartEndCommand(climber::ExtendLongLongArmsManual, climber::StopLongLongArms, climber));
-    Buttons.J_BUTTON_TWO.whileHeld(new StartEndCommand(climber::ContractLongLongArmsManual, climber::StopLongLongArms, climber));
-
-    // Long rotate
-    Buttons.J_BUTTON_THREE.whileHeld(new StartEndCommand(climber::RotateBigArmsManualClockwise, climber::StopLongArmRotate, climber));
-    Buttons.J_BUTTON_FOUR.whileHeld(new StartEndCommand(climber::RotateBigArmsManualCounterClockwise, climber::StopLongArmRotate, climber));
-
-    // Rotate babies
-    Buttons.J_BUTTON_THREE.whileHeld(new StartEndCommand(climber::RotateBabiesManualClockwise, climber::StopBabies, climber));
-    Buttons.J_BUTTON_FOUR.whileHeld(new StartEndCommand(climber::RotateBabiesManualCounterClockwise, climber::StopBabies, climber));
-
-    // Buttons.XBOX_BUTTON_ONE.whileHeld(new StartEndCommand(drivetrain::testMotorOn, drivetrain::testMotorOff, drivetrain));
-  }
+  private void configureButtonBindings() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

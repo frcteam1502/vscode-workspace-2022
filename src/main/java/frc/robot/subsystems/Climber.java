@@ -8,7 +8,6 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.GetEncoderValues;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
@@ -20,7 +19,6 @@ public class Climber extends SubsystemBase {
 
   /** Creates a new Climber. */
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftAngle, CANSparkMax rightAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
-    setDefaultCommand(new GetEncoderValues(this));
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
     this.leftAngle = leftAngle;
