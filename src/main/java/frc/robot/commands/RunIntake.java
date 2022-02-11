@@ -10,18 +10,14 @@ import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
   Intake subsystemL;
-  /** Creates a new RunIntake. */
   public RunIntake(Intake subsystemP) {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystemP);
     subsystemL = subsystemP;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if(Constants.CONTROLLER.getAButton() == true) {
@@ -35,13 +31,11 @@ public class RunIntake extends CommandBase {
     }
 }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     subsystemL.stopIntake();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

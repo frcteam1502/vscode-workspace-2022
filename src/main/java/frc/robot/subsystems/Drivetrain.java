@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import java.io.IOException;
@@ -34,7 +30,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
-import frc.robot.commands.DriveByJoysticks;
 
 public class Drivetrain extends SubsystemBase {
   private final CANSparkMax frontLeft = new CANSparkMax(Constants.DRIVE_FRONT_LEFT, MotorType.kBrushless);
@@ -249,3 +244,5 @@ public class Drivetrain extends SubsystemBase {
   }
 
 }
+//So, I updated the code according to your pull request and it did fix many of the issues. Many of the periodic warnings disappeared, but the recurring error persists. The following differential drive error is still occurring
+//Error at edu.wpi.first.wpilibj.MotorSafety.check(MotorSafety.java:96): DifferentialDrive… Output not updated often enough.
