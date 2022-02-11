@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void runIntakeBackward(double ySpeed){
-    ySpeedD = ySpeed/5;
+    ySpeedD = ySpeed/-5;
     ySpeed = MathUtil.clamp(ySpeedD, -1.0, 1.0);
 
     intakeL.set(ySpeedD);
