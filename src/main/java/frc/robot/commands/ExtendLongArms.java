@@ -5,17 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Joysticks;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Climber;
 
-public class DriveByJoysticks extends CommandBase {
-  private Drivetrain drivetrain;
-  
-  // Creates a new DriveByJoysticks. 
-  public DriveByJoysticks(Drivetrain subsystem) {
+public class ExtendLongArms extends CommandBase {
+  private Climber subsystem;
+  /** Creates a new ExtendLongArms. */
+  public ExtendLongArms(Climber subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.subsystem = subsystem;
     addRequirements(subsystem);
-    drivetrain = subsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -25,10 +23,7 @@ public class DriveByJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getZ());
+    subsystem.ExtendLongLongArmsEncoder();
   }
 
   // Called once the command ends or is interrupted.

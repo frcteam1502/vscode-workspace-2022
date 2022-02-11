@@ -81,7 +81,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    Constants.Motors.LEFT_ARM_EXTENDER.getEncoder().getPosition();
+  }
 
   @Override
   public void testInit() {

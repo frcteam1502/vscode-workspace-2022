@@ -14,7 +14,7 @@ public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
   
   // TODO: Find and save max ecoder positions
-  private final double extenderMax = 0;
+  private final double extenderMax = 30; // 100 
   private final double armRotateMax = 0;
   private final double babyMax = 0;
 
@@ -27,6 +27,9 @@ public class Climber extends SubsystemBase {
     this.rightAngle = rightAngle;
     this.leftBaby = leftBaby;
     this.rightBaby = rightBaby;
+
+    this.leftExtender.getEncoder().setPosition(0);
+    this.rightExtender.getEncoder().setPosition(0);
   }
 
   @Override
@@ -34,9 +37,14 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  public void ResetEncoders() {
+    this.leftExtender.getEncoder().setPosition(0);
+    this.rightExtender.getEncoder().setPosition(0);
+  }
+
   public void StopLongLongArms() {
-    leftExtender.set(0);
     rightExtender.set(0);
+    leftExtender.set(0);
   }
 
   public void StopLongArmRotate() {
@@ -52,11 +60,13 @@ public class Climber extends SubsystemBase {
   // Manually
   public void ExtendLongLongArmsManual() {
     leftExtender.set(0.2);
-    rightExtender.set(0.2);
+    // leftExtender.set(0.2);
+    rightExtender.set(-0.2);
   }
   public void ContractLongLongArmsManual() {
     leftExtender.set(-0.2);
-    rightExtender.set(-0.2);
+    // leftExtender.set(-0.2);
+    rightExtender.set(0.2);
   }
 
   public void RotateBigArmsManualClockwise() {
@@ -81,12 +91,37 @@ public class Climber extends SubsystemBase {
 
   // Using encoders
   public void ExtendLongLongArmsEncoder() {
-    leftExtender.getEncoder().setPosition(extenderMax);
-    rightExtender.getEncoder().setPosition(extenderMax);
+    boolean leftGreaterThanTarget = leftExtender.getEncoder().getPosition() > extenderMax;
+    boolean rightGreaterThanTarget = -rightExtender.getEncoder().getPosition() > extenderMax;
+
+    SmartDashboard.putNumber("leftExtender X", leftExtender.getEncoder().getPosition());
+    SmartDashboard.putNumber("rightExtender X", -rightExtender.getEncoder().getPosition());
+
+    SmartDashboard.putBoolean("Left less than target", leftGreaterThanTarget);
+    SmartDashboard.putBoolean("Right less than target", rightGreaterThanTarget);
+
+    if (!leftGreaterThanTarget && !rightGreaterThanTarget) {
+      leftExtender.set(0.2);
+      rightExtender.set(-0.2);
+    } else if (!leftGreaterThanTarget) {
+      leftExtender.set(-0.2);
+    } else if (!rightGreaterThanTarget) {
+      rightExtender.set(-0.2);
+    } else {
+      
+    }
   }
   public void ContractLongLongArmsEncoder() {
-    leftExtender.getEncoder().setPosition(0);
-    rightExtender.getEncoder().setPosition(0);
+    leftExtender.setInverted(true);
+
+    if (leftExtender.getEncoder().getPosition() > extenderMax && rightExtender.getEncoder().getPosition() > extenderMax) {
+      leftExtender.set(0.2);
+      rightExtender.set(0.2);
+    } else if (leftExtender.getEncoder().getPosition() > extenderMax && rightExtender.getEncoder().getPosition() < extenderMax) {
+      leftExtender.set(0.2);
+    } else if (leftExtender.getEncoder().getPosition() < extenderMax && rightExtender.getEncoder().getPosition() > extenderMax) {
+      rightExtender.set(0.2);
+    }
   }
 
   public void RotateBigArmsEcoder(double speed) {
@@ -118,7 +153,7 @@ public class Climber extends SubsystemBase {
    */
   public void GetEncoders() {
     SmartDashboard.putNumber("Left Extender", leftExtender.getEncoder().getPosition());
-    SmartDashboard.putNumber("Right Extender", rightExtender.getEncoder().getPosition());
+    SmartDashboard.putNumber("Right Extender", -rightExtender.getEncoder().getPosition());
     SmartDashboard.putNumber("Left Angle", leftAngle.getEncoder().getPosition());
     SmartDashboard.putNumber("Right Angle", rightAngle.getEncoder().getPosition());
     SmartDashboard.putNumber("Left Baby", leftBaby.getEncoder().getPosition());
