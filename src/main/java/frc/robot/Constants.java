@@ -21,21 +21,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public final class Constants {
     public final static class Motors {
         // Drivetrain
-        // public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(20, MotorType.kBrushless); // ID = 1
-        // public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(21, MotorType.kBrushless);
-        // public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(22, MotorType.kBrushless);
-        // public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(23, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(1, MotorType.kBrushless); // ID = 1
+        public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(2, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(3, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(4, MotorType.kBrushless);
         
         // Climber
         public static final CANSparkMax LEFT_ARM_ANGLE = new CANSparkMax(5, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(8, MotorType.kBrushless); // ID = 6
-
-        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(2, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(9, MotorType.kBrushless);
-        
-        public static final CANSparkMax LEFT_BABY = new CANSparkMax(6, MotorType.kBrushless);
-
-        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(7, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(6, MotorType.kBrushless); // ID = 6
+        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(7, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(8, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_BABY = new CANSparkMax(9, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(10, MotorType.kBrushless);
     }
 
     public final static class Joysticks {
