@@ -10,6 +10,8 @@ import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
   Intake subsystemL;
+  boolean intakedeployed = false;
+  boolean intakeretracted = false;
   /** Creates a new RunIntake. */
   public RunIntake(Intake subsystemP) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -42,6 +44,16 @@ public class RunIntake extends CommandBase {
     }
     else{
       subsystemL.stopIntake();
+    }
+    /* 
+      Will run the climber arm to deploy intake based on the deployed and retracted variables (timing will be done in auto)
+      Auto sets deployed to false for a while than sets it to true, then does the same with retraction.
+    */
+    if (intakedeployed == false){
+      subsystemL.deployIntake(intakedeployed, intakeretracted);
+    }
+    else if (intakeretracted == false){
+      subsystemL.deployIntake(intakedeployed, intakeretracted);
     }
 }
 

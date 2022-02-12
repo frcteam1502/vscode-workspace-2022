@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public final class Constants {
     public static final CANSparkMax INTAKE = new CANSparkMax(5, MotorType.kBrushless);
+    public static final CANSparkMax DEPLOY_INTAKE = new CANSparkMax(6, MotorType.kBrushless);
     public static final XboxController CONTROLLER = new XboxController(0);
     public static final Joystick RIGHT_JOYSTICK = new Joystick(1);
 }

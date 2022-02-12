@@ -13,11 +13,12 @@ import frc.robot.commands.RunIntake;
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeL;
   private double ySpeedD;
+  private CANSparkMax deployL;
   /** Creates a new Intake. */
-  public Intake(CANSparkMax intakeP) {
+  public Intake(CANSparkMax intakeP, CANSparkMax deployP) {
     setDefaultCommand(new RunIntake(this));
     intakeL = intakeP;
-    // Joysticks.RIGHT_JOYSTICK.getY();
+    deployL = deployP;
   }
 
   public void runIntakeForward(double ySpeed){
@@ -38,8 +39,25 @@ public class Intake extends SubsystemBase {
     intakeL.set(0);
   }
 
+  public void deployIntake(boolean deployed, boolean retracted){
+    if (deployed == false){
+      deployL.set(0.25);
+    }
+    else if (retracted == false){
+      deployL.set(-0.25);
+    }
+    else{
+      deployL.set(0);
+    }
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
 }
+
+
+  
+
+
+

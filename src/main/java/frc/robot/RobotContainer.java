@@ -18,8 +18,9 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-    public Intake intake = new Intake(Constants.INTAKE);
+    public Intake intake = new Intake(Constants.INTAKE, Constants.DEPLOY_INTAKE);
     public RunIntake runIntake = new RunIntake(intake);
+    //public RunDeploy runDeploy = new RunDeploy (deploy);
   public RobotContainer() {
     configureButtonBindings();
   }
