@@ -4,8 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 
@@ -21,17 +21,17 @@ public class AutoSimple extends CommandBase {
   }
 
   @Override
-  public void initialize() {
+  public void initialize() {}
+
+  @Override
+  public void execute() {
     intake.runIntakeForward();
     drivetrain.move(0, .5, 0);
-    new WaitCommand(1);
+    Timer.delay(1);
     drivetrain.move(0, 0, 0);
     intake.stopIntake();
     //shoot
   }
-
-  @Override
-  public void execute() {}
 
   @Override
   public void end(boolean interrupted) {}

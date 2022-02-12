@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.RunIntake;
@@ -10,19 +11,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.Joysticks;
 import frc.robot.PathFindingConstants.OIConstants;
 import frc.robot.commands.AutoSimple;
-import frc.robot.commands.DriveByJoysticks;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
   //TeleOp Subsystems
-  private final Drivetrain m_drive = new Drivetrain();
+  public final Drivetrain m_drive = new Drivetrain();
   public Intake intake = new Intake(Constants.INTAKE);
 
   //TeleOp Commands
-  public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
   public RunIntake runIntake = new RunIntake(intake);
 
   //Autonomous Commands
@@ -39,11 +39,12 @@ public class RobotContainer {
   // TODO: Need to add the "shooting" aspect
   public SequentialCommandGroup blue1 = new SequentialCommandGroup(blue1_seg1, blue1_seg2, blue1_seg3, blue1_seg4, blue1_seg5);
 
-  //Controllers
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-
   public RobotContainer() {
-    m_drive.setDefaultCommand(new DriveByJoysticks(m_drive));
+    m_drive.setDefaultCommand(new RunCommand(() -> m_drive.move(
+            Joysticks.rightJoystick.getX(),
+            Joysticks.rightJoystick.getY(),
+            Joysticks.rightJoystick.getZ()), 
+          m_drive));
     configureButtonBindings();
     setUpMChooser();
   }
@@ -60,9 +61,10 @@ public class RobotContainer {
     return m_chooser.getSelected();
   }
 
-  private void configureButtonBindings() {
-    new JoystickButton(m_driverController, Button.kR1.value)
-        .whenPressed(() -> m_drive.setMaxOutput(0.5))
-        .whenReleased(() -> m_drive.setMaxOutput(1));
-  }
+  private void configureButtonBindings() {}
 }
+// Change differnetial drive to mechanum
+// Change move
+// Change RamseteCommand to pathplanner PPSwerveControllerCommand
+// /\ Use _____ instead of tankVolts
+// Move sequential Command

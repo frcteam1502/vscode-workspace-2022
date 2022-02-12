@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -12,10 +14,13 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -42,7 +47,7 @@ public class Drivetrain extends SubsystemBase {
   private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(frontRight, backRight);
 
   // The robot's drive
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+  public final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The Encoders
   private RelativeEncoder leftFrontEncoder;
@@ -211,6 +216,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Command createTrajectoryCommand(String path) {
     var trajectoryJSON = "output/" + path + ".wpilib.json";
+    /*
     var autoVoltageConstraint =
       new DifferentialDriveVoltageConstraint(
         new SimpleMotorFeedforward(
@@ -226,8 +232,18 @@ public class Drivetrain extends SubsystemBase {
         AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                 .setKinematics(DriveConstants.kDriveKinematics)
                 .addConstraint(autoVoltageConstraint);
-    
+   */
     Trajectory trajectory = new Trajectory();
+    /*
+    TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3, 0, new Rotation2d(0)),
+            // Pass config
+            config); */
 
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -243,6 +259,14 @@ public class Drivetrain extends SubsystemBase {
     m_rightMotors.set(0);
   }
 
+  public CANSparkMax getMotor(int motor) {
+    ArrayList<CANSparkMax> array = new ArrayList<>();
+    array.add(frontLeft);
+    array.add(frontRight);
+    array.add(backLeft);
+    array.add(backRight);
+    if (motor >= 0 && motor <= 3) return array.get(motor);
+    else return null;
+    
+  }
 }
-//So, I updated the code according to your pull request and it did fix many of the issues. Many of the periodic warnings disappeared, but the recurring error persists. The following differential drive error is still occurring
-//Error at edu.wpi.first.wpilibj.MotorSafety.check(MotorSafety.java:96): DifferentialDrive… Output not updated often enough.

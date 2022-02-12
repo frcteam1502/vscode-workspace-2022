@@ -6,10 +6,11 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -28,7 +29,7 @@ public final class Constants {
     public static final int DRIVE_BACK_LEFT = 3;
     public static final int DRIVE_FRONT_RIGHT = 2;
     public static final int DRIVE_BACK_RIGHT = 4;
-
+    
     //Joysticks
     public static final int RIGHT_JOYSTICK = 1;
     public static final int LEFT_JOYSTICK = 2;
@@ -37,7 +38,7 @@ public final class Constants {
         public static final Joystick rightJoystick = new Joystick(RIGHT_JOYSTICK);
         public static final Joystick leftJoystick = new Joystick(LEFT_JOYSTICK);
     }
-    
+
     public static final class Cameras {
         // public static final NetworkTableInstance NETWORK_TABLE = NetworkTableInstance.getDefault();
     }
