@@ -40,8 +40,8 @@ public class PathFindingConstants {
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
       public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 1;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+        public static final double kMaxSpeedMetersPerSecond = .5;
+        public static final double kMaxAccelerationMetersPerSecondSquared = .5;
     
         // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
         // If things don't work https://docs.wpilib.org/pt/latest/docs/software/advanced-controls/trajectories/ramsete.html#constructing-the-ramsete-controller-object
