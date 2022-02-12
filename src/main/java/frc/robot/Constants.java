@@ -41,12 +41,12 @@ public final class Constants {
     }
 
     public static final class Buttons {
-        // public static final JoystickButton J_BUTTON_ONE = new JoystickButton(Joysticks.JOYSTICK, 8);
-        // public static final JoystickButton J_BUTTON_TWO = new JoystickButton(Joysticks.JOYSTICK, 7);
-        // public static final JoystickButton J_BUTTON_THREE = new JoystickButton(Joysticks.JOYSTICK, 10);
-        // public static final JoystickButton J_BUTTON_FOUR = new JoystickButton(Joysticks.JOYSTICK, 9);
-        // public static final JoystickButton J_BUTTON_FIVE = new JoystickButton(Joysticks.JOYSTICK, 3);
-        // public static final JoystickButton J_BUTTON_SIX = new JoystickButton(Joysticks.JOYSTICK, 11);
+        public static final JoystickButton J_BUTTON_ONE = new JoystickButton(Joysticks.JOYSTICK, 8);
+        public static final JoystickButton J_BUTTON_TWO = new JoystickButton(Joysticks.JOYSTICK, 7);
+        public static final JoystickButton J_BUTTON_THREE = new JoystickButton(Joysticks.JOYSTICK, 10);
+        public static final JoystickButton J_BUTTON_FOUR = new JoystickButton(Joysticks.JOYSTICK, 9);
+        public static final JoystickButton J_BUTTON_FIVE = new JoystickButton(Joysticks.JOYSTICK, 3);
+        public static final JoystickButton J_BUTTON_SIX = new JoystickButton(Joysticks.JOYSTICK, 11);
         
         // public static final JoystickButton XBOX_BUTTON_ONE = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kLeftBumper.value);
         

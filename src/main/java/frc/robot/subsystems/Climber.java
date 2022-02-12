@@ -5,17 +5,12 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
-  
-  // TODO: Find and save max ecoder positions
-  private final double extenderMax = 30; // 100 
-  private final double armRotateMax = 0;
-  private final double babyMax = 0;
 
   /** Creates a new Climber. */
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftAngle, CANSparkMax rightAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
@@ -35,126 +30,81 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void ResetEncoders() {
-    this.leftExtender.getEncoder().setPosition(0);
-    this.rightExtender.getEncoder().setPosition(0);
-  }
-
+  // Stops
   public void StopLongLongArms() {
     rightExtender.set(0);
     leftExtender.set(0);
   }
-
   public void StopLongArmRotate() {
     leftAngle.set(0);
     rightAngle.set(0);
   }
-
   public void StopBabies() {
     leftBaby.set(0);
     rightBaby.set(0);
   }
 
-  // Manually
-  public void ExtendLongLongArmsManual() {
-    leftExtender.set(0.2);
-    // leftExtender.set(0.2);
-    rightExtender.set(-0.2);
+  // Extend/Contract Arms
+  public void MoveLeftArm(double speed) {
+    leftExtender.set(speed);
   }
-  public void ContractLongLongArmsManual() {
-    leftExtender.set(-0.2);
-    // leftExtender.set(-0.2);
-    rightExtender.set(0.2);
+  public void MoveRightArm(double speed) {
+    rightExtender.set(speed);
   }
 
-  public void RotateBigArmsManualClockwise() {
-    leftAngle.set(0.1);
-    rightAngle.set(0.1);
+  //Rotate Arms
+  public void RotateBigArmsClockwise() {
+    leftAngle.set(0.2);
+    rightAngle.set(-0.2);
+  }
+  public void RotateBigArmsCounterClockwise() {
+    leftAngle.set(-0.2);
+    rightAngle.set(0.2);
+  }
+  public void RotateLeftBigArm(double speed) {
+    leftAngle.set(speed);
+  }
+  public void RotateRightBigArm(double speed) {
+    rightAngle.set(speed);
   }
 
-  public void RotateBigArmsManualCounterClockwise() {
-    leftAngle.set(-0.1);
-    rightAngle.set(-0.1);
-  }
-
-  public void RotateBabiesManualClockwise() {
+  // Rotate Babies
+  public void RotateBabiesClockwise() {
     leftBaby.set(0.1);
-    rightBaby.set(0.1);
-  }
-
-  public void RotateBabiesManualCounterClockwise() {
-    leftBaby.set(-0.1);
     rightBaby.set(-0.1);
   }
-
-  // Using encoders
-  public void ExtendLongLongArmsEncoder() {
-    boolean leftGreaterThanTarget = leftExtender.getEncoder().getPosition() > extenderMax;
-    boolean rightGreaterThanTarget = -rightExtender.getEncoder().getPosition() > extenderMax;
-
-    SmartDashboard.putNumber("leftExtender X", leftExtender.getEncoder().getPosition());
-    SmartDashboard.putNumber("rightExtender X", -rightExtender.getEncoder().getPosition());
-
-    SmartDashboard.putBoolean("Left less than target", leftGreaterThanTarget);
-    SmartDashboard.putBoolean("Right less than target", rightGreaterThanTarget);
-
-    if (!leftGreaterThanTarget && !rightGreaterThanTarget) {
-      leftExtender.set(0.2);
-      rightExtender.set(-0.2);
-    } else if (!leftGreaterThanTarget) {
-      leftExtender.set(-0.2);
-    } else if (!rightGreaterThanTarget) {
-      rightExtender.set(-0.2);
-    } else {
-      
-    }
+  public void RotateBabiesCounterClockwise() {
+    leftBaby.set(-0.1);
+    rightBaby.set(0.1);
   }
-  public void ContractLongLongArmsEncoder() {
-    leftExtender.setInverted(true);
-
-    if (leftExtender.getEncoder().getPosition() > extenderMax && rightExtender.getEncoder().getPosition() > extenderMax) {
-      leftExtender.set(0.2);
-      rightExtender.set(0.2);
-    } else if (leftExtender.getEncoder().getPosition() > extenderMax && rightExtender.getEncoder().getPosition() < extenderMax) {
-      leftExtender.set(0.2);
-    } else if (leftExtender.getEncoder().getPosition() < extenderMax && rightExtender.getEncoder().getPosition() > extenderMax) {
-      rightExtender.set(0.2);
-    }
+  public void RotateLeftBaby(double speed) {
+    leftBaby.set(speed);
+  }
+  public void RotateRightBaby(double speed) {
+    rightBaby.set(speed);
   }
 
-  public void RotateBigArmsEcoder(double speed) {
-    if(speed > 0 && leftAngle.getEncoder().getPosition() < armRotateMax && rightAngle.getEncoder().getPosition() < armRotateMax) {
-      leftAngle.set(speed);
-      rightAngle.set(speed);
-    }
-    else if(speed < 0 && leftAngle.getEncoder().getPosition() > 0 && rightAngle.getEncoder().getPosition() > 0) {
-      leftAngle.set(speed);
-      rightAngle.set(speed);
-    }
-  }
 
-  public void RotateBabiesEncoder(double speed) {
-    if(speed > 0 && leftBaby.getEncoder().getPosition() < babyMax && rightBaby.getEncoder().getPosition() < babyMax) {
-      leftBaby.set(speed);
-      rightBaby.set(speed);
-    }
-    else if(speed < 0 && leftBaby.getEncoder().getPosition() > 0 && rightBaby.getEncoder().getPosition() > 0) {
-      leftBaby.set(speed);
-      rightBaby.set(speed);
-    }
+  public void ResetEncoders() {
+    this.leftExtender.getEncoder().setPosition(0);
+    this.rightExtender.getEncoder().setPosition(0);
   }
-
-  /**
-   * 
-   * @param motor leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby
-   * @return Encoder position
-   */
-  public void GetEncoders() {
-    SmartDashboard.putNumber("Left Extender", leftExtender.getEncoder().getPosition());
-    SmartDashboard.putNumber("Right Extender", -rightExtender.getEncoder().getPosition());
-    SmartDashboard.putNumber("Left Angle", leftAngle.getEncoder().getPosition());
-    SmartDashboard.putNumber("Right Angle", rightAngle.getEncoder().getPosition());
-    SmartDashboard.putNumber("Left Baby", leftBaby.getEncoder().getPosition());
-    SmartDashboard.putNumber("Right Baby", rightBaby.getEncoder().getPosition());
+  public RelativeEncoder GetEncoders(String motor) {
+    switch (motor) {
+      case "Left Extender":
+        return leftExtender.getEncoder();
+      case "Right Extender":
+        return rightExtender.getEncoder();
+      case "Left Angle":
+        return leftAngle.getEncoder();
+      case "Right Angle":
+        return rightAngle.getEncoder();
+      case "Left Baby":
+        return leftBaby.getEncoder();
+      case "Right Baby":
+        return rightBaby.getEncoder();
+      default:
+        return null;
+    }
   }
 }
