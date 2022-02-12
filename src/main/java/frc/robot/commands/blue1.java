@@ -1,18 +1,21 @@
 package frc.robot.commands;
 
-
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 
 public class blue1 extends SequentialCommandGroup {
+  private Command runIntake;
   public blue1(Drivetrain drive, Intake intake) {
-    /*PathPlannerTrajectory trajectory1 = PathPlanner.loadPath("5ball", 2.0, 3.0); 
+    runIntake =  new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake);
         addCommands(
-            new InstantCommand(() -> m_swerve.dt.setKnownPose(trajectory1.getInitialPose())),
-
-            m_swerve.dt.createCommandForTrajectory(trajectory1, m_swerve)
-        );*/
+            new ParallelCommandGroup(drive.createTrajectoryCommand("blue1_seg1"), runIntake),
+            drive.createTrajectoryCommand("blue1_seg2"),
+            new ParallelCommandGroup(drive.createTrajectoryCommand("blue1_seg3"), runIntake),
+            drive.createTrajectoryCommand("blue1_seg4")
+        );
   }
 }
