@@ -8,26 +8,32 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.Temp;
 
 public class Climber extends SubsystemBase {
-  private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
+  private final CANSparkMax leftExtender, rightExtender, armAngle, leftBaby, rightBaby;
 
   /** Creates a new Climber. */
-  public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftAngle, CANSparkMax rightAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
+  public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax armAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
-    this.leftAngle = leftAngle;
-    this.rightAngle = rightAngle;
+    this.armAngle = armAngle;
     this.leftBaby = leftBaby;
     this.rightBaby = rightBaby;
 
     this.leftExtender.getEncoder().setPosition(0);
     this.rightExtender.getEncoder().setPosition(0);
+
+    setDefaultCommand(new Temp(this));
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void MoveMotor() {
+    leftBaby.set(0.1);
   }
 
   // Stops
@@ -36,8 +42,7 @@ public class Climber extends SubsystemBase {
     leftExtender.set(0);
   }
   public void StopLongArmRotate() {
-    leftAngle.set(0);
-    rightAngle.set(0);
+    armAngle.set(0);
   }
   public void StopBabies() {
     leftBaby.set(0);
@@ -52,20 +57,22 @@ public class Climber extends SubsystemBase {
     rightExtender.set(speed);
   }
 
+  public void ExtendArms() {
+    leftExtender.set(0.2);
+    rightExtender.set(-0.2);
+  }
+
+  public void ContractArms() {
+    leftExtender.set(-0.2);
+    rightExtender.set(0.2);
+  }
+
   //Rotate Arms
   public void RotateBigArmsClockwise() {
-    leftAngle.set(0.2);
-    rightAngle.set(-0.2);
+    armAngle.set(0.8);
   }
   public void RotateBigArmsCounterClockwise() {
-    leftAngle.set(-0.2);
-    rightAngle.set(0.2);
-  }
-  public void RotateLeftBigArm(double speed) {
-    leftAngle.set(speed);
-  }
-  public void RotateRightBigArm(double speed) {
-    rightAngle.set(speed);
+    armAngle.set(-0.8);
   }
 
   // Rotate Babies
@@ -95,10 +102,8 @@ public class Climber extends SubsystemBase {
         return leftExtender.getEncoder();
       case "Right Extender":
         return rightExtender.getEncoder();
-      case "Left Angle":
-        return leftAngle.getEncoder();
-      case "Right Angle":
-        return rightAngle.getEncoder();
+      case "Arm Angle":
+        return armAngle.getEncoder();
       case "Left Baby":
         return leftBaby.getEncoder();
       case "Right Baby":

@@ -48,7 +48,7 @@ public class MoveLongArms extends CommandBase {
     SmartDashboard.putBoolean("Right Angle < max", rightAPos < ExtendMax);
 
     // Extend
-    if(Buttons.J_BUTTON_ONE.get() || extending) {
+    if(false && Buttons.J_BUTTON_ONE.get() || extending) {
       if (leftEPos < ExtendMax && rightEPos < ExtendMax) {
         climber.MoveLeftArm(leftSpeed);
         climber.MoveRightArm(rightSpeed);
@@ -62,7 +62,7 @@ public class MoveLongArms extends CommandBase {
       }
     }
     // Contract
-    else if (Buttons.J_BUTTON_TWO.get() || contracting) {
+    else if (false && Buttons.J_BUTTON_TWO.get() || contracting) {
       if (leftEPos > 2 && rightEPos < 2) {
         climber.MoveLeftArm(-leftSpeed);
         climber.MoveRightArm(-rightSpeed);
@@ -80,12 +80,12 @@ public class MoveLongArms extends CommandBase {
     // Rotate Clockwise
     if (false && Buttons.J_BUTTON_THREE.get() || rotatingClockwise) {
       if (leftAPos < AngleMax && rightAPos < AngleMax) {
-        climber.RotateLeftBigArm(leftSpeed / 2);
-        climber.RotateRightBigArm(rightSpeed / 2);
+        // climber.RotateLeftBigArm(leftSpeed / 2);
+        // climber.RotateRightBigArm(rightSpeed / 2);
       } else if (leftAPos < AngleMax) {
-        climber.RotateLeftBigArm(leftSpeed / 2);
+        // climber.RotateLeftBigArm(leftSpeed / 2);
       } else if (rightAPos < AngleMax) {
-        climber.RotateRightBigArm(rightSpeed / 2);
+        // climber.RotateRightBigArm(rightSpeed / 2);
       } else {
         rotatingClockwise = false;
         climber.StopLongArmRotate();
@@ -95,12 +95,12 @@ public class MoveLongArms extends CommandBase {
     // Rotate Counter Clockwise
     else if (false && Buttons.J_BUTTON_FOUR.get() || rotatingCounterClockwise) {
       if (leftAPos > 2 && rightAPos < 2) {
-        climber.RotateLeftBigArm(-leftSpeed / 2);
-        climber.RotateRightBigArm(-rightSpeed / 2);
+        // climber.RotateLeftBigArm(-leftSpeed / 2);
+        // climber.RotateRightBigArm(-rightSpeed / 2);
       } else if (leftEPos > 2) {
-        climber.RotateLeftBigArm(-leftSpeed / 2);
+        // climber.RotateLeftBigArm(-leftSpeed / 2);
       } else if (rightEPos > 2) {
-        climber.RotateRightBigArm(-rightSpeed / 2);
+        // climber.RotateRightBigArm(-rightSpeed / 2);
       } else {
         rotatingCounterClockwise = false;
         climber.StopLongArmRotate();
