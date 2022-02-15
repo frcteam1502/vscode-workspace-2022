@@ -10,9 +10,8 @@ public class blue1 extends SequentialCommandGroup {
   public blue1(Drivetrain drive, Intake intake) {
         addCommands(
             new ParallelCommandGroup(drive.createTrajectoryCommand("blue1_seg1"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake)),
-            drive.createTrajectoryCommand("blue1_seg2"),
-            new ParallelCommandGroup(drive.createTrajectoryCommand("blue1_seg3"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake)),
-            drive.createTrajectoryCommand("blue1_seg4")
+            new ParallelCommandGroup(drive.createTrajectoryCommand("blue1_seg2"), new StartEndCommand(intake::runIntakeForward, intake::stopIntake, intake)),
+            drive.createTrajectoryCommand("blue1_seg3")
         );
   }
 }
