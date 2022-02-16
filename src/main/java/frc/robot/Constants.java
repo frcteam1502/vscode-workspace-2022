@@ -21,18 +21,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public final class Constants {
     public final static class Motors {
         // Drivetrain
-        public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(1, MotorType.kBrushless);
+        // public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(10, MotorType.kBrushless);
+        // public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(10, MotorType.kBrushless);
+        // public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(10, MotorType.kBrushless);
+        // public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(10, MotorType.kBrushless);
         
         // Climber
         public static final CANSparkMax LEFT_ARM_ANGLE = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax LEFT_BABY = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(1, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(5, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(2, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(3, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_BABY = new CANSparkMax(4, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(6, MotorType.kBrushless);
         /** 
          *  Left Baby reverses while B button is held
          *  Right Baby reverses on an alternating toggle between X button and B button
@@ -42,8 +42,7 @@ public final class Constants {
     }
 
     public final static class Joysticks {
-        public static final Joystick JOYSTICK = new Joystick(0);
-        public static final XboxController CONTROLLER = new XboxController(1);
+        public static final XboxController CONTROLLER = new XboxController(0);
     }
 
     public static final class Buttons {        
