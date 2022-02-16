@@ -37,18 +37,13 @@ public class MoveLongArms extends CommandBase {
     leftAPos = climber.GetEncoders("Left Angle").getPosition();
     rightAPos = -climber.GetEncoders("Right Angle").getPosition();
 
-    SmartDashboard.putNumber("Left Extender Position", leftEPos);
-    SmartDashboard.putNumber("Right Extender Position", rightEPos);
-    SmartDashboard.putNumber("Left Angle Position", leftAPos);
-    SmartDashboard.putNumber("Right Angle Position", rightAPos);
-
     SmartDashboard.putBoolean("Left Extender < max", leftEPos < ExtendMax);
     SmartDashboard.putBoolean("Right Extender < max", rightEPos < ExtendMax);
     SmartDashboard.putBoolean("Left Angle < max", leftAPos < ExtendMax);
     SmartDashboard.putBoolean("Right Angle < max", rightAPos < ExtendMax);
 
     // Extend
-    if(false && Buttons.J_BUTTON_ONE.get() || extending) {
+    if(Buttons.X_BUTTON_ONE.get() || extending) {
       if (leftEPos < ExtendMax && rightEPos < ExtendMax) {
         climber.MoveLeftArm(leftSpeed);
         climber.MoveRightArm(rightSpeed);
@@ -62,7 +57,7 @@ public class MoveLongArms extends CommandBase {
       }
     }
     // Contract
-    else if (false && Buttons.J_BUTTON_TWO.get() || contracting) {
+    else if (Buttons.X_BUTTON_TWO.get() || contracting) {
       if (leftEPos > 2 && rightEPos < 2) {
         climber.MoveLeftArm(-leftSpeed);
         climber.MoveRightArm(-rightSpeed);
@@ -78,35 +73,35 @@ public class MoveLongArms extends CommandBase {
     else climber.StopLongLongArms();
 
     // Rotate Clockwise
-    if (false && Buttons.J_BUTTON_THREE.get() || rotatingClockwise) {
+    if (Buttons.X_BUTTON_THREE.get() || rotatingClockwise) {
       if (leftAPos < AngleMax && rightAPos < AngleMax) {
-        // climber.RotateLeftBigArm(leftSpeed / 2);
-        // climber.RotateRightBigArm(rightSpeed / 2);
+        climber.RotateLeftArm(leftSpeed / 2);
+        climber.RotateRightArm(rightSpeed / 2);
       } else if (leftAPos < AngleMax) {
-        // climber.RotateLeftBigArm(leftSpeed / 2);
+        climber.RotateLeftArm(leftSpeed / 2);
       } else if (rightAPos < AngleMax) {
-        // climber.RotateRightBigArm(rightSpeed / 2);
+        climber.RotateRightArm(rightSpeed / 2);
       } else {
         rotatingClockwise = false;
-        climber.StopLongArmRotate();
+        climber.StopArmsRotate();
       }
     }
     
     // Rotate Counter Clockwise
-    else if (false && Buttons.J_BUTTON_FOUR.get() || rotatingCounterClockwise) {
+    else if (Buttons.X_BUTTON_FOUR.get() || rotatingCounterClockwise) {
       if (leftAPos > 2 && rightAPos < 2) {
-        // climber.RotateLeftBigArm(-leftSpeed / 2);
-        // climber.RotateRightBigArm(-rightSpeed / 2);
+        climber.RotateLeftArm(-leftSpeed / 2);
+        climber.RotateRightArm(-rightSpeed / 2);
       } else if (leftEPos > 2) {
-        // climber.RotateLeftBigArm(-leftSpeed / 2);
+        climber.RotateLeftArm(-leftSpeed / 2);
       } else if (rightEPos > 2) {
-        // climber.RotateRightBigArm(-rightSpeed / 2);
+        climber.RotateRightArm(-rightSpeed / 2);
       } else {
         rotatingCounterClockwise = false;
-        climber.StopLongArmRotate();
+        climber.StopArmsRotate();
       }
     }
-    // else climber.StopLongArmRotate();
+    else climber.StopArmsRotate();
   }
 
   // Called once the command ends or is interrupted.
