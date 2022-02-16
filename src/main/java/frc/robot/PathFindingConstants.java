@@ -30,22 +30,11 @@ public class PathFindingConstants {
         public static final double kWheelDiameterMeters = 0.15;
         public static final double kEncoderDistancePerPulse =
             (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
-    
-        public static final double ksVolts = 0.1652;
-        public static final double kvVoltSecondsPerMeter = 0.19123;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.016202;
-    
-        
       }
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
       public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = .5;
         public static final double kMaxAccelerationMetersPerSecondSquared = .5;
-    
-        // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
-        // If things don't work https://docs.wpilib.org/pt/latest/docs/software/advanced-controls/trajectories/ramsete.html#constructing-the-ramsete-controller-object
-        public static final double kRamseteB = 2;
-        public static final double kRamseteZeta = 0.7;
       }
 }
