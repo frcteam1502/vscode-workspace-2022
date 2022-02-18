@@ -7,25 +7,26 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.Temp;
+import frc.robot.Encoders;
+import frc.robot.commands.UpdateEncoders;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftArmAngle, rightArmAngle, leftBaby, rightBaby;
+  public boolean individualMode = false;
+  public Encoders encoders;
 
   /** Creates a new Climber. */
-  public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
+  public Climber(Encoders encoders, CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
+    setDefaultCommand(new UpdateEncoders(this));
+    this.encoders = encoders;
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
     this.leftArmAngle = leftArmAngle;
     this.rightArmAngle = rightArmAngle;
     this.leftBaby = leftBaby;
     this.rightBaby = rightBaby;
-
-    this.leftExtender.getEncoder().setPosition(0);
-    this.rightExtender.getEncoder().setPosition(0);
-
-    setDefaultCommand(new Temp(this));
   }
 
   @Override
@@ -33,8 +34,9 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void MoveMotor() {
-    
+  public void toggleMode() {
+    SmartDashboard.putBoolean("Individual Mode", individualMode);
+    individualMode = !individualMode;
   }
 
   // Stops
@@ -42,12 +44,30 @@ public class Climber extends SubsystemBase {
     rightExtender.set(0);
     leftExtender.set(0);
   }
+  public void StopLeftArm() {
+    leftExtender.set(0);
+  }
+  public void StopRightArm() {
+    rightExtender.set(0);
+  }
   public void StopArmsRotate() {
     leftArmAngle.set(0);
     rightArmAngle.set(0);
   }
+  public void StopLeftArmRotate() {
+    leftArmAngle.set(0);
+  }
+  public void StopRightArmRotate() {
+    rightArmAngle.set(0);
+  }
   public void StopBabies() {
     leftBaby.set(0);
+    rightBaby.set(0);
+  }
+  public void StopLeftBaby() {
+    leftBaby.set(0);
+  }
+  public void StopRightBaby() {
     rightBaby.set(0);
   }
 
@@ -70,11 +90,11 @@ public class Climber extends SubsystemBase {
   
 
   // Rotate Arms
-  public void RotateArmsC() {
+  public void RotateArmsForwards() {
     leftArmAngle.set(0.1);
     rightArmAngle.set(-0.1);
   }
-  public void RotateArmsCC() {
+  public void RotateArmsBackwards() {
     leftArmAngle.set(-0.1);
     rightArmAngle.set(0.1);
   }
@@ -88,11 +108,11 @@ public class Climber extends SubsystemBase {
 
 
   // Rotate Babies
-  public void RotateBabyC() {
+  public void RotateBabyFowards() {
     leftBaby.set(0.1);
     rightBaby.set(0.1);
   }
-  public void RotateBabyCC() {
+  public void RotateBabyBackwards() {
     leftBaby.set(-0.1);
     rightBaby.set(-0.1);
   }
@@ -109,7 +129,12 @@ public class Climber extends SubsystemBase {
   public void ResetEncoders() {
     this.leftExtender.getEncoder().setPosition(0);
     this.rightExtender.getEncoder().setPosition(0);
+    this.leftArmAngle.getEncoder().setPosition(0);
+    this.rightArmAngle.getEncoder().setPosition(0);
+    this.leftBaby.getEncoder().setPosition(0);
+    this.rightBaby.getEncoder().setPosition(0);
   }
+
   public RelativeEncoder GetEncoders(String motor) {
     switch (motor) {
       case "Left Extender":

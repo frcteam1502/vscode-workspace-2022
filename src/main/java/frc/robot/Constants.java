@@ -21,38 +21,50 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public final class Constants {
     public final static class Motors {
         // Drivetrain
-        // public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(10, MotorType.kBrushless);
-        // public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(10, MotorType.kBrushless);
-        // public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(10, MotorType.kBrushless);
-        // public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(10, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(1, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(2, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(3, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(4, MotorType.kBrushless);
         
         // Climber
-        public static final CANSparkMax LEFT_ARM_ANGLE = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(5, MotorType.kBrushless);
-        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(2, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(3, MotorType.kBrushless);
-        public static final CANSparkMax LEFT_BABY = new CANSparkMax(4, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(6, MotorType.kBrushless);
-        /** 
-         *  Left Baby reverses while B button is held
-         *  Right Baby reverses on an alternating toggle between X button and B button
-         *  NOTE: These motors weren't tested at the same time
-         *  TODO: Fix the thing. Dance monkey dance!
-        */
+        public static final CANSparkMax LEFT_ARM_ANGLE = new CANSparkMax(5, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(6, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(7, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(8, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_BABY = new CANSparkMax(9, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(10, MotorType.kBrushless);
     }
 
     public final static class Joysticks {
         public static final XboxController CONTROLLER = new XboxController(0);
+        public static final Joystick JOYSTICK = new Joystick(1);
     }
 
-    public static final class Buttons {        
-        public static final JoystickButton X_START_BUTTON = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kStart.value);
+    public static final class XboxButtons {        
+        public static final JoystickButton MODE_BUTTON = new JoystickButton(Joysticks.CONTROLLER, 11); // no clue which number is mode button
 
-        public static final JoystickButton X_BUTTON_ONE = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kLeftBumper.value); // Extend
-        public static final JoystickButton X_BUTTON_TWO = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kRightBumper.value); // Contract
-        public static final JoystickButton X_BUTTON_THREE = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kY.value); // Rotate Clockwise
-        public static final JoystickButton X_BUTTON_FOUR = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kA.value); // Rotate Counter Clockwise
-        public static final JoystickButton X_BUTTON_FIVE = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kX.value); // Rotate babies Clockwise
-        public static final JoystickButton X_BUTTON_SIX = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kB.value); // Rotate babies Counter Clockwise
+        public static final JoystickButton LEFT_BUMPER = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kLeftBumper.value); // Extend
+        public static final JoystickButton RIGHT_BUMPER = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kRightBumper.value); // Contract
+        public static final JoystickButton BUTTON_Y = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kY.value); // Rotate Clockwise
+        public static final JoystickButton BUTTON_A = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kA.value); // Rotate Counter Clockwise
+        public static final JoystickButton BUTTON_X = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kX.value); // Rotate babies Clockwise
+        public static final JoystickButton BUTTON_B = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kB.value); // Rotate babies Counter Clockwise
+        
+        // I dont know the values for these
+        public static final JoystickButton LEFT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 12);
+        public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 13);
+        public static final JoystickButton DPAD_UP = new JoystickButton(Joysticks.CONTROLLER, 14);
+        public static final JoystickButton DPAD_DOWN = new JoystickButton(Joysticks.CONTROLLER, 15);
+        public static final JoystickButton DPAD_LEFT = new JoystickButton(Joysticks.CONTROLLER, 16);
+        public static final JoystickButton DPAD_RIGHT = new JoystickButton(Joysticks.CONTROLLER, 17);    
+    }
+
+    public static final class EncoderMaxes {
+        public static final double LEFT_MAX = 0;
+        public static final double RIGHT_MAX = 0;
+        public static final double LEFT_ANGLE_MAX = 0;
+        public static final double RIGHT_ANGLE_MAX = 0;
+        public static final double LEFT_BABY_MAX = 0;
+        public static final double RIGHT_BABY_MAX = 0;
     }
 }

@@ -5,9 +5,13 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import frc.robot.Constants.Buttons;
+import frc.robot.Constants.XboxButtons;
 import frc.robot.Constants.Motors;
+import frc.robot.commands.MoveLongArms;
+import frc.robot.commands.RotateBabies;
+import frc.robot.commands.UpdateEncoders;
 import frc.robot.subsystems.Climber;
 
 /**
@@ -17,11 +21,17 @@ import frc.robot.subsystems.Climber;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // public Drivetrain drivetrain = new Drivetrain(
+  private double leftSpeed = 0.2;
+  private double rightSpeed = -0.2;
+  // private Drivetrain drivetrain = new Drivetrain(
   // Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
 
-  public Climber climber = new Climber(
-  Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);  
+  private Encoders encoders = new Encoders();
+
+  private Climber climber = new Climber(
+    encoders, Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+
+  public UpdateEncoders updateEncoders = new UpdateEncoders(climber);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -34,14 +44,41 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    Buttons.X_BUTTON_ONE.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
-    Buttons.X_BUTTON_TWO.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
+    XboxButtons.LEFT_BUMPER.toggleWhenPressed(new MoveLongArms(climber, 1, false));
+    XboxButtons.RIGHT_BUMPER.toggleWhenPressed(new MoveLongArms(climber, 2, false));
+    XboxButtons.BUTTON_Y.toggleWhenPressed(new MoveLongArms(climber, 3, false));
+    XboxButtons.BUTTON_A.toggleWhenPressed(new MoveLongArms(climber, 4, false));
+    XboxButtons.BUTTON_X.toggleWhenPressed(new RotateBabies(climber, 5, false));
+    XboxButtons.BUTTON_B.toggleWhenPressed(new RotateBabies(climber, 6, false));
 
-    Buttons.X_BUTTON_THREE.whileHeld(new StartEndCommand(climber::RotateArmsC, climber::StopArmsRotate, climber));
-    Buttons.X_BUTTON_FOUR.whileHeld(new StartEndCommand(climber::RotateArmsCC, climber::StopArmsRotate, climber));
+    XboxButtons.MODE_BUTTON.whenPressed(new InstantCommand(climber::toggleMode));
 
-    Buttons.X_BUTTON_FIVE.whileHeld(new StartEndCommand(climber::RotateBabyC, climber::StopBabies, climber));
-    Buttons.X_BUTTON_SIX.whileHeld(new StartEndCommand(climber::RotateBabyCC, climber::StopBabies, climber));
+    if (!climber.individualMode) {
+      XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
+      XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
+
+      XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
+      XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
+
+      XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
+      XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
+    } 
+    else {
+      XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(() -> climber.MoveLeftArm(leftSpeed), climber::StopLeftArm, climber));
+      XboxButtons.LEFT_JOYSTICK.whileHeld(new StartEndCommand(() -> climber.MoveLeftArm(-leftSpeed), climber::StopRightArm, climber));
+      XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(() -> climber.MoveRightArm(rightSpeed), climber::StopLeftArm, climber));
+      XboxButtons.RIGHT_JOYSTICK.whileHeld(new StartEndCommand(() -> climber.MoveRightArm(-rightSpeed), climber::StopRightArm, climber));
+
+      XboxButtons.DPAD_UP.whileHeld(new StartEndCommand(() -> climber.RotateLeftArm(leftSpeed), climber::StopRightArmRotate, climber));
+      XboxButtons.DPAD_DOWN.whileHeld(new StartEndCommand(() -> climber.RotateRightArm(-leftSpeed), climber::StopRightArmRotate, climber));
+      XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(() -> climber.RotateRightArm(rightSpeed), climber::StopLeftArmRotate, climber));
+      XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(() -> climber.RotateRightArm(-rightSpeed), climber::StopLeftArmRotate, climber));  
+      
+      XboxButtons.DPAD_RIGHT.whileHeld(new StartEndCommand(() -> climber.RotateLeftBaby(leftSpeed), climber::StopLeftBaby, climber));
+      XboxButtons.DPAD_LEFT.whileHeld(new StartEndCommand(() -> climber.RotateLeftBaby(-leftSpeed), climber::StopLeftBaby, climber));
+      XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(() -> climber.RotateRightBaby(rightSpeed), climber::StopLeftBaby, climber));
+      XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(() -> climber.RotateRightBaby(-rightSpeed), climber::StopRightBaby, climber));
+    }
   }
 
   /**
