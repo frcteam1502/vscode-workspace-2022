@@ -5,22 +5,18 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Encoders;
 import frc.robot.commands.UpdateEncoders;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftArmAngle, rightArmAngle, leftBaby, rightBaby;
   public boolean individualMode = false;
-  public Encoders encoders;
 
   /** Creates a new Climber. */
-  public Climber(Encoders encoders, CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
+  public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
     setDefaultCommand(new UpdateEncoders(this));
-    this.encoders = encoders;
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
     this.leftArmAngle = leftArmAngle;
@@ -135,22 +131,7 @@ public class Climber extends SubsystemBase {
     this.rightBaby.getEncoder().setPosition(0);
   }
 
-  public RelativeEncoder GetEncoders(String motor) {
-    switch (motor) {
-      case "Left Extender":
-        return leftExtender.getEncoder();
-      case "Right Extender":
-        return rightExtender.getEncoder();
-      case "Left Arm Angle":
-        return leftArmAngle.getEncoder();
-      case "Right Arm Angle":
-        return rightArmAngle.getEncoder();
-      case "Left Baby":
-        return leftBaby.getEncoder();
-      case "Right Baby":
-        return rightBaby.getEncoder();
-      default:
-        return null;
-    }
+  public static class EncoderValues {
+    public static double leftArm, rightArm, leftArmAngle, rightArmAngle, leftBaby, rightBaby;
   }
 }

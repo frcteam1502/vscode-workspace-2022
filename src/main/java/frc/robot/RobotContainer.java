@@ -26,10 +26,9 @@ public class RobotContainer {
   // private Drivetrain drivetrain = new Drivetrain(
   // Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
 
-  private Encoders encoders = new Encoders();
 
   private Climber climber = new Climber(
-    encoders, Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+    Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
 
   public UpdateEncoders updateEncoders = new UpdateEncoders(climber);
 

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.EncoderMaxes;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Climber.EncoderValues;
 
 public class MoveLongArms extends CommandBase {
   private final Climber climber;
@@ -34,10 +35,10 @@ public class MoveLongArms extends CommandBase {
   public void execute() {
     if (!usingEncoders) return;
 
-    SmartDashboard.putBoolean("Left Extender < max", climber.encoders.leftArm < EncoderMaxes.LEFT_MAX);
-    SmartDashboard.putBoolean("Right Extender < max", climber.encoders.rightArm < EncoderMaxes.RIGHT_MAX);
-    SmartDashboard.putBoolean("Left Angle < max", climber.encoders.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX);
-    SmartDashboard.putBoolean("Right Angle < max", climber.encoders.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX);
+    SmartDashboard.putBoolean("Left Extender < max", EncoderValues.leftArm < EncoderMaxes.LEFT_MAX);
+    SmartDashboard.putBoolean("Right Extender < max", EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX);
+    SmartDashboard.putBoolean("Left Angle < max", EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX);
+    SmartDashboard.putBoolean("Right Angle < max", EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX);
 
     if(button == 1) ExtendArmsEncoders();
     else if (button == 2) ContractArmsEncoder();
@@ -61,12 +62,12 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void ExtendArmsEncoders() {
-    if (climber.encoders.leftArm < EncoderMaxes.LEFT_MAX && climber.encoders.rightArm < EncoderMaxes.RIGHT_MAX) {
+    if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX && EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
       climber.MoveLeftArm(leftSpeed);
       climber.MoveRightArm(rightSpeed);
-    } else if (climber.encoders.leftArm < EncoderMaxes.LEFT_MAX) {
+    } else if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX) {
       climber.MoveLeftArm(leftSpeed);
-    } else if (climber.encoders.rightArm < EncoderMaxes.RIGHT_MAX) {
+    } else if (EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
       climber.MoveRightArm(rightSpeed);
     } else {
       climber.StopLongLongArms();
@@ -74,12 +75,12 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void ContractArmsEncoder() {
-    if (climber.encoders.leftArm > 0 && climber.encoders.rightArm < 2) {
+    if (EncoderValues.leftArm > 0 && EncoderValues.rightArm < 2) {
       climber.MoveLeftArm(-leftSpeed);
       climber.MoveRightArm(-rightSpeed);
-    } else if (climber.encoders.leftArm > 0) {
+    } else if (EncoderValues.leftArm > 0) {
       climber.MoveLeftArm(-leftSpeed);
-    } else if (climber.encoders.rightArm > 0) {
+    } else if (EncoderValues.rightArm > 0) {
       climber.MoveRightArm(-rightSpeed);
     } else {
       climber.StopLongLongArms();
@@ -87,12 +88,12 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void RotateForwards() {
-    if (climber.encoders.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX && climber.encoders.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
+    if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX && EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
       climber.RotateLeftArm(leftSpeed / 2);
       climber.RotateRightArm(rightSpeed / 2);
-    } else if (climber.encoders.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX) {
+    } else if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX) {
       climber.RotateLeftArm(leftSpeed / 2);
-    } else if (climber.encoders.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
+    } else if (EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
       climber.RotateRightArm(rightSpeed / 2);
     } else {
       climber.StopArmsRotate();
@@ -100,12 +101,12 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void RotateBackwards() {
-    if (climber.encoders.leftArmAngle > 0 && climber.encoders.rightArmAngle < 0) {
+    if (EncoderValues.leftArmAngle > 0 && EncoderValues.rightArmAngle < 0) {
       climber.RotateLeftArm(-leftSpeed / 2);
       climber.RotateRightArm(-rightSpeed / 2);
-    } else if (climber.encoders.leftArmAngle > 0) {
+    } else if (EncoderValues.leftArmAngle > 0) {
       climber.RotateLeftArm(-leftSpeed / 2);
-    } else if (climber.encoders.rightArmAngle > 0) {
+    } else if (EncoderValues.rightArmAngle > 0) {
       climber.RotateRightArm(-rightSpeed / 2);
     } else {
       climber.StopArmsRotate();

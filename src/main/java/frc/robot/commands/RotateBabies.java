@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Climber.EncoderValues;
 
 public class RotateBabies extends CommandBase {
   private final Climber climber;
@@ -33,8 +34,8 @@ public class RotateBabies extends CommandBase {
   public void execute() {
     if (!usingEncoders) return;
     
-    SmartDashboard.putBoolean("Left Baby < max", climber.encoders.leftBaby < Max);
-    SmartDashboard.putBoolean("Right Baby < max", climber.encoders.rightBaby < Max);
+    SmartDashboard.putBoolean("Left Baby < max", EncoderValues.leftBaby < Max);
+    SmartDashboard.putBoolean("Right Baby < max", EncoderValues.rightBaby < Max);
 
     // Rotate Clockwise
     if (button == 5) RotateForwards();
@@ -55,12 +56,12 @@ public class RotateBabies extends CommandBase {
   }
 
   private void RotateForwards() {
-    if (climber.encoders.leftBaby < Max && climber.encoders.rightBaby < Max) {
+    if (EncoderValues.leftBaby < Max && EncoderValues.rightBaby < Max) {
       climber.RotateLeftBaby(leftSpeed / 2);
       climber.RotateRightBaby(rightSpeed / 2);
-    } else if (climber.encoders.leftBaby < Max) {
+    } else if (EncoderValues.leftBaby < Max) {
       climber.RotateLeftBaby(leftSpeed / 2);
-    } else if (climber.encoders.rightBaby < Max) {
+    } else if (EncoderValues.rightBaby < Max) {
       climber.RotateRightBaby(rightSpeed / 2);
     } else {
       climber.StopBabies();
@@ -68,12 +69,12 @@ public class RotateBabies extends CommandBase {
   }
 
   private void RotateBackwards() {
-    if (climber.encoders.leftBaby > 2 && climber.encoders.rightBaby > 2) {
+    if (EncoderValues.leftBaby > 2 && EncoderValues.rightBaby > 2) {
       climber.RotateLeftBaby(-leftSpeed / 2);
       climber.RotateRightBaby(-rightSpeed / 2);
-    } else if (climber.encoders.leftBaby > 2) {
+    } else if (EncoderValues.leftBaby > 2) {
       climber.RotateLeftBaby(-leftSpeed / 2);
-    } else if (climber.encoders.rightBaby > 2) {
+    } else if (EncoderValues.rightBaby > 2) {
       climber.RotateRightBaby(-rightSpeed / 2);
     } else {
       climber.StopBabies();

@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -19,6 +20,20 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public enum Encoders {
+        LeftArmAngleEncoder (Motors.LEFT_ARM_ANGLE.getEncoder()),
+        RightArmAngleEncoder (Motors.RIGHT_ARM_ANGLE.getEncoder()),
+        LeftExtenderEncoder (Motors.LEFT_ARM_EXTENDER.getEncoder()),
+        RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
+        LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
+        RightBabyEncoder (Motors.RIGHT_BABY.getEncoder());
+    
+        public RelativeEncoder Encoder;
+        Encoders(RelativeEncoder encoder) {
+          this.Encoder = encoder;
+        }
+    }
+    
     public final static class Motors {
         // Drivetrain
         public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(1, MotorType.kBrushless);
