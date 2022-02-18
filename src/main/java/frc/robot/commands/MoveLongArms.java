@@ -61,6 +61,7 @@ public class MoveLongArms extends CommandBase {
         climber.StopLongLongArms();
       }
     }
+    
     // Contract
     else if (Buttons.J_BUTTON_TWO.get() || contracting) {
       if (leftEPos > 2 && rightEPos < 2) {

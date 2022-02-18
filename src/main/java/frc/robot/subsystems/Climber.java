@@ -6,13 +6,13 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
+  private final double extenderSpeed = 2.5;
+  private final double rotateSpeed = 2.0;
 
-  /** Creates a new Climber. */
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftAngle, CANSparkMax rightAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
@@ -23,12 +23,11 @@ public class Climber extends SubsystemBase {
 
     this.leftExtender.getEncoder().setPosition(0);
     this.rightExtender.getEncoder().setPosition(0);
+    // TODO: Dear god please invert one of the motors. I'm begging you
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  public void periodic() {}
 
   // Stops
   public void StopLongLongArms() {
@@ -83,12 +82,53 @@ public class Climber extends SubsystemBase {
   public void RotateRightBaby(double speed) {
     rightBaby.set(speed);
   }
+  // TODO: Decide if recusion is the right choice... I'm begining to think no
+  //"Autonomously" Extend/Contract Arms
+  public void ExtendArmsToEncoder(double value) {
+    if(leftExtender.getEncoder().getPosition() < value && rightExtender.getEncoder().getPosition() < value) {
+      MoveLeftArm(extenderSpeed);
+      MoveRightArm(-extenderSpeed);
+    } 
+    else if(leftExtender.getEncoder().getPosition() < value) leftExtender.set(extenderSpeed);
+    else if(rightExtender.getEncoder().getPosition() < value) rightExtender.set(-extenderSpeed);
+    if(leftExtender.getEncoder().getPosition() < value || rightExtender.getEncoder().getPosition() < value) ExtendArmsToEncoder(value);
+  }
 
+  public void RetractArmsToEncoder(double value) {
+    if(leftExtender.getEncoder().getPosition() > value && rightExtender.getEncoder().getPosition() > value) {
+      MoveLeftArm(-extenderSpeed);
+      MoveRightArm(extenderSpeed);
+    } 
+    else if(leftExtender.getEncoder().getPosition() > value) leftExtender.set(-extenderSpeed);
+    else if(rightExtender.getEncoder().getPosition() > value) rightExtender.set(extenderSpeed);
+    if(leftExtender.getEncoder().getPosition() > value || rightExtender.getEncoder().getPosition() > value) RetractArmsToEncoder(value);
+  }
+
+  //"Autonomously" Rotate Arms
+  public void RotateArmsClockwiseToEncoder(double value) {
+    if(leftAngle.getEncoder().getPosition() < value && rightAngle.getEncoder().getPosition() < value)
+      RotateBigArmsClockwise();
+    else if(leftAngle.getEncoder().getPosition() < value) RotateLeftBigArm(rotateSpeed);
+    else if(rightAngle.getEncoder().getPosition() < value) RotateRightBigArm(-rotateSpeed);
+    if(leftAngle.getEncoder().getPosition() < value && rightAngle.getEncoder().getPosition() < value) RotateArmsClockwiseToEncoder(value);
+  }
+
+  public void RotateArmsCounterClockwiseToEncoder(double value) {
+    if(leftAngle.getEncoder().getPosition() > value && rightAngle.getEncoder().getPosition() > value)
+      RotateBigArmsClockwise();
+    else if(leftAngle.getEncoder().getPosition() > value) RotateLeftBigArm(-rotateSpeed);
+    else if(rightAngle.getEncoder().getPosition() > value) RotateRightBigArm(rotateSpeed);
+    if(leftAngle.getEncoder().getPosition() > value || rightAngle.getEncoder().getPosition() > value) RotateArmsCounterClockwiseToEncoder(value);
+  }
+
+  //"Autonomously" Rotate Babies
+  // TODO: We haven't decided hhow we're going to implement baby rotation to confirm its off
 
   public void ResetEncoders() {
     this.leftExtender.getEncoder().setPosition(0);
     this.rightExtender.getEncoder().setPosition(0);
   }
+
   public RelativeEncoder GetEncoders(String motor) {
     switch (motor) {
       case "Left Extender":
