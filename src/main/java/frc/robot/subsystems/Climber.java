@@ -122,56 +122,46 @@ public class Climber extends SubsystemBase {
   // TODO: Decide if recusion is the right choice... I'm begining to think no
   //"Autonomously" Extend/Contract Arms
   public void ExtendArmsToEncoder(double value) {
-    if(leftExtender.getEncoder().getPosition() < value && rightExtender.getEncoder().getPosition() < value) {
-      MoveLeftArm(extenderSpeed);
-      MoveRightArm(-extenderSpeed);
-    } 
-    else if(leftExtender.getEncoder().getPosition() < value) leftExtender.set(extenderSpeed);
-    else if(rightExtender.getEncoder().getPosition() < value) rightExtender.set(-extenderSpeed);
+    if(EncoderValues.leftArm < value && EncoderValues.rightArm < value) ExtendArms();
+    else if(EncoderValues.leftArm < value) MoveLeftArm(extenderSpeed);
+    else if(EncoderValues.rightArm < value) MoveRightArm(-extenderSpeed);
     else StopLongLongArms();
   }
 
   public void RetractArmsToEncoder(double value) {
-    if(leftExtender.getEncoder().getPosition() > value && rightExtender.getEncoder().getPosition() > value) {
-      MoveLeftArm(-extenderSpeed);
-      MoveRightArm(extenderSpeed);
-    } 
-    else if(leftExtender.getEncoder().getPosition() > value) leftExtender.set(-extenderSpeed);
-    else if(rightExtender.getEncoder().getPosition() > value) rightExtender.set(extenderSpeed);
+    if(EncoderValues.leftArm > value && EncoderValues.rightArm > value) ContractArms();
+    else if(EncoderValues.leftArm > value) MoveLeftArm(-extenderSpeed);
+    else if(EncoderValues.rightArm > value) MoveRightArm(extenderSpeed);
     else StopLongLongArms();
   }
 
   //"Autonomously" Rotate Arms
   public void RotateArmsForwardsToEncoder(double value) {
-    if(leftAngle.getEncoder().getPosition() < value && rightAngle.getEncoder().getPosition() < value)
-      RotateArmsForwards();
-    else if(leftAngle.getEncoder().getPosition() < value) RotateLeftArm(rotateSpeed);
-    else if(rightAngle.getEncoder().getPosition() < value) RotateRightArm(-rotateSpeed);
+    if(EncoderValues.leftArmAngle < value && EncoderValues.rightArmAngle < value) RotateArmsForwards();
+    else if(EncoderValues.leftArmAngle < value) RotateLeftArm(rotateSpeed);
+    else if(EncoderValues.rightArmAngle < value) RotateRightArm(-rotateSpeed);
     else StopArmsRotate();
   }
 
   public void RotateArmsBackwardsToEncoder(double value) {
-    if(leftAngle.getEncoder().getPosition() > value && rightAngle.getEncoder().getPosition() > value)
-      RotateArmsBackwards();
-    else if(leftAngle.getEncoder().getPosition() > value) RotateLeftArm(-rotateSpeed);
-    else if(rightAngle.getEncoder().getPosition() > value) RotateRightArm(rotateSpeed);
+    if(EncoderValues.leftArmAngle > value && EncoderValues.rightArmAngle > value) RotateArmsBackwards();
+    else if(EncoderValues.leftArmAngle > value) RotateLeftArm(-rotateSpeed);
+    else if(EncoderValues.rightArmAngle > value) RotateRightArm(rotateSpeed);
     else StopArmsRotate();
   }
 
   //"Autonomously" Rotate Babies
   public void RotateBabiesForwardsToEncoder(double value) {
-    if(leftBaby.getEncoder().getPosition() < value && rightBaby.getEncoder().getPosition() < value)
-      RotateArmsForwards();
-    else if(leftBaby.getEncoder().getPosition() < value) RotateLeftArm(rotateSpeed);
-    else if(rightBaby.getEncoder().getPosition() < value) RotateRightArm(-rotateSpeed);
+    if(EncoderValues.leftBaby < value && EncoderValues.rightBaby < value) RotateArmsForwards();
+    else if(EncoderValues.leftBaby < value) RotateLeftBaby(rotateSpeed);
+    else if(EncoderValues.rightBaby < value) RotateRightBaby(-rotateSpeed);
     else StopBabies();
   }
 
   public void RotateBabiesBackwardsToEncoder(double value) {
-    if(leftBaby.getEncoder().getPosition() > value && rightBaby.getEncoder().getPosition() > value)
-      RotateArmsBackwards();
-    else if(leftBaby.getEncoder().getPosition() > value) RotateLeftArm(-rotateSpeed);
-    else if(rightBaby.getEncoder().getPosition() > value) RotateRightArm(rotateSpeed);
+    if(EncoderValues.leftBaby > value && EncoderValues.rightBaby > value) RotateArmsBackwards();
+    else if(EncoderValues.leftBaby > value) RotateLeftBaby(-rotateSpeed);
+    else if(EncoderValues.rightBaby > value) RotateRightBaby(rotateSpeed);
     else StopBabies();
   }
 
@@ -206,5 +196,8 @@ public class Climber extends SubsystemBase {
   
   public static class EncoderValues {
     public static double leftArm, rightArm, leftArmAngle, rightArmAngle, leftBaby, rightBaby;
+  }
+
+  public void ContractArmsEncoder() {
   }
 }

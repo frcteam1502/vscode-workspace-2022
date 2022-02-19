@@ -75,11 +75,8 @@ public final class Constants {
     }
 
     public static final class EncoderMaxes {
-        public static final double LEFT_MAX = 0;
-        public static final double RIGHT_MAX = 0;
-        public static final double LEFT_ANGLE_MAX = 0;
-        public static final double RIGHT_ANGLE_MAX = 0;
-        public static final double LEFT_BABY_MAX = 0;
-        public static final double RIGHT_BABY_MAX = 0;
+        public static final double EXTEND_MAX = 0;
+        public static final double ANGLE_MAX = 0;
+        public static final double BABY_MAX = 0;
     }
 }
