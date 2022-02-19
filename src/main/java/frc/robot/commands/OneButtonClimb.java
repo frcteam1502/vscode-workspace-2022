@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Climber;
-import frc.robot.Constants.EncoderMaxes;
 
 public class OneButtonClimb extends SequentialCommandGroup {
   public OneButtonClimb(Climber climber) {

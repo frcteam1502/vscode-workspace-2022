@@ -61,7 +61,7 @@ public final class Constants {
         public static final Joystick JOYSTICK = new Joystick(1);
     }
 
-    public static final class XboxButtons {        
+    public static final class Buttons {        
         public static final JoystickButton MODE_BUTTON = new JoystickButton(Joysticks.CONTROLLER, 11); // no clue which number is mode button
 
         public static final JoystickButton LEFT_BUMPER = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kLeftBumper.value); // Extend
@@ -74,10 +74,7 @@ public final class Constants {
         // I dont know the values for these
         public static final JoystickButton LEFT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 12);
         public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 13);
-        public static final JoystickButton DPAD_UP = new JoystickButton(Joysticks.CONTROLLER, 14);
-        public static final JoystickButton DPAD_DOWN = new JoystickButton(Joysticks.CONTROLLER, 15);
-        public static final JoystickButton DPAD_LEFT = new JoystickButton(Joysticks.CONTROLLER, 16);
-        public static final JoystickButton DPAD_RIGHT = new JoystickButton(Joysticks.CONTROLLER, 17);    
+        public static final JoystickButton BACK_BUTTON = new JoystickButton(Joysticks.CONTROLLER, 14);
     }
 
     public static final class EncoderMaxes {
