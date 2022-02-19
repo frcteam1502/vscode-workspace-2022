@@ -7,24 +7,31 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import frc.robot.Constants.XboxButtons;
+import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.Motors;
 import frc.robot.commands.MoveLongArms;
 import frc.robot.commands.RotateBabies;
 import frc.robot.commands.UpdateEncoders;
 import frc.robot.subsystems.Climber;
+import frc.robot.commands.BasicAuto;
+import frc.robot.commands.DriveByJoysticks;
+import frc.robot.commands.MoveTurret;
+import frc.robot.commands.Shoot;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
   private double leftSpeed = 0.2;
   private double rightSpeed = -0.2;
-  // private Drivetrain drivetrain = new Drivetrain(
-  // Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
 
-
+  private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
     Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
 
-  public UpdateEncoders updateEncoders = new UpdateEncoders(climber);
+  private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
+  private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
+
 
   public RobotContainer() {
     configureButtonBindings();

@@ -5,35 +5,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Joysticks;
-import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.subsystems.Turret;
 
-public class DriveByJoysticks extends CommandBase {
-  private Drivetrain drivetrain;
+public class MoveTurret extends CommandBase {
+
+  private Turret turret;
   
-  // Creates a new DriveByJoysticks. 
-  public DriveByJoysticks(Drivetrain subsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public MoveTurret(Turret subsystem) {
+
     addRequirements(subsystem);
-    drivetrain = subsystem;
+    turret = subsystem;
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getZ());
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getZ());
+
+    Turret.turnTurret();
+    
   }
 
   // Called once the command ends or is interrupted.

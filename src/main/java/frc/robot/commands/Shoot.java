@@ -6,34 +6,30 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 
-public class DriveByJoysticks extends CommandBase {
-  private Drivetrain drivetrain;
-  
-  // Creates a new DriveByJoysticks. 
-  public DriveByJoysticks(Drivetrain subsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+
+public class Shoot extends CommandBase {
+  private Shooter shooter;
+ 
+  public Shoot(Shooter subsystem) {
     addRequirements(subsystem);
-    drivetrain = subsystem;
+    shooter = subsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getZ());
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getZ());
+    if (Joysticks.CONTROLLER.getYButton() == true){
+      shooter.shoot();
+    } else {
+      shooter.noShoot();
+
+    }
   }
 
   // Called once the command ends or is interrupted.
