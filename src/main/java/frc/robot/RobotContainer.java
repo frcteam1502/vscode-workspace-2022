@@ -4,33 +4,46 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
+import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveLongArms;
+import frc.robot.commands.MoveTurret;
 import frc.robot.commands.RotateBabies;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
 import frc.robot.subsystems.Climber;
-import frc.robot.commands.DriveByJoysticks;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
   private double leftSpeed = 0.2;
   private double rightSpeed = -0.2;
+  // The robot's subsystems and commands are defined here...
 
   private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
     Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+  private Turret turret = new Turret(Motors.TURRET);
+  private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT);
+  
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
-
+  private MoveTurret moveTurret = new MoveTurret(turret);
+  private Shoot shoot = new Shoot(shooter);
 
   public RobotContainer() {
     configureButtonBindings();
   }
+  private final Drivetrain m_drive = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
+  
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -79,4 +92,24 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return null;
   }
+  
+    // Drive at half speed when the right bumper is held
+    
+
+  //TeleOp Commands
+  public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
+
+  //Autonomous Commands
+ 
+
+ 
+
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   * @param List 
+   *
+   * @return the command to run in autonomous
+   */
+
+ 
 }
