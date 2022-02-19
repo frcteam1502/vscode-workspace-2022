@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
@@ -12,18 +13,14 @@ public class RunIntake extends CommandBase {
   Intake subsystemL;
   boolean intakedeployed = false;
   boolean intakeretracted = false;
-  /** Creates a new RunIntake. */
   public RunIntake(Intake subsystemP) {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystemP);
     subsystemL = subsystemP;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if(Constants.CONTROLLER.getAButton() == true) {
@@ -49,21 +46,20 @@ public class RunIntake extends CommandBase {
       Will run the climber arm to deploy intake based on the deployed and retracted variables (timing will be done in auto)
       Auto sets deployed to false for a while than sets it to true, then does the same with retraction.
     */
-    if (intakedeployed == false){
+    if (!intakedeployed) {
       subsystemL.deployIntake(intakedeployed, intakeretracted);
     }
-    else if (intakeretracted == false){
+    else if (!intakeretracted) {
       subsystemL.deployIntake(intakedeployed, intakeretracted);
     }
+
 }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     subsystemL.stopIntake();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

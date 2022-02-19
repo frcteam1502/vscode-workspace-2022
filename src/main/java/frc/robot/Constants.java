@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -21,6 +22,9 @@ import edu.wpi.first.wpilibj.XboxController;
 public final class Constants {
     public static final CANSparkMax INTAKE = new CANSparkMax(5, MotorType.kBrushless);
     public static final CANSparkMax DEPLOY_INTAKE = new CANSparkMax(6, MotorType.kBrushless);
+    public static final CANSparkMax INDEX = new CANSparkMax(7, MotorType.kBrushless);
     public static final XboxController CONTROLLER = new XboxController(0);
     public static final Joystick RIGHT_JOYSTICK = new Joystick(1);
+    public static final JoystickButton DPAD_UP = new JoystickButton(CONTROLLER, 3);
+    public static final JoystickButton DPAD_DOWN = new JoystickButton(CONTROLLER, 4);
 }
