@@ -7,19 +7,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.Motors;
+import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.MoveLongArms;
 import frc.robot.commands.RotateBabies;
 import frc.robot.commands.UpdateEncoders;
 import frc.robot.subsystems.Climber;
-import frc.robot.commands.BasicAuto;
 import frc.robot.commands.DriveByJoysticks;
-import frc.robot.commands.MoveTurret;
-import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
   private double leftSpeed = 0.2;
