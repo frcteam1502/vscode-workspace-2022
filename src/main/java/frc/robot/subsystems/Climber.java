@@ -17,7 +17,6 @@ public class Climber extends SubsystemBase {
   private final double rotateSpeed = 2.0;
   public boolean individualMode = false;
 
-  /** Creates a new Climber. */
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
     setDefaultCommand(new UpdateEncoders(this));
     this.leftExtender = leftExtender;
@@ -129,6 +128,7 @@ public class Climber extends SubsystemBase {
     } 
     else if(leftExtender.getEncoder().getPosition() < value) leftExtender.set(extenderSpeed);
     else if(rightExtender.getEncoder().getPosition() < value) rightExtender.set(-extenderSpeed);
+    else StopLongLongArms();
   }
 
   public void RetractArmsToEncoder(double value) {
@@ -138,6 +138,7 @@ public class Climber extends SubsystemBase {
     } 
     else if(leftExtender.getEncoder().getPosition() > value) leftExtender.set(-extenderSpeed);
     else if(rightExtender.getEncoder().getPosition() > value) rightExtender.set(extenderSpeed);
+    else StopLongLongArms();
   }
 
   //"Autonomously" Rotate Arms
@@ -146,6 +147,7 @@ public class Climber extends SubsystemBase {
       RotateArmsForwards();
     else if(leftAngle.getEncoder().getPosition() < value) RotateLeftArm(rotateSpeed);
     else if(rightAngle.getEncoder().getPosition() < value) RotateRightArm(-rotateSpeed);
+    else StopArmsRotate();
   }
 
   public void RotateArmsBackwardsToEncoder(double value) {
@@ -153,6 +155,7 @@ public class Climber extends SubsystemBase {
       RotateArmsBackwards();
     else if(leftAngle.getEncoder().getPosition() > value) RotateLeftArm(-rotateSpeed);
     else if(rightAngle.getEncoder().getPosition() > value) RotateRightArm(rotateSpeed);
+    else StopArmsRotate();
   }
 
   //"Autonomously" Rotate Babies
@@ -161,6 +164,7 @@ public class Climber extends SubsystemBase {
       RotateArmsForwards();
     else if(leftBaby.getEncoder().getPosition() < value) RotateLeftArm(rotateSpeed);
     else if(rightBaby.getEncoder().getPosition() < value) RotateRightArm(-rotateSpeed);
+    else StopBabies();
   }
 
   public void RotateBabiesBackwardsToEncoder(double value) {
@@ -168,6 +172,7 @@ public class Climber extends SubsystemBase {
       RotateArmsBackwards();
     else if(leftBaby.getEncoder().getPosition() > value) RotateLeftArm(-rotateSpeed);
     else if(rightBaby.getEncoder().getPosition() > value) RotateRightArm(rotateSpeed);
+    else StopBabies();
   }
 
   // Encoder Stuff

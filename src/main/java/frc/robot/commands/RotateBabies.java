@@ -65,7 +65,7 @@ public class RotateBabies extends CommandBase {
       climber.RotateRightBaby(rightSpeed / 2);
     } else {
       climber.StopBabies();
-    }
+    } 
   }
 
   private void RotateBackwards() {
