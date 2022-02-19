@@ -48,6 +48,12 @@ public final class Constants {
         public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(8, MotorType.kBrushless);
         public static final CANSparkMax LEFT_BABY = new CANSparkMax(9, MotorType.kBrushless);
         public static final CANSparkMax RIGHT_BABY = new CANSparkMax(10, MotorType.kBrushless);
+
+        // Shooter
+        public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(8, MotorType.kBrushless);
+        public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(6, MotorType.kBrushless);
+        public static final CANSparkMax TURRET = new CANSparkMax(7, MotorType.kBrushless);
+        public static final CANSparkMax ANGLE = new CANSparkMax(8, MotorType.kBrushless);
     }
 
     public final static class Joysticks {
