@@ -1,4 +1,4 @@
-package frc.robot.commands.EncoderClimbCommands;
+package frc.robot.commands.CommandsOneButtonClimb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
@@ -21,16 +21,16 @@ public class MoveLongArmsToEncoder extends CommandBase {
   public void execute() {
     if(extend) {
       climber.ExtendArmsToEncoder(value);
-      if(climber.GetEncoders("Left Extender").getPosition() >= value && climber.GetEncoders("Left Extender").getPosition() >= value) end(true);
+      if(climber.GetEncoders("Left Extender").getPosition() >= value && climber.GetEncoders("Right Extender").getPosition() >= value) end(true);
     }
     else if(!extend) {
       climber.RetractArmsToEncoder(value);
-      if(climber.GetEncoders("Left Extender").getPosition() <= value && climber.GetEncoders("Left Extender").getPosition() <= value) end(true);
+      if(climber.GetEncoders("Left Extender").getPosition() <= value && climber.GetEncoders("Right Extender").getPosition() <= value) end(true);
     } 
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {climber.StopLongLongArms();}
 
   @Override
   public boolean isFinished() {return false;}

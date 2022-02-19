@@ -6,119 +6,104 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Buttons;
+import frc.robot.Constants.EncoderMaxes;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Climber.EncoderValues;
 
 public class MoveLongArms extends CommandBase {
   private final Climber climber;
-  private double leftEPos, rightEPos, leftAPos, rightAPos;
-  private double leftSpeed = 0.2;
-  private double rightSpeed = -0.2;
-  private final double ExtendMax = 20;
-  private final double AngleMax = 0;
-  private boolean extending, contracting, rotatingClockwise, rotatingCounterClockwise = false;
+  private double leftSpeed = 0.5;
+  private double rightSpeed = -0.5;
+  private double button;
+  private boolean usingEncoders;
 
-  /** Creates a new MoveLongArms. */
-  public MoveLongArms(Climber climber) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public MoveLongArms(Climber climber, double button, boolean usingEncoders) {
     this.climber = climber;
+    this.button = button;
+    this.usingEncoders = usingEncoders;
     addRequirements(climber);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    leftEPos = climber.GetEncoders("Left Encoder").getPosition();
-    rightEPos = -climber.GetEncoders("Right Encoder").getPosition();
-    leftAPos = climber.GetEncoders("Left Angle").getPosition();
-    rightAPos = -climber.GetEncoders("Right Angle").getPosition();
+    if (!usingEncoders) return;
 
-    SmartDashboard.putNumber("Left Extender Position", leftEPos);
-    SmartDashboard.putNumber("Right Extender Position", rightEPos);
-    SmartDashboard.putNumber("Left Angle Position", leftAPos);
-    SmartDashboard.putNumber("Right Angle Position", rightAPos);
+    SmartDashboard.putBoolean("Left Extender < max", EncoderValues.leftArm < EncoderMaxes.LEFT_MAX);
+    SmartDashboard.putBoolean("Right Extender < max", EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX);
+    SmartDashboard.putBoolean("Left Angle < max", EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX);
+    SmartDashboard.putBoolean("Right Angle < max", EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX);
 
-    SmartDashboard.putBoolean("Left Extender < max", leftEPos < ExtendMax);
-    SmartDashboard.putBoolean("Right Extender < max", rightEPos < ExtendMax);
-    SmartDashboard.putBoolean("Left Angle < max", leftAPos < ExtendMax);
-    SmartDashboard.putBoolean("Right Angle < max", rightAPos < ExtendMax);
-
-    // Extend
-    if(Buttons.J_BUTTON_ONE.get() || extending) {
-      if (leftEPos < ExtendMax && rightEPos < ExtendMax) {
-        climber.MoveLeftArm(leftSpeed);
-        climber.MoveRightArm(rightSpeed);
-      } else if (leftEPos < ExtendMax) {
-        climber.MoveLeftArm(leftSpeed);
-      } else if (rightEPos < ExtendMax) {
-        climber.MoveRightArm(rightSpeed);
-      } else {
-        extending = false;
-        climber.StopLongLongArms();
-      }
-    }
-    
-    // Contract
-    else if (Buttons.J_BUTTON_TWO.get() || contracting) {
-      if (leftEPos > 2 && rightEPos < 2) {
-        climber.MoveLeftArm(-leftSpeed);
-        climber.MoveRightArm(-rightSpeed);
-      } else if (leftEPos > 2) {
-        climber.MoveLeftArm(-leftSpeed);
-      } else if (rightEPos > 2) {
-        climber.MoveRightArm(-rightSpeed);
-      } else {
-        contracting = false;
-        climber.StopLongLongArms();
-      }
-    }
+    if(button == 1) ExtendArmsEncoders();
+    else if (button == 2) ContractArmsEncoder();
     else climber.StopLongLongArms();
 
-    // Rotate Clockwise
-    if (false && Buttons.J_BUTTON_THREE.get() || rotatingClockwise) {
-      if (leftAPos < AngleMax && rightAPos < AngleMax) {
-        climber.RotateLeftBigArm(leftSpeed / 2);
-        climber.RotateRightBigArm(rightSpeed / 2);
-      } else if (leftAPos < AngleMax) {
-        climber.RotateLeftBigArm(leftSpeed / 2);
-      } else if (rightAPos < AngleMax) {
-        climber.RotateRightBigArm(rightSpeed / 2);
-      } else {
-        rotatingClockwise = false;
-        climber.StopLongArmRotate();
-      }
-    }
-    
-    // Rotate Counter Clockwise
-    else if (false && Buttons.J_BUTTON_FOUR.get() || rotatingCounterClockwise) {
-      if (leftAPos > 2 && rightAPos < 2) {
-        climber.RotateLeftBigArm(-leftSpeed / 2);
-        climber.RotateRightBigArm(-rightSpeed / 2);
-      } else if (leftEPos > 2) {
-        climber.RotateLeftBigArm(-leftSpeed / 2);
-      } else if (rightEPos > 2) {
-        climber.RotateRightBigArm(-rightSpeed / 2);
-      } else {
-        rotatingCounterClockwise = false;
-        climber.StopLongArmRotate();
-      }
-    }
-    // else climber.StopLongArmRotate();
+    if (button == 3) RotateForwards();
+    else if (button == 4) RotateBackwards();
+    else button = 0;
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     climber.StopLongLongArms();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  private void ExtendArmsEncoders() {
+    if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX && EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
+      climber.MoveLeftArm(leftSpeed);
+      climber.MoveRightArm(rightSpeed);
+    } else if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX) {
+      climber.MoveLeftArm(leftSpeed);
+    } else if (EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
+      climber.MoveRightArm(rightSpeed);
+    } else {
+      climber.StopLongLongArms();
+    }
+  }
+
+  private void ContractArmsEncoder() {
+    if (EncoderValues.leftArm > 0 && EncoderValues.rightArm < 2) {
+      climber.MoveLeftArm(-leftSpeed);
+      climber.MoveRightArm(-rightSpeed);
+    } else if (EncoderValues.leftArm > 0) {
+      climber.MoveLeftArm(-leftSpeed);
+    } else if (EncoderValues.rightArm > 0) {
+      climber.MoveRightArm(-rightSpeed);
+    } else {
+      climber.StopLongLongArms();
+    }
+  }
+
+  private void RotateForwards() {
+    if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX && EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
+      climber.RotateLeftArm(leftSpeed / 2);
+      climber.RotateRightArm(rightSpeed / 2);
+    } else if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX) {
+      climber.RotateLeftArm(leftSpeed / 2);
+    } else if (EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
+      climber.RotateRightArm(rightSpeed / 2);
+    } else {
+      climber.StopArmsRotate();
+    }
+  }
+
+  private void RotateBackwards() {
+    if (EncoderValues.leftArmAngle > 0 && EncoderValues.rightArmAngle < 0) {
+      climber.RotateLeftArm(-leftSpeed / 2);
+      climber.RotateRightArm(-rightSpeed / 2);
+    } else if (EncoderValues.leftArmAngle > 0) {
+      climber.RotateLeftArm(-leftSpeed / 2);
+    } else if (EncoderValues.rightArmAngle > 0) {
+      climber.RotateRightArm(-rightSpeed / 2);
+    } else {
+      climber.StopArmsRotate();
+    }
   }
 }

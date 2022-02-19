@@ -12,6 +12,9 @@
       ".status": {
         "open": true
       },
+      "Climber": {
+        "open": true
+      },
       "open": true
     },
     "SmartDashboard": {
