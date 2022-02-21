@@ -7,7 +7,6 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -20,15 +19,15 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.Motors;
 import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
 
 public class Drivetrain extends SubsystemBase {
-  private final CANSparkMax frontLeft = new CANSparkMax(Constants.DRIVE_FRONT_LEFT, MotorType.kBrushless);
-  private final CANSparkMax backLeft = new CANSparkMax(Constants.DRIVE_BACK_LEFT, MotorType.kBrushless);
-  private final CANSparkMax frontRight = new CANSparkMax(Constants.DRIVE_FRONT_RIGHT, MotorType.kBrushless);
-  private final CANSparkMax backRight = new CANSparkMax(Constants.DRIVE_BACK_RIGHT, MotorType.kBrushless);
+  private final CANSparkMax frontLeft = Motors.DRIVE_FRONT_LEFT;
+  private final CANSparkMax backLeft = Motors.DRIVE_BACK_LEFT;
+  private final CANSparkMax frontRight = Motors.DRIVE_FRONT_RIGHT;
+  private final CANSparkMax backRight = Motors.DRIVE_BACK_RIGHT;
 
   // The robot's drive
   public final MecanumDrive m_drive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);

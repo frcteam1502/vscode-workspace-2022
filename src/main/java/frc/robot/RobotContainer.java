@@ -8,13 +8,14 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.Joysticks;
+import frc.robot.Constants.Motors;
 import frc.robot.commands.AutoSimple;
 import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
   //TeleOp Subsystems
   public final Drivetrain m_drive = new Drivetrain();
-  public Intake intake = new Intake(Constants.INTAKE);
+  public Intake intake = new Intake(Motors.INTAKE);
 
   //TeleOp Commands
   public RunIntake runIntake = new RunIntake(intake);
@@ -29,9 +30,9 @@ public class RobotContainer {
 
   public RobotContainer() {
     m_drive.setDefaultCommand(new RunCommand(() -> m_drive.move(
-            Joysticks.rightJoystick.getX(),
-            Joysticks.rightJoystick.getY(),
-            Joysticks.rightJoystick.getZ()), 
+            Joysticks.RIGHT_JOYSTICK.getX(),
+            Joysticks.RIGHT_JOYSTICK.getY(),
+            Joysticks.RIGHT_JOYSTICK.getZ()), 
           m_drive));
     configureButtonBindings();
     setUpMChooser();
@@ -51,8 +52,3 @@ public class RobotContainer {
 
   private void configureButtonBindings() {}
 }
-// Change differnetial drive to mechanum
-// Change move
-// Change RamseteCommand to pathplanner PPSwerveControllerCommand
-// /\ Use _____ instead of tankVolts
-// Move sequential Command
