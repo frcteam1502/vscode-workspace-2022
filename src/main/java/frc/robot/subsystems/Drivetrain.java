@@ -12,7 +12,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -24,6 +24,7 @@ import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
 
 public class Drivetrain extends SubsystemBase {
+  // The motors
   private final CANSparkMax frontLeft = Motors.DRIVE_FRONT_LEFT;
   private final CANSparkMax backLeft = Motors.DRIVE_BACK_LEFT;
   private final CANSparkMax frontRight = Motors.DRIVE_FRONT_RIGHT;
@@ -42,7 +43,9 @@ public class Drivetrain extends SubsystemBase {
   private final Gyro m_gyro = new ADXRS450_Gyro();
 
   // Odometry class for tracking robot pose
-  private final DifferentialDriveOdometry m_odometry;
+  private final SwerveDriveOdometry m_odometry;
+
+  private SwerveModuleState[] state;
 
   public Drivetrain() {    
     leftFrontEncoder= frontLeft.getEncoder();
@@ -53,7 +56,6 @@ public class Drivetrain extends SubsystemBase {
     backRight.setInverted(true);
     frontRight.setInverted(true);
 
-
     // Sets the distance per pulse for the encoders
     this.leftFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.leftBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -61,7 +63,7 @@ public class Drivetrain extends SubsystemBase {
     this.rightBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
 
     resetEncoders();
-    m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
+    m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
   }
 
   public void move(double ySpeed, double xSpeed, double zRotation) {
@@ -73,8 +75,7 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_odometry.update(
-        m_gyro.getRotation2d(), this.leftFrontEncoder.getPosition(), this.rightFrontEncoder.getPosition());
+    if(state != null) m_odometry.update(m_gyro.getRotation2d(), state);
   }
 
   /**
@@ -137,6 +138,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void toWheelSpeed(SwerveModuleState... state) {
+    this.state = state;
     ChassisSpeeds speed = DriveConstants.kDriveKinematics.toChassisSpeeds(state);
     move(speed.vyMetersPerSecond, speed.vxMetersPerSecond, speed.omegaRadiansPerSecond);
   }
@@ -173,6 +175,5 @@ public class Drivetrain extends SubsystemBase {
     array.add(backRight);
     if (motor >= 0 && motor <= 3) return array.get(motor);
     else return null;
-    
   }
 }

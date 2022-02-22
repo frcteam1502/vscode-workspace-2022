@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -13,16 +12,12 @@ public class PathFindingConstants {
         public static final double kPDriveVel = 0.21646;
         
         public static final double kTrackwidthMeters = 0.54483;
-        public static final Rotation2d fLeft = new Rotation2d(-0.643, 0.766);
-        public static final Rotation2d fRight = new Rotation2d(0.643, 0.766);
-        public static final Rotation2d bLeft = new Rotation2d(-0.643, -0.766);
-        public static final Rotation2d bRight = new Rotation2d(0.643, -0.766);
-        public static final Translation2d frontLeft = new Translation2d(.4064, fLeft);
-        public static final Translation2d frontRight = new Translation2d(.4064, fRight);
-        public static final Translation2d backLeft = new Translation2d(.4064, bLeft);
-        public static final Translation2d backRight = new Translation2d(.4064, bRight);
+        public static final Translation2d frontLeft = new Translation2d(0.2286, 0.257175);
+        public static final Translation2d frontRight = new Translation2d(0.2286, -0.257175);
+        public static final Translation2d backLeft = new Translation2d(-0.2286, 0.257175);
+        public static final Translation2d backRight = new Translation2d(-0.2286, -0.257175);
         public static final SwerveDriveKinematics kDriveKinematics =
-            new SwerveDriveKinematics(frontLeft, backLeft, frontRight, backRight);
+            new SwerveDriveKinematics(frontLeft, frontRight, backLeft, backRight);
         public static final ProfiledPIDController PIDController = 
             new ProfiledPIDController(kPDriveVel, 0, 0, new Constraints(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared));    
     
@@ -34,7 +29,7 @@ public class PathFindingConstants {
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
       public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = .5;
-        public static final double kMaxAccelerationMetersPerSecondSquared = .5;
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 4;
       }
 }
