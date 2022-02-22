@@ -49,13 +49,13 @@ public class Intake extends SubsystemBase {
 
   public void deployIntake(boolean deployed, boolean retracted){
     if (deployed == false){
-      deployL.set(0.25);
+//      deployL.set(0.25);
     }
     else if (retracted == false){
-      deployL.set(-0.25);
+//      deployL.set(-0.25);
     }
     else{
-      deployL.set(0);
+//      deployL.set(0);
     }
   }
 
