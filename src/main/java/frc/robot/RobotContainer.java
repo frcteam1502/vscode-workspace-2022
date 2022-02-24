@@ -5,12 +5,11 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import frc.robot.Constants.Buttons;
 import frc.robot.Constants.Motors;
-import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveLongArms;
 import frc.robot.commands.MoveTurret;
@@ -25,7 +24,6 @@ import frc.robot.subsystems.Turret;
 public class RobotContainer {
   
   // The robot's subsystems and commands are defined here...
-
   private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
     Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
@@ -51,21 +49,23 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    XboxButtons.LEFT_BUMPER.toggleWhenPressed(new MoveLongArms(climber, 1, false));
-    XboxButtons.RIGHT_BUMPER.toggleWhenPressed(new MoveLongArms(climber, 2, false));
-    XboxButtons.BUTTON_Y.toggleWhenPressed(new MoveLongArms(climber, 3, false));
-    XboxButtons.BUTTON_A.toggleWhenPressed(new MoveLongArms(climber, 4, false));
-    XboxButtons.BUTTON_X.toggleWhenPressed(new RotateBabies(climber, 5, false));
-    XboxButtons.BUTTON_B.toggleWhenPressed(new RotateBabies(climber, 6, false));
+    Buttons.LEFT_BUMPER.toggleWhenPressed(new MoveLongArms(climber, 1, false));
+    Buttons.RIGHT_BUMPER.toggleWhenPressed(new MoveLongArms(climber, 2, false));
+    Buttons.BUTTON_Y.toggleWhenPressed(new MoveLongArms(climber, 3, false));
+    Buttons.BUTTON_A.toggleWhenPressed(new MoveLongArms(climber, 4, false));
+    Buttons.BUTTON_X.toggleWhenPressed(new RotateBabies(climber, 5, false));
+    Buttons.BUTTON_B.toggleWhenPressed(new RotateBabies(climber, 6, false));
 
-      XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
-      XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
+    Buttons.MODE_BUTTON.whenPressed(new InstantCommand(climber::toggleMode));
 
-      XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
-      XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
+    Buttons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
+    Buttons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
 
-      XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
-      XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
+    Buttons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
+    Buttons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
+
+    Buttons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
+    Buttons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
   }
 
   public Command getAutonomousCommand() {

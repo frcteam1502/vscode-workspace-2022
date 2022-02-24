@@ -74,8 +74,8 @@ public final class Constants {
         public static final JoystickButton BUTTON_B = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kB.value); // Rotate babies Counter Clockwise
         public static final JoystickButton BACK = new JoystickButton(Joysticks.CONTROLLER, 7);
         // I dont know the values for these
-        //public static final JoystickButton LEFT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 12);
-        //public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 13);
+        public static final JoystickButton LEFT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 12);
+        public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 13);
         public static final JoystickButton LEFT_STICK = new JoystickButton(Joysticks.CONTROLLER, 14);
         public static final JoystickButton RIGHT_STICK = new JoystickButton(Joysticks.CONTROLLER, 15);
     }

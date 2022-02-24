@@ -14,7 +14,7 @@ import frc.robot.commands.MoveTurret;
 
 public class Turret extends SubsystemBase {
 
-  private static CANSparkMax turretMotor;
+  private CANSparkMax turretMotor;
   
   public Turret(CANSparkMax turretMotor) {
     setDefaultCommand(new MoveTurret(this));
