@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
@@ -12,16 +13,12 @@ public class PathFindingConstants {
         public static final double kPDriveVel = 0.21646;
         
         public static final double kTrackwidthMeters = 0.54483;
-        public static final SwerveDriveKinematics kDriveKinematics =
-            new SwerveDriveKinematics(
-                //Front Left
-                new Translation2d(0.2286, 0.257175), 
-                //Front Right
-                new Translation2d(0.2286, -0.257175), 
-                //Back Left
-                new Translation2d(-0.2286, 0.257175), 
-                //Back Right
-                new Translation2d(-0.2286, -0.257175));
+        public static final Translation2d frontLeft = new Translation2d(0.2286, 0.257175);
+        public static final Translation2d frontRight = new Translation2d(0.2286, -0.257175);
+        public static final Translation2d backLeft = new Translation2d(-0.2286, 0.257175);
+        public static final Translation2d backRight = new Translation2d(-0.2286, -0.257175);
+        public static final MecanumDriveKinematics kMecanumKinematics = new MecanumDriveKinematics(frontLeft, frontRight, backLeft, backRight);
+        public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(frontLeft, frontRight, backLeft, backRight);
         public static final ProfiledPIDController PIDController = 
             new ProfiledPIDController(kPDriveVel, 0, 0, new Constraints(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared));    
     
@@ -33,7 +30,7 @@ public class PathFindingConstants {
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
       public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = .1;
-        public static final double kMaxAccelerationMetersPerSecondSquared = .05;
+        public static final double kMaxSpeedMetersPerSecond = 1;
+        public static final double kMaxAccelerationMetersPerSecondSquared = .5;
       }
 }

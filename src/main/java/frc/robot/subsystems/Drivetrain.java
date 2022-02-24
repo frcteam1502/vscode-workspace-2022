@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import frc.robot.PathFindingConstants.DriveConstants;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 
 public class Drivetrain extends SubsystemBase {
   // The motors
@@ -107,7 +108,11 @@ public class Drivetrain extends SubsystemBase {
   public void toWheelSpeed(SwerveModuleState... state) {
     ChassisSpeeds speed = DriveConstants.kDriveKinematics.toChassisSpeeds(state);
     m_odometry.update(m_gyro.getRotation2d(), state);
-    move(-speed.vyMetersPerSecond, speed.vxMetersPerSecond, -speed.omegaRadiansPerSecond);
+    MecanumDriveWheelSpeeds wheelSpeeds = DriveConstants.kMecanumKinematics.toWheelSpeeds(speed);
+    frontLeft.set(wheelSpeeds.frontLeftMetersPerSecond);
+    frontRight.set(wheelSpeeds.frontRightMetersPerSecond);
+    backLeft.set(wheelSpeeds.rearLeftMetersPerSecond);
+    backRight.set(wheelSpeeds.rearRightMetersPerSecond);
   }
 
   public Command createTrajectoryCommand(PathPlannerTrajectory trajectory) {
