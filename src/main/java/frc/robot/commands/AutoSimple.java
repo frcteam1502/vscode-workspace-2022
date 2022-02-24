@@ -13,7 +13,7 @@ public class AutoSimple extends CommandBase {
   Drivetrain drivetrain;
   Intake intake;
 
-  public AutoSimple(Drivetrain drivetrain, Intake intake) {
+  public AutoSimple(Drivetrain drivetrain/*, Intake intake*/) {
     addRequirements(drivetrain);
     addRequirements(intake);
     this.drivetrain = drivetrain;

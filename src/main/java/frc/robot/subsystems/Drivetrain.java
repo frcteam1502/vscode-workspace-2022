@@ -55,7 +55,7 @@ public class Drivetrain extends SubsystemBase {
     resetEncoders();
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
 
-    setMaxOutput(1);
+    setMaxOutput(.3);
   }
 
   public void move(double ySpeed, double xSpeed, double zRotation) {
