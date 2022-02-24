@@ -33,6 +33,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void MecanumDrive(double xSpeed, double ySpeed, double zRotation) {
+    xSpeed /= 2;
+    ySpeed /= 2;
+    zRotation *= 0.75;
+
     frontLeft.set(ySpeed + xSpeed + zRotation);
     backLeft.set(ySpeed - xSpeed + zRotation);
     frontRight.set((ySpeed - xSpeed - zRotation));
