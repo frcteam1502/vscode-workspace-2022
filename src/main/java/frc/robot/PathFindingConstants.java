@@ -12,12 +12,16 @@ public class PathFindingConstants {
         public static final double kPDriveVel = 0.21646;
         
         public static final double kTrackwidthMeters = 0.54483;
-        public static final Translation2d frontLeft = new Translation2d(0.2286, 0.257175);
-        public static final Translation2d frontRight = new Translation2d(0.2286, -0.257175);
-        public static final Translation2d backLeft = new Translation2d(-0.2286, 0.257175);
-        public static final Translation2d backRight = new Translation2d(-0.2286, -0.257175);
         public static final SwerveDriveKinematics kDriveKinematics =
-            new SwerveDriveKinematics(frontLeft, frontRight, backLeft, backRight);
+            new SwerveDriveKinematics(
+                //Front Left
+                new Translation2d(0.2286, 0.257175), 
+                //Front Right
+                new Translation2d(0.2286, -0.257175), 
+                //Back Left
+                new Translation2d(-0.2286, 0.257175), 
+                //Back Right
+                new Translation2d(-0.2286, -0.257175));
         public static final ProfiledPIDController PIDController = 
             new ProfiledPIDController(kPDriveVel, 0, 0, new Constraints(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared));    
     
@@ -29,7 +33,7 @@ public class PathFindingConstants {
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
       public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 4;
+        public static final double kMaxSpeedMetersPerSecond = .1;
+        public static final double kMaxAccelerationMetersPerSecondSquared = .05;
       }
 }

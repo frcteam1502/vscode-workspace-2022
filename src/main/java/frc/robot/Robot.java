@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    m_robotContainer.m_drive.m_drive.setSafetyEnabled(false);
+    //m_robotContainer.m_drive.m_drive.setSafetyEnabled(false);
   }
 
   @Override

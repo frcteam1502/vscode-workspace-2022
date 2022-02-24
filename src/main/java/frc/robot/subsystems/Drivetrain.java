@@ -1,14 +1,10 @@
 package frc.robot.subsystems;
 
 import java.util.ArrayList;
-
-import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -20,7 +16,6 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
-import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -45,18 +40,12 @@ public class Drivetrain extends SubsystemBase {
   // Odometry class for tracking robot pose
   private final SwerveDriveOdometry m_odometry;
 
-  private SwerveModuleState[] state;
-
   public Drivetrain() {    
     leftFrontEncoder= frontLeft.getEncoder();
     leftBackEncoder= backLeft.getEncoder();
     rightFrontEncoder= frontRight.getEncoder();
     rightBackEncoder= backRight.getEncoder();
 
-    backRight.setInverted(true);
-    frontRight.setInverted(true);
-
-    // Sets the distance per pulse for the encoders
     this.leftFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.leftBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.rightFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -64,19 +53,16 @@ public class Drivetrain extends SubsystemBase {
 
     resetEncoders();
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
+
+    setMaxOutput(1);
   }
 
   public void move(double ySpeed, double xSpeed, double zRotation) {
-    ySpeed = MathUtil.clamp(ySpeed, -1.0, 1.0);
-    xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
-
     m_drive.driveCartesian(ySpeed, xSpeed, zRotation);
   }
 
   @Override
-  public void periodic() {
-    if(state != null) m_odometry.update(m_gyro.getRotation2d(), state);
-  }
+  public void periodic() {}
 
   /**
    * Returns the currently-estimated pose of the robot.
@@ -97,7 +83,6 @@ public class Drivetrain extends SubsystemBase {
     m_odometry.resetPosition(pose, m_gyro.getRotation2d());
   }
 
-  /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
     this.leftFrontEncoder.setPosition(0);
     this.leftBackEncoder.setPosition(0);
@@ -119,31 +104,13 @@ public class Drivetrain extends SubsystemBase {
     m_gyro.reset();
   }
 
-  /**
-   * Returns the heading of the robot.
-   *
-   * @return the robot's heading in degrees, from -180 to 180
-   */
-  public double getHeading() {
-    return m_gyro.getRotation2d().getDegrees();
-  }
-
-  /**
-   * Returns the turn rate of the robot.
-   *
-   * @return The turn rate of the robot, in degrees per second
-   */
-  public double getTurnRate() {
-    return -m_gyro.getRate();
-  }
-
   public void toWheelSpeed(SwerveModuleState... state) {
-    this.state = state;
     ChassisSpeeds speed = DriveConstants.kDriveKinematics.toChassisSpeeds(state);
-    move(speed.vyMetersPerSecond, speed.vxMetersPerSecond, speed.omegaRadiansPerSecond);
+    m_odometry.update(m_gyro.getRotation2d(), state);
+    move(-speed.vyMetersPerSecond, speed.vxMetersPerSecond, -speed.omegaRadiansPerSecond);
   }
 
-  public Command createPPCommand(PathPlannerTrajectory trajectory) {
+  public Command createTrajectoryCommand(PathPlannerTrajectory trajectory) {
     PPSwerveControllerCommand PPCommand =
       new PPSwerveControllerCommand(
        trajectory,
@@ -156,11 +123,6 @@ public class Drivetrain extends SubsystemBase {
        this
        );
       return PPCommand.andThen(() -> stopmotors());
-  }
-
-  public Command createTrajectoryCommand(String name) {
-    PathPlannerTrajectory path = PathPlanner.loadPath(name, AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
-    return createPPCommand(path);
   }
 
   public void stopmotors() {
