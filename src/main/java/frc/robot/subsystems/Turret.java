@@ -27,9 +27,9 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public static void turnTurret(){
+  public void turnTurret(){
     
-    if ((Limelight.area > 0) && (Limelight.x < 5) && (Limelight.x > -5)){
+    /*if ((Limelight.area > 0) && (Limelight.x < 5) && (Limelight.x > -5)){
       turretMotor.set(0);
     }
 
@@ -39,6 +39,7 @@ public class Turret extends SubsystemBase {
       turretMotor.set(-0.1);
     }
 
-  }
+  }*/
 
+}
 }

@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DriveByJoysticks;
 
@@ -24,30 +23,22 @@ public class Drivetrain extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void periodic() {}
+
+  public void TankDrive(double leftSpeed, double rightSpeed) {
+    frontLeft.set(leftSpeed);
+    backLeft.set(leftSpeed);
+    frontRight.set(rightSpeed);
+    backRight.set(rightSpeed);
   }
 
-  public void move(double ySpeed, double xSpeed, double zRotation) {
-    ySpeed = MathUtil.clamp(ySpeed, -1.0, 1.0);
-    xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
+  public void MecanumDrive(double xSpeed, double ySpeed, double zRotation) {
+    frontLeft.set(ySpeed + xSpeed + zRotation);
+    backLeft.set(ySpeed - xSpeed + zRotation);
+    frontRight.set((ySpeed - xSpeed - zRotation));
+    backRight.set((ySpeed + xSpeed - zRotation));
 
-    frontLeft.set(xSpeed + ySpeed + zRotation);
-    frontRight.set(xSpeed - ySpeed - zRotation);
-    backLeft.set(xSpeed - ySpeed + zRotation);
-    backRight.set(xSpeed + ySpeed - zRotation);
-    
-    SmartDashboard.putNumber("Y Speed", ySpeed);
-    SmartDashboard.putNumber("X Speed", xSpeed);
-    SmartDashboard.putNumber("Z Rotation", zRotation);
-  }
-
-  // Temporary motor test methods
-  public void testMotorOn() {
-    frontLeft.set(0.2);
-  }
-
-  public void testMotorOff() {
-    frontLeft.set(0);
+    MathUtil.applyDeadband(xSpeed, 0.02);
+    MathUtil.applyDeadband(ySpeed, 0.02);
   }
 }

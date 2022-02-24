@@ -12,13 +12,14 @@ import frc.robot.commands.Shoot;
 
 public class Shooter extends SubsystemBase {
 
-  private CANSparkMax shooterRight, shooterLeft;
+  private CANSparkMax shooterRight, shooterLeft, indexWheel;
 
 
-  public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft) {
+  public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel) {
     setDefaultCommand(new Shoot(this));
     this.shooterRight = shooterRight;
     this.shooterLeft = shooterLeft;
+    this.indexWheel = indexWheel;
     
   }
 
@@ -37,6 +38,16 @@ public class Shooter extends SubsystemBase {
 
       shooterRight.set(0);
       shooterLeft.set(0);
+  }
+
+  public void indexBall(){
+
+    indexWheel.set(0.25);
+  }
+
+  public void indexBallRev(){
+
+    indexWheel.set(-0.25);
   }
 
 

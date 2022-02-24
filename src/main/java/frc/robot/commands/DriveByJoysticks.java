@@ -20,20 +20,12 @@ public class DriveByJoysticks extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getZ());
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.move(
-      Joysticks.JOYSTICK.getX(),
-      Joysticks.JOYSTICK.getY(),
-      Joysticks.JOYSTICK.getZ());
+    drivetrain.MecanumDrive(Joysticks.JOYSTICK_LEFT.getX(), -Joysticks.JOYSTICK_LEFT.getY(), Joysticks.JOYSTICK_RIGHT.getX());
   }
 
   // Called once the command ends or is interrupted.
