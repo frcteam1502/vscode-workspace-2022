@@ -7,9 +7,11 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -20,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    /*
     public enum Encoders {
         LeftArmAngleEncoder (Motors.LEFT_ARM_ANGLE.getEncoder()),
         RightArmAngleEncoder (Motors.RIGHT_ARM_ANGLE.getEncoder()),
@@ -32,9 +35,11 @@ public final class Constants {
         Encoders(RelativeEncoder encoder) {
           this.Encoder = encoder;
         }
+        
     }
-    
+    */
     public final static class Motors {
+        /*
         // Drivetrain
         public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
         public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
@@ -52,10 +57,18 @@ public final class Constants {
         // Shooter
         public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
         public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(14, MotorType.kBrushless);
-        public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);
+        */
+        public static final CANSparkMax TURRET = new CANSparkMax(17, MotorType.kBrushless);// TODO: change back from 17 to 5
+        /*
         public static final CANSparkMax ANGLE = new CANSparkMax(2, MotorType.kBrushless);
         public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
+        */
     }
+
+    /*public static final class limitSwitches {
+    public boolean rightlimitSwitch = new DigitalInput(0);
+    DigitalInput leftlimitSwitch = new DigitalInput(1);
+    } TODO: make limit switch class maybe*/
 
     public final static class Joysticks {
         public static final Joystick JOYSTICK_LEFT = new Joystick(0);

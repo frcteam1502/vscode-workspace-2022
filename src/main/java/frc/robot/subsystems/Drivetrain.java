@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+/*
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
@@ -13,7 +13,7 @@ import frc.robot.commands.DriveByJoysticks;
 public class Drivetrain extends SubsystemBase {
   private CANSparkMax frontLeft, frontRight, backLeft, backRight;
 
-  /** Creates a new Drivetrain. */
+  // Creates a new Drivetrain. 
   public Drivetrain(CANSparkMax driveFrontLeft, CANSparkMax driveFrontRight, CANSparkMax driveBackLeft, CANSparkMax driveBackRight) {
     setDefaultCommand(new DriveByJoysticks(this));
     this.frontLeft = driveFrontLeft;
@@ -42,3 +42,4 @@ public class Drivetrain extends SubsystemBase {
     MathUtil.applyDeadband(ySpeed, 0.02);
   }
 }
+*/
