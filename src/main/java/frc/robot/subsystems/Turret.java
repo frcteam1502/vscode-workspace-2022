@@ -47,31 +47,20 @@ public class Turret extends SubsystemBase {
       else if (Limelight.x > 3)//change to right side of camera screen
       {
         if(breek == "left"){
-        turretMotor.set(0.1);
+          turretMotor.set(0.1);
         }
         else{
           turretMotor.set(-0.1);
         }
       }  
-      else if (Limelight.x < -3)//change to left side of camera screen
-      {
+      else if (Limelight.x < -3){//change to left side of camera screen
         if(breek == "right"){
-        turretMotor.set(-0.1);
-      } 
-      else{
-        turretMotor.set(0.1);
+          turretMotor.set(-0.1);
+        } 
+        else{
+          turretMotor.set(0.1);
+        }
       }
     }
-    /*if (( (Limelight.x < 3) && (Limelight.x > -3)){
-      turretMotor.set(0);
-     }
-     else if (Limelight.x > 0 ){
-      turretMotor.set(0.1);
-     } 
-     else if (Limelight.x < 0){
-      turretMotor.set(-0.1);
-     }*/
-  
-
   }
 } 
