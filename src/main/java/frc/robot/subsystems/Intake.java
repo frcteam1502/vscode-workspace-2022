@@ -11,7 +11,7 @@ import frc.robot.commands.RunIntake;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeL;
-  /** Creates a new Intake. */
+
   public Intake(CANSparkMax intakeP) {
     setDefaultCommand(new RunIntake(this));
     intakeL = intakeP;

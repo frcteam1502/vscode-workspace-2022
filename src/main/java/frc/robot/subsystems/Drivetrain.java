@@ -113,6 +113,7 @@ public class Drivetrain extends SubsystemBase {
     frontRight.set(wheelSpeeds.frontRightMetersPerSecond);
     backLeft.set(wheelSpeeds.rearLeftMetersPerSecond);
     backRight.set(wheelSpeeds.rearRightMetersPerSecond);
+    this.m_drive.feed();
   }
 
   public Command createTrajectoryCommand(PathPlannerTrajectory trajectory) {

@@ -15,18 +15,18 @@ import frc.robot.subsystems.Drivetrain;
 public class RobotContainer {
   //TeleOp Subsystems
   public final Drivetrain m_drive = new Drivetrain();
-  //public Intake intake = new Intake(Motors.INTAKE);
+  public Intake intake = new Intake(Motors.INTAKE);
 
   //TeleOp Commands
-  //public RunIntake runIntake = new RunIntake(intake);
+  public RunIntake runIntake = new RunIntake(intake);
 
   //Autonomous Commands
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
-  public AutoSimple simpleAuto = new AutoSimple(m_drive/*, intake*/);
+  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake);
  
   // TODO: Need to add the "shooting" aspect
-  public blue1 blue1 = new blue1(m_drive/*, intake*/);
+  public blue1 blue1 = new blue1(m_drive, intake);
 
   public RobotContainer() {
     m_drive.setDefaultCommand(new RunCommand(() -> m_drive.move(
