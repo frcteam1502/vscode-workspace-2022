@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Constants.Motors;
-import frc.robot.Constants.XboxButtons;
+//import frc.robot.Constants.XboxButtons;
 //import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveTurret;
 //import frc.robot.commands.Shoot;
@@ -34,7 +34,7 @@ public class RobotContainer {
   private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
   */
-  public static MoveTurret moveTurret = new MoveTurret(turret);
+  public MoveTurret moveTurret = new MoveTurret(turret);
   
   //private Shoot shoot = new Shoot(shooter);
 
