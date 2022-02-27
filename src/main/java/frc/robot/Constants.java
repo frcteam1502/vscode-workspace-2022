@@ -30,7 +30,7 @@ public final class Constants {
         RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
         LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
         RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
-        AngleEncoder (Motors.ANGLE.getEncoder());
+        FlapEncoder (Motors.FLAP.getEncoder());
     
         public RelativeEncoder Encoder;
         Encoders(RelativeEncoder encoder) {
@@ -61,7 +61,7 @@ public final class Constants {
         
         public static final CANSparkMax TURRET = new CANSparkMax(16, MotorType.kBrushless);// TODO: change back from 16 to 5
         
-        public static final CANSparkMax ANGLE = new CANSparkMax(2, MotorType.kBrushless);
+        public static final CANSparkMax FLAP = new CANSparkMax(2, MotorType.kBrushless);
 
         public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
         

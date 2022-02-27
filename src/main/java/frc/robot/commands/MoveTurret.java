@@ -6,16 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.AngleFlap;
+
 
 public class MoveTurret extends CommandBase {
 
   private final Turret turret;
-  
-  public MoveTurret(Turret subsystem) {
+  private final AngleFlap angleFlap;
 
-    addRequirements(subsystem);
-    turret = subsystem;
-    
+  public MoveTurret(Turret tsubsystem, AngleFlap fsubsystem) {
+
+    addRequirements(tsubsystem, fsubsystem);
+    turret = tsubsystem;
+    angleFlap = fsubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -26,6 +29,7 @@ public class MoveTurret extends CommandBase {
   @Override
   public void execute() {
     turret.turnTurret();
+    angleFlap.Moveflap();
   }
 
   // Called once the command ends or is interrupted.
