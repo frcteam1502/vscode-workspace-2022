@@ -18,16 +18,16 @@ public class AngleFlap extends SubsystemBase {
   private CANSparkMax flap;
   private Limelight m_limelight;
 
-  
-
-
-
   public AngleFlap(CANSparkMax flap) {
     //setDefaultCommand(new Shoot(this));
     this.flap = flap;
     this.m_limelight = new Limelight();
   }
   
+
+  private void sleep(int i) {
+  }
+
 
   @Override
   public void periodic() {
@@ -36,44 +36,51 @@ public class AngleFlap extends SubsystemBase {
 
   //TODO: test shoots at diffrent limelight y levels
   private double angle = -1;
-
+  private double flapmax = 50;
+  private double bound1 = -5;
+  private double bound2 = 5;
+  private double bound3 = 15;
+  
   private double Angle(){
     if (!m_limelight.target){// no target
-      double angle = -1;
+      angle = -1;
     }
-    else if(m_limelight.y <= -5){//shoot zone 1
+    else if(m_limelight.y <= bound1){//shoot zone 1
+      angle = m_limelight.y - bound1;
+    }
+    else if(m_limelight.y <= bound2 && m_limelight.y > bound1){//shoot zone 2
 
     }
-    else if(m_limelight.y <= 5 && m_limelight.y > -5){//shoot zone 2
-
-    }
-    else if(m_limelight.y <= 15 && m_limelight.y > 5){//shoot zone 3
-      
-    }
-    else if(m_limelight.y <= 25 && m_limelight.y > 15){//shoot zone 4
+    else if(m_limelight.y <= bound3 && m_limelight.y > bound2){//shoot zone 3
       
     }
     return angle;
   }
 
   public void Moveflap(){
+
     if (Angle() < 0){
       flap.set(0);
     }
-    //else if (Angle() >=  && Angle() <= -3){
-      //TODO: make encoders work
+    else if ((Angle() >= (EncoderValues.flap + 5)) && (Angle() <=  (EncoderValues.flap - 5))){
+      flap.set(0);
+    }
+    else if (Angle() >= (EncoderValues.flap + 5)){
+      flap.set(0.05);
+    }
+    else if (Angle() <=  (EncoderValues.flap - 5)){
+      flap.set(-0.05);
+    }
 
     }
    
 
-  }
+
 
   public void fResetEncoders() {
     this.flap.getEncoder().setPosition(0);
   }
 
-  public static class fEncoderValues {
-    public static double flap;
-  }
+
 
 }

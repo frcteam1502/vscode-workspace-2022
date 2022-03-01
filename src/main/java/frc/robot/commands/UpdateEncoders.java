@@ -8,37 +8,31 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Encoders;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Climber.EncoderValues;
+import frc.robot.subsystems.EncoderValues;
 import frc.robot.subsystems.AngleFlap;
-import frc.robot.subsystems.AngleFlap.fEncoderValues;
+
 
 public class UpdateEncoders extends CommandBase {
-  private Climber climber;
-  private AngleFlap flap;
+  private EncoderValues m_EncoderValues;
   // Creates a new UpdateEncoders. 
-  public UpdateEncoders(Climber climber) {
+  public UpdateEncoders(EncoderValues m_EncoderValues) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(climber);
-    this.climber = climber;
+    addRequirements(m_EncoderValues);
+    this.m_EncoderValues = m_EncoderValues;
   }
-  public UpdateEncoders(AngleFlap flap) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(flap);
-    this.flap = flap;
-  }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.ResetEncoders();
-    flap.fResetEncoders();
+    m_EncoderValues.ResetEncoders();
     EncoderValues.leftArm = 0;
     EncoderValues.rightArm = 0;
     EncoderValues.leftArmAngle = 0;
     EncoderValues.rightArmAngle = 0;
     EncoderValues.leftBaby = 0;
     EncoderValues.rightBaby = 0;
-    fEncoderValues.flap = 0;
+    EncoderValues.flap = 0;
   }
 
   @Override
@@ -49,7 +43,7 @@ public class UpdateEncoders extends CommandBase {
     EncoderValues.rightArmAngle = Encoders.RightArmAngleEncoder.Encoder.getPosition();
     EncoderValues.leftBaby = Encoders.LeftBabyEncoder.Encoder.getPosition();
     EncoderValues.rightBaby = Encoders.RightBabyEncoder.Encoder.getPosition();
-    fEncoderValues.flap = Encoders.FlapEncoder.Encoder.getPosition();
+    EncoderValues.flap = Encoders.FlapEncoder.Encoder.getPosition();
 
     SmartDashboard.putNumber("Encoders.LeftExtenderEncoder.Encoder.getPosition", Encoders.LeftExtenderEncoder.Encoder.getPosition());
     SmartDashboard.putNumber("Encoders.RightExtenderEncoder.Encoder.getPosition", Encoders.RightExtenderEncoder.Encoder.getPosition());
@@ -57,7 +51,7 @@ public class UpdateEncoders extends CommandBase {
     SmartDashboard.putNumber("Encoders.RightArmAngleEncoder.Encoder.getPosition", Encoders.RightArmAngleEncoder.Encoder.getPosition());
     SmartDashboard.putNumber("Encoders.LeftBabyEncoder.Encoder.getPosition", Encoders.LeftBabyEncoder.Encoder.getPosition());
     SmartDashboard.putNumber("Encoders.RightBabyEncoder.Encoder.getPosition", Encoders.RightBabyEncoder.Encoder.getPosition());
-    SmartDashboard.putNumber("fEncoders.Flap.Encoder.getPosition", Encoders.FlapEncoder.Encoder.getPosition());
+    SmartDashboard.putNumber("Encoders.Flap.Encoder.getPosition", Encoders.FlapEncoder.Encoder.getPosition());
 
     SmartDashboard.putNumber("EncoderValues.leftArm", EncoderValues.leftArm);
     SmartDashboard.putNumber("EncoderValues.rightArm", EncoderValues.rightArm);
@@ -65,7 +59,7 @@ public class UpdateEncoders extends CommandBase {
     SmartDashboard.putNumber("EncoderValues.rightArmAngle", EncoderValues.rightArmAngle);
     SmartDashboard.putNumber("EncoderValues.leftBaby", EncoderValues.leftBaby);
     SmartDashboard.putNumber("EncoderValues.rightBaby", EncoderValues.rightBaby);
-    SmartDashboard.putNumber("fEncoderValues.flap", fEncoderValues.flap);
+    SmartDashboard.putNumber("EncoderValues.flap", EncoderValues.flap);
     
   }
 

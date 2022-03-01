@@ -29,7 +29,7 @@ public class MoveTurret extends CommandBase {
   @Override
   public void execute() {
     turret.turnTurret();
-    angleFlap.Moveflap();
+    //angleFlap.Moveflap();
   }
 
   // Called once the command ends or is interrupted.
