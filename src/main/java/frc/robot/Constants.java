@@ -21,20 +21,20 @@ public final class Constants {
    
     
     public final static class Motors {
-        public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(1, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(3, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(2, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(4, MotorType.kBrushless);
-        public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(8, MotorType.kBrushless);
-        public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(6, MotorType.kBrushless);
-        public static final CANSparkMax TURRET = new CANSparkMax(7, MotorType.kBrushless);
-        public static final CANSparkMax ANGLE = new CANSparkMax(8, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(17, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(15, MotorType.kBrushless);
+        public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
+        public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(14, MotorType.kBrushless);
+        public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);
+        public static final CANSparkMax ANGLE = new CANSparkMax(2, MotorType.kBrushless);
     }
 
     public final static class Joysticks {
         public static final Joystick RIGHT_JOYSTICK = new Joystick(0);
         public static final Joystick LEFT_JOYSTICK = new Joystick(1);
-        public static final XboxController CONTROLLER = new XboxController(0);
+        public static final XboxController CONTROLLER = new XboxController(3);
     }
     
     public static final class Cameras {
