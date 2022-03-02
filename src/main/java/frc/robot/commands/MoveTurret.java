@@ -6,19 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
-import frc.robot.subsystems.AngleFlap;
+//import frc.robot.subsystems.AngleFlap;
 
 
 public class MoveTurret extends CommandBase {
 
   private final Turret turret;
-  private final AngleFlap angleFlap;
+ // private final AngleFlap angleFlap;
 
-  public MoveTurret(Turret tsubsystem, AngleFlap fsubsystem) {
+  public MoveTurret(Turret tsubsystem/*, AngleFlap fsubsystem*/) {
 
-    addRequirements(tsubsystem, fsubsystem);
+    addRequirements(tsubsystem/*, fsubsystem*/);
     turret = tsubsystem;
-    angleFlap = fsubsystem;
+    //angleFlap = fsubsystem;
   }
 
   // Called when the command is initially scheduled.

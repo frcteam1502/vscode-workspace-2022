@@ -8,23 +8,22 @@ import edu.wpi.first.networktables.NetworkTable;
 public class Limelight {
     private static Limelight inst;
 
-    private final NetworkTable subtable;
+    private static NetworkTable subtable = NetworkTableInstance.getDefault().getTable("limelight");
 
-    NetworkTableEntry tx = getEntry("tx");
-    NetworkTableEntry ty = getEntry("ty");
-    NetworkTableEntry ta = getEntry("ta");
-    NetworkTableEntry tv = getEntry("tv");
+    static NetworkTableEntry tx = getEntry("tx");
+    static NetworkTableEntry ty = getEntry("ty");
+    static NetworkTableEntry ta = getEntry("ta");
+    static NetworkTableEntry tv = getEntry("tv");
 
     // read values periodically
-    public double x = tx.getDouble(0.0);
-    public double y = ty.getDouble(0.0);
-    public double area = ta.getDouble(0.0);
-    public boolean target = tv.getFlags() == 1;
-
+    public  double x = tx.getDouble(0.0);
+    public  double y = ty.getDouble(0.0);
+    public  double area = ta.getDouble(0.0);
+    public  boolean target = tv.getFlags() == 1;
 
 
     public Limelight() {
-        subtable = NetworkTableInstance.getDefault().getTable("limelight");
+        //subtable = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
     /**
@@ -89,7 +88,7 @@ public class Limelight {
      * @param entry String specifying table entry
      * @return the entry: NetworkTableEntry
      */
-    public NetworkTableEntry getEntry(String entry) {
+    public static NetworkTableEntry getEntry(String entry) {
         switch (entry) {
         case "tx":
             break;

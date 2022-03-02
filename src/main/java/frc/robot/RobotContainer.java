@@ -11,7 +11,7 @@ import frc.robot.Constants.Motors;
 //import frc.robot.Constants.XboxButtons;
 //import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveTurret;
-import frc.robot.subsystems.AngleFlap;
+//import frc.robot.subsystems.AngleFlap;
 //import frc.robot.commands.Shoot;
 //import frc.robot.commands.UpdateEncoders;
 //import frc.robot.subsystems.Climber;
@@ -28,7 +28,7 @@ public class RobotContainer {
   Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
   */
   private static Turret turret = new Turret(Motors.TURRET);
-  private static AngleFlap flap = new AngleFlap(Motors.FLAP);
+  //private static AngleFlap flap = new AngleFlap(Motors.FLAP);
   /*
   private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
   
@@ -36,7 +36,7 @@ public class RobotContainer {
   private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
   */
-  public MoveTurret moveTurret = new MoveTurret(turret, flap);
+  public MoveTurret moveTurret = new MoveTurret(turret/*, flap*/);
 
   
   //private Shoot shoot = new Shoot(shooter);

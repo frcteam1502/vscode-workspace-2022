@@ -9,18 +9,17 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
-//import frc.robot.Constants.Joysticks;
+import frc.robot.Constants;
+//import frc.robot.Constants.Joysticks;s
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Turret extends SubsystemBase {
-  private Limelight m_limelight;
+  private static Limelight m_limelight = Constants.limelight;
 
   private CANSparkMax turretMotor;
 
   public Turret(CANSparkMax turretMotor) {
     this.turretMotor = turretMotor;
-
-    this.m_limelight = new Limelight();
 
   }
 
@@ -68,5 +67,6 @@ public class Turret extends SubsystemBase {
         }
       }
     }
+    
   }
 } 
