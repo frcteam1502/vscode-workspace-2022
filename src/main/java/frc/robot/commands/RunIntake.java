@@ -25,8 +25,11 @@ public class RunIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   if(Joysticks.JOYSTICK_LEFT.getTrigger()) intake.moveIntake();
-   else intake.stopIntake();
+   if(Joysticks.CONTROLLER2.getLeftBumper()) {
+     intake.moveIntake();}
+   else{
+      intake.stopIntake();
+   }
   }
 
   // Called once the command ends or is interrupted.

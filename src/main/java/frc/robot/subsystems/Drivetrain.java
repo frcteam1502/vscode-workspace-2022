@@ -7,42 +7,53 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DriveByJoysticks;
 
 public class Drivetrain extends SubsystemBase {
   private CANSparkMax frontLeft, frontRight, backLeft, backRight;
-
   /** Creates a new Drivetrain. */
-  public Drivetrain(CANSparkMax driveFrontLeft, CANSparkMax driveFrontRight, CANSparkMax driveBackLeft, CANSparkMax driveBackRight) {
+  public Drivetrain(CANSparkMax frontLeft, CANSparkMax frontRight, CANSparkMax backLeft, CANSparkMax backRight) {
     setDefaultCommand(new DriveByJoysticks(this));
-    this.frontLeft = driveFrontLeft;
-    this.frontRight = driveFrontRight;
-    this.backLeft = driveBackLeft;
-    this.backRight = driveBackRight;
+    this.frontLeft = frontLeft;
+    this.frontRight = frontRight;
+    this.backLeft = backLeft;
+    this.backRight = backRight;
   }
 
   @Override
-  public void periodic() {}
-
-  public void TankDrive(double leftSpeed, double rightSpeed) {
-    frontLeft.set(leftSpeed);
-    backLeft.set(leftSpeed);
-    frontRight.set(rightSpeed);
-    backRight.set(rightSpeed);
+  public void periodic() {
+    // This method will be called once per scheduler run
   }
 
-  public void MecanumDrive(double xSpeed, double ySpeed, double zRotation) {
-    xSpeed /= 2;
-    ySpeed /= 2;
-    zRotation *= 0.75;
+  public void move(double xSpeed, double ySpeed, double zRotation) {
+    if (Math.abs(xSpeed) < 0.01) xSpeed = 0;
+    if (Math.abs(ySpeed) < 0.01) ySpeed = 0;
+    if (Math.abs(zRotation) < 0.01) zRotation = 0;
 
-    frontLeft.set(ySpeed + xSpeed + zRotation);
-    backLeft.set(ySpeed - xSpeed + zRotation);
-    frontRight.set((ySpeed - xSpeed - zRotation));
-    backRight.set((ySpeed + xSpeed - zRotation));
+    xSpeed *= 0.35;
+    ySpeed *= 0.35;
+    zRotation *= 0.35;
 
-    MathUtil.applyDeadband(xSpeed, 0.02);
-    MathUtil.applyDeadband(ySpeed, 0.02);
+    SmartDashboard.putNumber("xSpeed", xSpeed);
+    SmartDashboard.putNumber("ySpeed", ySpeed);
+    SmartDashboard.putNumber("zRotation", zRotation);
+
+    SmartDashboard.putNumber("Front Left", (ySpeed + xSpeed + zRotation));
+    frontLeft.set((ySpeed + xSpeed + zRotation));
+
+    SmartDashboard.putNumber("Back Left", (ySpeed - xSpeed + zRotation));
+    backLeft.set((ySpeed - xSpeed + zRotation));
+    
+    SmartDashboard.putNumber("Front Right", (ySpeed - xSpeed - zRotation));
+    frontRight.set(-(ySpeed - xSpeed - zRotation));
+    
+    SmartDashboard.putNumber("Back Right", (ySpeed + xSpeed - zRotation));
+    backRight.set(-(ySpeed + xSpeed - zRotation));
+
+    // MathUtil.applyDeadband(xSpeed, 0.02);
+    // MathUtil.applyDeadband(ySpeed, 0.02);
   }
 }

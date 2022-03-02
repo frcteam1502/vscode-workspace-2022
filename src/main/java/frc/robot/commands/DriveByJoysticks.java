@@ -5,17 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.Joysticks;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveByJoysticks extends CommandBase {
-  private Drivetrain drivetrain;
-  
-  // Creates a new DriveByJoysticks. 
-  public DriveByJoysticks(Drivetrain subsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
-    drivetrain = subsystem;
+  private final Drivetrain drivetrain;
+  /** Creates a new DriveByJoystick. */
+  public DriveByJoysticks(Drivetrain drivetrain) {
+    this.drivetrain = drivetrain;
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +24,7 @@ public class DriveByJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.MecanumDrive(Joysticks.JOYSTICK_LEFT.getX(), -Joysticks.JOYSTICK_LEFT.getY(), Joysticks.JOYSTICK_RIGHT.getX());
+    drivetrain.move(Joysticks.CONTROLLER2.getLeftX(), -Joysticks.CONTROLLER2.getLeftY(), Joysticks.CONTROLLER2.getRightX());
   }
 
   // Called once the command ends or is interrupted.

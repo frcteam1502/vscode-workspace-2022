@@ -38,7 +38,7 @@ public final class Constants {
         // Drivetrain
         public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
         public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(16, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(17, MotorType.kBrushless);
         public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(15, MotorType.kBrushless);
         
         // Climber
@@ -55,12 +55,14 @@ public final class Constants {
         public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);
         public static final CANSparkMax ANGLE = new CANSparkMax(2, MotorType.kBrushless);
         public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
+        public static final CANSparkMax INTAKE = new CANSparkMax(1, MotorType.kBrushless);
     }
 
     public final static class Joysticks {
         public static final Joystick JOYSTICK_LEFT = new Joystick(0);
         public static final Joystick JOYSTICK_RIGHT = new Joystick(1);
         public static final XboxController CONTROLLER = new XboxController(2);
+        public static final XboxController CONTROLLER2 = new XboxController(3);
     }
 
     public static final class XboxButtons {        

@@ -70,11 +70,11 @@ public class Climber extends SubsystemBase {
   // Move Arms
   public void ExtendArms() {
     leftExtender.set(0.2);
-    rightExtender.set(-0.2);
+    rightExtender.set(0.2);
   }
   public void ContractArms() {
     leftExtender.set(-0.2);
-    rightExtender.set(0.2);
+    rightExtender.set(-0.2);
   }
 
   public void MoveLeftArm(double speed) {
@@ -87,12 +87,12 @@ public class Climber extends SubsystemBase {
 
   // Rotate Arms
   public void RotateArmsForwards() {
-    leftAngle.set(0.1);
-    rightAngle.set(-0.1);
+    leftAngle.set(0.2);
+    rightAngle.set(-0.2);
   }
   public void RotateArmsBackwards() {
-    leftAngle.set(-0.1);
-    rightAngle.set(0.1);
+    leftAngle.set(-0.2);
+    rightAngle.set(0.2);
   }
 
   public void RotateLeftArm(double speed) {
@@ -105,12 +105,12 @@ public class Climber extends SubsystemBase {
 
   // Rotate Babies
   public void RotateBabyFowards() {
-    leftBaby.set(0.1);
-    rightBaby.set(0.1);
+    leftBaby.set(0.3);
+    rightBaby.set(0.3);
   }
   public void RotateBabyBackwards() {
-    leftBaby.set(-0.1);
-    rightBaby.set(-0.1);
+    leftBaby.set(-0.3);
+    rightBaby.set(-0.3);
   }
 
   public void RotateLeftBaby(double speed) {

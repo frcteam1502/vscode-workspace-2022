@@ -11,10 +11,12 @@ import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveTurret;
+import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
@@ -26,12 +28,14 @@ public class RobotContainer {
     Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
   private Turret turret = new Turret(Motors.TURRET);
   private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
+  private Intake intake = new Intake(Motors.INTAKE);
   
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
   private MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
+  private RunIntake runIntake = new RunIntake(intake);
 
   public RobotContainer() {
     configureButtonBindings();

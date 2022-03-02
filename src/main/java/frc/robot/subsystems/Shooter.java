@@ -30,8 +30,8 @@ public class Shooter extends SubsystemBase {
 
   public void shoot(){
 
-      shooterRight.set(0.2);
-      shooterLeft.set(0.2);
+      shooterRight.set(0.8);
+      shooterLeft.set(0.8);
     }
   
   public void noShoot(){
@@ -42,12 +42,12 @@ public class Shooter extends SubsystemBase {
 
   public void indexBall(){
 
-    indexWheel.set(0.25);
+    indexWheel.set(0.5);
   }
 
-  public void indexBallRev(){
+  public void indexBallStop(){
 
-    indexWheel.set(-0.25);
+    indexWheel.set(0);
   }
 
 
