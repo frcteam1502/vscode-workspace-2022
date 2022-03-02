@@ -69,12 +69,12 @@ public class Climber extends SubsystemBase {
 
   // Move Arms
   public void ExtendArms() {
-    leftExtender.set(0.2);
-    rightExtender.set(0.2);
+    leftExtender.set(0.3);
+    rightExtender.set(0.3);
   }
   public void ContractArms() {
-    leftExtender.set(-0.2);
-    rightExtender.set(-0.2);
+    leftExtender.set(-0.3);
+    rightExtender.set(-0.3);
   }
 
   public void MoveLeftArm(double speed) {
