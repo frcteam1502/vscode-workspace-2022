@@ -44,7 +44,7 @@ public final class Constants {
         // Drivetrain
         public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
         public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(16, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(17, MotorType.kBrushless);
         public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(15, MotorType.kBrushless);
         
         // Climber
@@ -59,7 +59,7 @@ public final class Constants {
         public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
         public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(14, MotorType.kBrushless);
         
-        public static final CANSparkMax TURRET = new CANSparkMax(16, MotorType.kBrushless);// TODO: change back from 16 to 5
+        public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);// TODO: change back from 16 to 5
         
         public static final CANSparkMax FLAP = new CANSparkMax(2, MotorType.kBrushless);
 
