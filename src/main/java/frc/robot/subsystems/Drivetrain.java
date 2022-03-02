@@ -54,8 +54,6 @@ public class Drivetrain extends SubsystemBase {
 
     resetEncoders();
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
-
-    setMaxOutput(.3);
   }
 
   public void move(double ySpeed, double xSpeed, double zRotation) {
@@ -110,9 +108,9 @@ public class Drivetrain extends SubsystemBase {
     m_odometry.update(m_gyro.getRotation2d(), state);
     MecanumDriveWheelSpeeds wheelSpeeds = DriveConstants.kMecanumKinematics.toWheelSpeeds(speed);
     frontLeft.set(wheelSpeeds.frontLeftMetersPerSecond);
-    frontRight.set(wheelSpeeds.frontRightMetersPerSecond);
+    frontRight.set(-wheelSpeeds.frontRightMetersPerSecond);
     backLeft.set(wheelSpeeds.rearLeftMetersPerSecond);
-    backRight.set(wheelSpeeds.rearRightMetersPerSecond);
+    backRight.set(-wheelSpeeds.rearRightMetersPerSecond);
     this.m_drive.feed();
   }
 

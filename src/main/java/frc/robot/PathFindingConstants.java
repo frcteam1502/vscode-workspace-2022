@@ -12,7 +12,6 @@ public class PathFindingConstants {
         public static final boolean kRightEncoderReversed = true;
         public static final double kPDriveVel = 0.21646;
         
-        public static final double kTrackwidthMeters = 0.54483;
         public static final Translation2d frontLeft = new Translation2d(0.2286, 0.257175);
         public static final Translation2d frontRight = new Translation2d(0.2286, -0.257175);
         public static final Translation2d backLeft = new Translation2d(-0.2286, 0.257175);
@@ -22,7 +21,7 @@ public class PathFindingConstants {
         public static final ProfiledPIDController PIDController = 
             new ProfiledPIDController(kPDriveVel, 0, 0, new Constraints(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared));    
     
-        public static final int kEncoderCPR = 1024;
+        public static final int kEncoderCPR = 8192; //TODO: Find actual CPR with gears
         public static final double kWheelDiameterMeters = 0.15;
         public static final double kEncoderDistancePerPulse =
             (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;

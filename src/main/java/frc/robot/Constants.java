@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.XboxController;
 public final class Constants {
     public final static class Motors {
         public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
-        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(16, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(17, MotorType.kBrushless); //changed from 16 to 17 by Ian's request
         public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
         public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(15, MotorType.kBrushless);
-        public static final CANSparkMax INTAKE = new CANSparkMax(3, MotorType.kBrushless); 
+        public static final CANSparkMax INTAKE = new CANSparkMax(1, MotorType.kBrushless); 
     }
 
     public final static class Joysticks {
