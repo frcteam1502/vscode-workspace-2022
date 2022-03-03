@@ -61,7 +61,7 @@ public final class Constants {
         public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
         public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(14, MotorType.kBrushless);
         
-        public static final CANSparkMax TURRET = new CANSparkMax(16, MotorType.kBrushless);// TODO: change back from 16 to 5
+        public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);// TODO: change back from 16 to 5
         
         public static final CANSparkMax FLAP = new CANSparkMax(2, MotorType.kBrushless);
 
