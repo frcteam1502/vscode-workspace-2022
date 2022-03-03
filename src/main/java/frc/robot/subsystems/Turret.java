@@ -6,7 +6,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 
-
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
 import frc.robot.Constants.Joysticks;
@@ -15,6 +16,9 @@ import frc.robot.commands.MoveTurret;
 public class Turret extends SubsystemBase {
 
   private CANSparkMax turretMotor;
+  DigitalInput rightlimitSwitch = new DigitalInput(0);
+  DigitalInput leftlimitSwitch = new DigitalInput(1);
+  boolean movingRight = true;
   
   public Turret(CANSparkMax turretMotor) {
     setDefaultCommand(new MoveTurret(this));
@@ -22,24 +26,29 @@ public class Turret extends SubsystemBase {
     //setDefaultCommand(new Shoot(this));
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  public void turnTurret(){
+  
+    @Override
+    public void periodic() {
+      // This method will be called once per scheduler run
+    }
+  
     
-    /*if ((Limelight.area > 0) && (Limelight.x < 5) && (Limelight.x > -5)){
-      turretMotor.set(0);
+    
+    public void turnTurret(){
+
+      if(Joysticks.CONTROLLER.getRightTriggerAxis() > 0.8){
+        turretMotor.set(-0.3);
+      } else if(Joysticks.CONTROLLER.getLeftTriggerAxis() > 0.8){
+        turretMotor.set(0.3);
+      } else {
+        turretMotor.set(0);
+      }
+      
     }
 
-    if ((Joysticks.CONTROLLER.getAButton() == true)){
-      turretMotor.set(0.1);
-    } else if ((Joysticks.CONTROLLER.getBButton() == true)){
-      turretMotor.set(-0.1);
-    }
+   
+   
 
-  }*/
 
 }
-}
+
