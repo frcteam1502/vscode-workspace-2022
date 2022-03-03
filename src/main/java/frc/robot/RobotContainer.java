@@ -6,6 +6,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
@@ -50,6 +51,25 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+    XboxButtons.LEFT_BUMPER.whenPressed(new InstantCommand(climber::ExtendArms));
+    XboxButtons.LEFT_BUMPER.whenReleased(new InstantCommand(climber::StopLongLongArms));
+
+    XboxButtons.RIGHT_BUMPER.whenPressed(new InstantCommand(climber::ContractArms));
+    XboxButtons.RIGHT_BUMPER.whenReleased(new InstantCommand(climber::StopLongLongArms));
+
+    XboxButtons.BUTTON_A.whenPressed(new InstantCommand(climber::RotateArmsForwards));
+    XboxButtons.BUTTON_A.whenReleased(new InstantCommand(climber::StopArmsRotate));
+
+    XboxButtons.BUTTON_Y.whenPressed(new InstantCommand(climber::RotateArmsBackwards));
+    XboxButtons.BUTTON_Y.whenReleased(new InstantCommand(climber::StopArmsRotate));
+
+    XboxButtons.BUTTON_X.whenPressed(new InstantCommand(climber::RotateBabyFowards));
+    XboxButtons.BUTTON_X.whenReleased(new InstantCommand(climber::StopBabies));
+
+    XboxButtons.BUTTON_B.whenPressed(new InstantCommand(climber::RotateBabyBackwards));
+    XboxButtons.BUTTON_B.whenReleased(new InstantCommand(climber::StopBabies));
+
+  /*
     XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
     XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
 
@@ -58,6 +78,7 @@ public class RobotContainer {
 
     XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
     XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
+  */
   }
 
   public Command getAutonomousCommand() {

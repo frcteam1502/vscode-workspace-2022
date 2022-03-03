@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.UpdateEncoders;
 
 public class Climber extends SubsystemBase {
@@ -37,6 +38,7 @@ public class Climber extends SubsystemBase {
 
   // Stops
   public void StopLongLongArms() {
+    if(XboxButtons.LEFT_BUMPER.get() || XboxButtons.RIGHT_BUMPER.get()) return;
     rightExtender.set(0);
     leftExtender.set(0);
   }
@@ -47,6 +49,7 @@ public class Climber extends SubsystemBase {
     rightExtender.set(0);
   }
   public void StopArmsRotate() {
+    if(XboxButtons.BUTTON_Y.get() || XboxButtons.BUTTON_A.get()) return;
     leftAngle.set(0);
     rightAngle.set(0);
   }
@@ -57,6 +60,7 @@ public class Climber extends SubsystemBase {
     rightAngle.set(0);
   }
   public void StopBabies() {
+    if(XboxButtons.BUTTON_X.get() || XboxButtons.BUTTON_B.get()) return;
     leftBaby.set(0);
     rightBaby.set(0);
   }

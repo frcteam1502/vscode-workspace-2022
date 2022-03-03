@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.XboxButtons;
@@ -14,6 +15,8 @@ import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
   private Shooter shooter;
+  private boolean shoot = false;
+  private boolean backButtonHasBeenReleased = true;
  
   public Shoot(Shooter subsystem) {
     addRequirements(subsystem);
@@ -27,6 +30,21 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (XboxButtons.BACK.get() && backButtonHasBeenReleased) {
+      backButtonHasBeenReleased = false;
+      shoot = !shoot;
+    } else if (!XboxButtons.BACK.get()) {
+      backButtonHasBeenReleased = true;
+    }
+
+    if (shoot) {
+      shooter.shoot();
+    } else shooter.noShoot();
+
+    if (Joysticks.CONTROLLER.getLeftY() > 0.9) shooter.indexBall();
+    else shooter.indexBallStop();
+
+    /*
     if (XboxButtons.BACK.get() == true){
       shooter.shoot();
     } else {
@@ -35,9 +53,10 @@ public class Shoot extends CommandBase {
 
     if (Joysticks.CONTROLLER2.getRightBumper()){
       shooter.indexBall();
-    }else{
+    } else{
       shooter.indexBallStop();
     }
+    */
   }
 
     

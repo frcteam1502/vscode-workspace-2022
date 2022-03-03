@@ -29,20 +29,14 @@ public class MoveLongArms extends CommandBase {
 
   @Override
   public void execute() {
-    if (!usingEncoders) return;
+    
+  //   if(button == 1) ExtendArmsEncoders();
+  //   else if (button == 2) ContractArmsEncoder();
+  //   else climber.StopLongLongArms();
 
-    SmartDashboard.putBoolean("Left Extender < max", EncoderValues.leftArm < EncoderMaxes.LEFT_MAX);
-    SmartDashboard.putBoolean("Right Extender < max", EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX);
-    SmartDashboard.putBoolean("Left Angle < max", EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX);
-    SmartDashboard.putBoolean("Right Angle < max", EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX);
-
-    if(button == 1) ExtendArmsEncoders();
-    else if (button == 2) ContractArmsEncoder();
-    else climber.StopLongLongArms();
-
-    if (button == 3) RotateForwards();
-    else if (button == 4) RotateBackwards();
-    else button = 0;
+  //   if (button == 3) RotateForwards();
+  //   else if (button == 4) RotateBackwards();
+  //   else button = 0;
   }
 
   @Override
