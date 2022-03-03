@@ -25,47 +25,47 @@ public final class Constants {
 
     public static final Limelight limelight = new Limelight();
 
-    // public enum Encoders {
-    //     LeftArmAngleEncoder (Motors.LEFT_ARM_ANGLE.getEncoder()),
-    //     RightArmAngleEncoder (Motors.RIGHT_ARM_ANGLE.getEncoder()),
-    //     LeftExtenderEncoder (Motors.LEFT_ARM_EXTENDER.getEncoder()),
-    //     RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
-    //     LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
-    //     RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
-    //     FlapEncoder (Motors.FLAP.getEncoder());
+    public enum Encoders {
+        LeftArmAngleEncoder (Motors.LEFT_ARM_ANGLE.getEncoder()),
+        RightArmAngleEncoder (Motors.RIGHT_ARM_ANGLE.getEncoder()),
+        LeftExtenderEncoder (Motors.LEFT_ARM_EXTENDER.getEncoder()),
+        RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
+        LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
+        RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
+        FlapEncoder (Motors.FLAP.getEncoder());
     
-    //     public RelativeEncoder Encoder;
-    //     Encoders(RelativeEncoder encoder) {
-    //       this.Encoder = encoder;
-    //     }
+        public RelativeEncoder Encoder;
+        Encoders(RelativeEncoder encoder) {
+          this.Encoder = encoder;
+        }
         
-    // }
+    }
 
      public final static class Motors {
         
-    //     // Drivetrain
-    //     public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
-    //     public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
-    //     public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(17, MotorType.kBrushless);
-    //     public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(15, MotorType.kBrushless);
+        // Drivetrain
+        public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_LEFT = new CANSparkMax(17, MotorType.kBrushless);
+        public static final CANSparkMax DRIVE_BACK_RIGHT = new CANSparkMax(15, MotorType.kBrushless);
         
-    //     // Climber
-    //     public static final CANSparkMax LEFT_ARM_ANGLE = new CANSparkMax(4, MotorType.kBrushless);
-    //     public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(3, MotorType.kBrushless);
-    //     public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(10, MotorType.kBrushless);
-    //     public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(9, MotorType.kBrushless);
-    //     public static final CANSparkMax LEFT_BABY = new CANSparkMax(8, MotorType.kBrushless);
-    //     public static final CANSparkMax RIGHT_BABY = new CANSparkMax(7, MotorType.kBrushless);
+        // Climber
+        public static final CANSparkMax LEFT_ARM_ANGLE = new CANSparkMax(4, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(3, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(10, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(9, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_BABY = new CANSparkMax(8, MotorType.kBrushless);
+        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(7, MotorType.kBrushless);
 
-    //     // Shooter
-    //     public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
-    //     public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(14, MotorType.kBrushless);
+        // Shooter
+        public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
+        public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(14, MotorType.kBrushless);
         
         public static final CANSparkMax TURRET = new CANSparkMax(16, MotorType.kBrushless);// TODO: change back from 16 to 5
         
-        // public static final CANSparkMax FLAP = new CANSparkMax(2, MotorType.kBrushless);
+        public static final CANSparkMax FLAP = new CANSparkMax(2, MotorType.kBrushless);
 
-        // public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
+        public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
         
     }
 
@@ -97,12 +97,12 @@ public final class Constants {
     //     public static final JoystickButton RIGHT_STICK = new JoystickButton(Joysticks.CONTROLLER, 15);
     // }
 
-    // public static final class EncoderMaxes {
-    //     public static final double LEFT_MAX = 0;
-    //     public static final double RIGHT_MAX = 0;
-    //     public static final double LEFT_ANGLE_MAX = 0;
-    //     public static final double RIGHT_ANGLE_MAX = 0;
-    //     public static final double LEFT_BABY_MAX = 0;
-    //     public static final double RIGHT_BABY_MAX = 0;
-    // }
+    public static final class EncoderMaxes {
+        public static final double LEFT_MAX = 0;
+        public static final double RIGHT_MAX = 0;
+        public static final double LEFT_ANGLE_MAX = 0;
+        public static final double RIGHT_ANGLE_MAX = 0;
+        public static final double LEFT_BABY_MAX = 0;
+        public static final double RIGHT_BABY_MAX = 0;
+    }
 }
