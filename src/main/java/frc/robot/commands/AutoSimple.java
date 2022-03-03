@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -27,7 +23,7 @@ public class AutoSimple extends CommandBase {
   public void execute() {
     intake.runIntakeForward();
     drivetrain.move(0, .5, 0);
-    Timer.delay(1);
+    Timer.delay(10);
     drivetrain.move(0, 0, 0);
     intake.stopIntake();
     //shoot

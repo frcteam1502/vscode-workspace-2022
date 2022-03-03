@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
@@ -30,23 +31,21 @@ public class Drivetrain extends SubsystemBase {
   public final MecanumDrive m_drive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
 
   // The Encoders
-  private RelativeEncoder leftFrontEncoder;
-  private RelativeEncoder leftBackEncoder;
-  private RelativeEncoder rightFrontEncoder;
-  private RelativeEncoder rightBackEncoder;
+  private RelativeEncoder leftFrontEncoder = frontLeft.getEncoder();
+  private RelativeEncoder leftBackEncoder = backLeft.getEncoder();
+  private RelativeEncoder rightFrontEncoder = frontRight.getEncoder();
+  private RelativeEncoder rightBackEncoder = backRight.getEncoder();
 
   // The gyro sensor
   private final Gyro m_gyro = new ADXRS450_Gyro();
 
   // Odometry class for tracking robot pose
-  private final SwerveDriveOdometry m_odometry;
+  public final SwerveDriveOdometry m_odometry;
+
+  //Swerve module
+  private SwerveModuleState[] state = null;
 
   public Drivetrain() {    
-    leftFrontEncoder= frontLeft.getEncoder();
-    leftBackEncoder= backLeft.getEncoder();
-    rightFrontEncoder= frontRight.getEncoder();
-    rightBackEncoder= backRight.getEncoder();
-
     this.leftFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.leftBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.rightFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -61,7 +60,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    if (state != null) m_odometry.update(m_gyro.getRotation2d(), state);
+    getPose();
+  }
 
   /**
    * Returns the currently-estimated pose of the robot.
@@ -105,7 +107,6 @@ public class Drivetrain extends SubsystemBase {
 
   public void toWheelSpeed(SwerveModuleState... state) {
     ChassisSpeeds speed = DriveConstants.kDriveKinematics.toChassisSpeeds(state);
-    m_odometry.update(m_gyro.getRotation2d(), state);
     MecanumDriveWheelSpeeds wheelSpeeds = DriveConstants.kMecanumKinematics.toWheelSpeeds(speed);
     frontLeft.set(wheelSpeeds.frontLeftMetersPerSecond);
     frontRight.set(-wheelSpeeds.frontRightMetersPerSecond);

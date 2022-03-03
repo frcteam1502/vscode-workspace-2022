@@ -21,10 +21,12 @@ public class PathFindingConstants {
         public static final ProfiledPIDController PIDController = 
             new ProfiledPIDController(kPDriveVel, 0, 0, new Constraints(AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared));    
     
-        public static final int kEncoderCPR = 8192; //TODO: Find actual CPR with gears
-        public static final double kWheelDiameterMeters = 0.15;
+        public static final double kEncoderCPR = 535.5;
+        public static final double kGearRatio = 12.75;
+        public static final double kWheelDiameterMeters = 0.2;
+        public static final double kWheelCircumfrence = Math.PI * kWheelDiameterMeters;
         public static final double kEncoderDistancePerPulse =
-            (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+            kWheelCircumfrence / kGearRatio;
       }
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
