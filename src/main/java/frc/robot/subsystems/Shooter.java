@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,6 +15,7 @@ import frc.robot.commands.Shoot;
 public class Shooter extends SubsystemBase {
 
   private CANSparkMax shooterRight, shooterLeft, indexWheel;
+  
 
 
   public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel) {
@@ -20,6 +23,34 @@ public class Shooter extends SubsystemBase {
     this.shooterRight = shooterRight;
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
+    ArrayList<Double> hoodAngle = new ArrayList<Double>();
+    ArrayList<Double> sepd = new ArrayList<Double>();
+
+    hoodAngle.add(0,0.0);
+    hoodAngle.add(1,0.0);
+    hoodAngle.add(2,0.0);
+    hoodAngle.add(3,0.0);
+    hoodAngle.add(4,0.0);
+    hoodAngle.add(5,0.0);
+    hoodAngle.add(6,0.0);
+    hoodAngle.add(7,0.0);
+    hoodAngle.add(8,0.0);
+    hoodAngle.add(9,0.0);
+
+    sepd.add(0,0.0);
+    sepd.add(1,0.0);
+    sepd.add(2,0.0);
+    sepd.add(3,0.0);
+    sepd.add(4,0.0);
+    sepd.add(5,0.0);
+    sepd.add(6,0.0);
+    sepd.add(7,0.0);
+    sepd.add(8,0.0);
+    sepd.add(9,0.0);
+    
+
+
+
     
   }
 
@@ -49,6 +80,4 @@ public class Shooter extends SubsystemBase {
 
     indexWheel.set(0);
   }
-
-
 }

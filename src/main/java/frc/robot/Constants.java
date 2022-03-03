@@ -26,7 +26,8 @@ public final class Constants {
         LeftExtenderEncoder (Motors.LEFT_ARM_EXTENDER.getEncoder()),
         RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
         LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
-        RightBabyEncoder (Motors.RIGHT_BABY.getEncoder());
+        RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
+        AngleEncoder (Motors.ANGLE.getEncoder());
     
         public RelativeEncoder Encoder;
         Encoders(RelativeEncoder encoder) {
@@ -80,6 +81,9 @@ public final class Constants {
         public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 13);
         public static final JoystickButton LEFT_STICK = new JoystickButton(Joysticks.CONTROLLER, 14);
         public static final JoystickButton RIGHT_STICK = new JoystickButton(Joysticks.CONTROLLER, 15);
+        
+        public static final JoystickButton LEFT_J_BUTTON_TWO = new JoystickButton(Joysticks.JOYSTICK_LEFT, 2);
+        public static final JoystickButton RIGHT_J_BUTTON_TWO = new JoystickButton(Joysticks.JOYSTICK_RIGHT, 2);
     }
 
     public static final class EncoderMaxes {
