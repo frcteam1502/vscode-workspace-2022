@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.MoveHood;
 
 public class AngleFlap extends SubsystemBase {
   /** Creates a new AngleFlap. */
@@ -16,10 +17,15 @@ public class AngleFlap extends SubsystemBase {
   public AngleFlap(CANSparkMax angle) {
     //setDefaultCommand(new Shoot(this));
     this.angle = angle;
+    setDefaultCommand(new MoveHood(this));
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void moveHood(double speed) {
+    angle.set(speed);
   }
 }

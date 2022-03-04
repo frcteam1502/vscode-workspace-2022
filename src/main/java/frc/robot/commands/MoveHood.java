@@ -6,15 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.AngleFlap;
 
-public class MoveTurret extends CommandBase {
-  private Turret turret;
-  /** Creates a new MoveTurret. */
-  public MoveTurret(Turret turret) {
+public class MoveHood extends CommandBase {
+  private AngleFlap angleFlap;
+  /** Creates a new MoveHood. */
+  public MoveHood(AngleFlap angleFlap) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.turret = turret;
-    addRequirements(turret);
+    this.angleFlap = angleFlap;
+    addRequirements(angleFlap);
   }
 
   // Called when the command is initially scheduled.
@@ -24,9 +24,7 @@ public class MoveTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Joysticks.CONTROLLER.getLeftTriggerAxis() > 0.9) turret.turretLeft();
-    else if (Joysticks.CONTROLLER.getRightTriggerAxis() > 0.9) turret.turretRight();
-    else turret.stopTurret();
+    angleFlap.moveHood(-Joysticks.CONTROLLER.getLeftY() * 0.3);
   }
 
   // Called once the command ends or is interrupted.

@@ -27,6 +27,16 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  public void turretLeft() {
+    turretMotor.set(0.2);
+  }
+  public void turretRight() {
+    turretMotor.set(-0.2);
+  }
+  public void stopTurret() {
+    turretMotor.set(0);
+  }
+
   public void turnTurret(){
     
     /*if ((Limelight.area > 0) && (Limelight.x < 5) && (Limelight.x > -5)){

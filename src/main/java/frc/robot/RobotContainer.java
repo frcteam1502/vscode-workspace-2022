@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
+import frc.robot.commands.MoveHood;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
+import frc.robot.subsystems.AngleFlap;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -30,13 +32,14 @@ public class RobotContainer {
   private Turret turret = new Turret(Motors.TURRET);
   private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
   private Intake intake = new Intake(Motors.INTAKE);
-  
+  private AngleFlap angleFlap = new AngleFlap(Motors.ANGLE);  
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
   private MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
+  private MoveHood moveHood = new MoveHood(angleFlap);
 
   public RobotContainer() {
     configureButtonBindings();
