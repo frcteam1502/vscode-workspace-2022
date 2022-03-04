@@ -33,7 +33,7 @@ public class AutoSimple extends CommandBase {
     6) Shoot ball 2
     End
     */
-    
+
     //start shooter
     shooter.shoot();
     //start intake
@@ -43,7 +43,10 @@ public class AutoSimple extends CommandBase {
     Timer.delay(3);
     //shoot
     shooter.indexBall();
-    Timer.delay(4);
+    Timer.delay(1);
+    //stop index
+    shooter.indexBallStop();
+    Timer.delay(2);
     //shoot
     shooter.indexBall();
   }
