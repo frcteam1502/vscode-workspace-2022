@@ -28,8 +28,8 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  double m_s_seepd = 0.1;
-  double m_t_seepd = 0.2;
+  double m_s_seepd = 0.2;
+  double m_t_seepd = 0.4;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
   public void turnTurret(){
@@ -55,25 +55,13 @@ public class Turret extends SubsystemBase {
       }
 
       else if (m_limelight.tx > 2.0){//change to right side of camera screen
-        if(breek == "left"){
-          turretMotor.set(-m_s_seepd);
-          SmartDashboard.putString("Turret status", "breaking left");
-        }
-        else{
-          turretMotor.set(m_t_seepd);
-          SmartDashboard.putString("Turret status", "turning right");
-        }
+        turretMotor.set(-m_t_seepd);
+        SmartDashboard.putString("Turret status", "turning right");
       }  
 
       else if (m_limelight.tx < -2.0){//change to left side of camera screen
-        if(breek == "right"){
-          turretMotor.set(m_s_seepd);
-          SmartDashboard.putString("Turret status", "breaking right");
-        } 
-        else{
-          turretMotor.set(-m_t_seepd);
-          SmartDashboard.putString("Turret status", "turning left");
-        }
+        turretMotor.set(m_t_seepd);
+        SmartDashboard.putString("Turret status", "turning left");
       }
     }
     else {
