@@ -26,11 +26,11 @@ public class AngleFlap extends SubsystemBase {
   }
 
   public void angleUp() {
-    angle.set(0.2);
+    angle.set(0.05);
   }
 
   public void angleDown() {
-    angle.set(-0.2);
+    angle.set(-0.05);
   }
   
   public void stopAngle() {

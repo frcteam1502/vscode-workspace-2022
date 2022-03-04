@@ -9,12 +9,9 @@ import frc.robot.Constants.Motors;
 import frc.robot.commands.UpdateEncoders;
 
 public class EncoderValues extends SubsystemBase {
-  private UpdateEncoders updateEncoders;
-
   /** Creates a new EncoderValues. */
-  public EncoderValues(UpdateEncoders updateEncoders) {
-    this.updateEncoders = updateEncoders;
-    setDefaultCommand(updateEncoders);
+  public EncoderValues() {
+    setDefaultCommand(new UpdateEncoders(this));
   }
 
   @Override

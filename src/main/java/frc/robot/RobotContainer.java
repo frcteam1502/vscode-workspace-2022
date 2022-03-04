@@ -18,8 +18,8 @@ import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
 import frc.robot.subsystems.AngleFlap;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.EncoderValues;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
@@ -29,22 +29,24 @@ public class RobotContainer {
   
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
-  private Climber climber = new Climber(
-    Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+  //private Climber climber = new Climber(
+  //  Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
   private Turret turret = new Turret(Motors.TURRET);
   private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
   private Intake intake = new Intake(Motors.INTAKE);
   private Limelight limelight = new Limelight();
   private AngleFlap angleFlap = new AngleFlap(Motors.ANGLE);
+  private EncoderValues encoderValues = new EncoderValues();
   
 
-  private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
+  //private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
   private MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
   private LimelightDistance limelightDistance = new LimelightDistance(limelight);
   private MoveHood moveHood = new MoveHood(angleFlap);
+  private UpdateEncoders updateEncoders = new UpdateEncoders(encoderValues);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -59,14 +61,14 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
-    XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
+    //XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
+    //XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
 
-    XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
-    XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
+    //XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
+    //XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
 
-    XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
-    XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
+    //XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
+    //XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
   }
 
   public Command getAutonomousCommand() {

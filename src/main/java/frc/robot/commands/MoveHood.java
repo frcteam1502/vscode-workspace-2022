@@ -25,8 +25,16 @@ public class MoveHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Joysticks.JOYSTICK_LEFT.getRawButton(2)) angleFlap.angleUp();
-    else angleFlap.stopAngle();
+    if(Joysticks.CONTROLLER.getYButton()) {
+      angleFlap.angleUp();
+    } else if (Joysticks.CONTROLLER.getAButton()){
+      angleFlap.angleDown();
+    } else {
+      angleFlap.stopAngle();
+    }
+  
+
+   
   }
 
   // Called once the command ends or is interrupted.
