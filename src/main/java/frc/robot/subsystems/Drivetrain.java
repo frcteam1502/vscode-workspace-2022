@@ -53,6 +53,8 @@ public class Drivetrain extends SubsystemBase {
 
     resetEncoders();
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
+
+    m_drive.setMaxOutput(.3);
   }
 
   public void move(double ySpeed, double xSpeed, double zRotation) {
@@ -62,7 +64,6 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     if (state != null) m_odometry.update(m_gyro.getRotation2d(), state);
-    getPose();
   }
 
   /**
@@ -108,6 +109,7 @@ public class Drivetrain extends SubsystemBase {
   public void toWheelSpeed(SwerveModuleState... state) {
     ChassisSpeeds speed = DriveConstants.kDriveKinematics.toChassisSpeeds(state);
     MecanumDriveWheelSpeeds wheelSpeeds = DriveConstants.kMecanumKinematics.toWheelSpeeds(speed);
+    this.state = state;
     frontLeft.set(wheelSpeeds.frontLeftMetersPerSecond);
     frontRight.set(-wheelSpeeds.frontRightMetersPerSecond);
     backLeft.set(wheelSpeeds.rearLeftMetersPerSecond);
