@@ -1,4 +1,13 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "SPARK MAX [5]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -6,6 +15,8 @@
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Turret": "Subsystem",
+      "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
     }
   },
@@ -17,9 +28,21 @@
       "Climber": {
         "open": true
       },
+      "Ungrouped": {
+        "DigitalInput[0]": {
+          "open": true
+        },
+        "DigitalInput[1]": {
+          "open": true
+        },
+        "open": true
+      },
       "open": true
     },
     "SmartDashboard": {
+      "open": true
+    },
+    "limelight": {
       "open": true
     }
   }

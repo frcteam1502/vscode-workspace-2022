@@ -12,15 +12,16 @@ import frc.robot.Limelight;
 import frc.robot.Constants;
 //import frc.robot.Constants.Joysticks;s
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turret extends SubsystemBase {
-  private static Limelight m_limelight = Constants.limelight;
 
   private CANSparkMax turretMotor;
+  private Limelight m_limelight;
 
   public Turret(CANSparkMax turretMotor) {
     this.turretMotor = turretMotor;
-
+    this.m_limelight = new Limelight();
   }
 
   DigitalInput rightlimitSwitch = new DigitalInput(0);
@@ -31,42 +32,74 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  double m_seepd = 0.05;
+  double m_s_seepd = 0.1;
+  double m_t_seepd = 0.2;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
   public void turnTurret(){
     
-    if (!rightlimitSwitch.get()){//trys to go to left 
-      breek = "right";
-      turretMotor.set(m_seepd);
-    }
-    else if (!leftlimitSwitch.get()){//trys to go to right
-      breek = "left";
-      turretMotor.set(-m_seepd);
-    }
-    else if (m_limelight.target){
-      if ( (m_limelight.x >= 3) && (m_limelight.x <= -3)){
+    //Testing Code -- Remove Later
+
+
+
+    // End Testing Code
+
+    if (m_limelight.tv == 1){
+
+      if ( (m_limelight.tx >= -2.0) && (m_limelight.tx <= 2.0)){
         turretMotor.set(0);
         breek = "no";
+        SmartDashboard.putString("Turret status", "centered");
       }
-      else if (m_limelight.x > 3)//change to right side of camera screen
-      {
+
+      else if (!rightlimitSwitch.get()){//trys to go to left 
+        breek = "right";
+        turretMotor.set(m_s_seepd);
+      }
+
+      else if (!leftlimitSwitch.get()){//trys to go to right
+        breek = "left";
+        turretMotor.set(-m_s_seepd);
+      }
+
+      else if (m_limelight.tx > 2.0){//change to right side of camera screen
         if(breek == "left"){
-          turretMotor.set(m_seepd);
+          turretMotor.set(-m_s_seepd);
+          SmartDashboard.putString("Turret status", "breaking left");
         }
         else{
-          turretMotor.set(-m_seepd);
+          turretMotor.set(m_t_seepd);
+          SmartDashboard.putString("Turret status", "turning right");
         }
       }  
-      else if (m_limelight.x < -3){//change to left side of camera screen
+
+      else if (m_limelight.tx < -2.0){//change to left side of camera screen
         if(breek == "right"){
-          turretMotor.set(-m_seepd);
+          turretMotor.set(m_s_seepd);
+          SmartDashboard.putString("Turret status", "breaking right");
         } 
         else{
-          turretMotor.set(m_seepd);
+          turretMotor.set(-m_t_seepd);
+          SmartDashboard.putString("Turret status", "turning left");
         }
       }
     }
+    else {
+      
+      // if (!rightlimitSwitch.get()){//trys to go to left 
+      //   breek = "right";
+      //   turretMotor.set(m_s_seepd);
+      // }
+      // else if (!leftlimitSwitch.get()){//trys to go to right
+      //   breek = "left";
+      //   turretMotor.set(-m_s_seepd);
+      // }
+      // else if(breek == "no"){
+      //   turretMotor.set(m_s_seepd);
+      // }
+    }
+
+    SmartDashboard.putNumber("Turretmotor", turretMotor.get());
     
   }
 } 
