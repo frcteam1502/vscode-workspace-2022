@@ -29,10 +29,9 @@ public class Turret extends SubsystemBase {
   }
 
   double m_s_seepd = 0.2;
-  double m_t_seepd = 0.4;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
-  public void turnTurret(){
+  public void turnTurret(double m_t_seepd){
     
     Limelight.Target m_limelight = Limelight.getTarget();
 
