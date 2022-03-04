@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public final class Constants {
 
+    public final Limelight limelight = new Limelight();
 
     public enum Encoders {
         LeftArmAngleEncoder (Motors.LEFT_ARM_ANGLE.getEncoder()),
