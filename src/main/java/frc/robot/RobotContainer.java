@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.blue1;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.Joysticks;
@@ -16,6 +17,7 @@ public class RobotContainer {
   //TeleOp Subsystems
   public final Drivetrain m_drive = new Drivetrain();
   public Intake intake = new Intake(Motors.INTAKE);
+  public Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
 
   //TeleOp Commands
   public RunIntake runIntake = new RunIntake(intake);
@@ -23,7 +25,7 @@ public class RobotContainer {
   //Autonomous Commands
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
-  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake);
+  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake, shooter);
  
   // TODO: Need to add the "shooting" aspect
   public blue1 blue1 = new blue1(m_drive, intake);
