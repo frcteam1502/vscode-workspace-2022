@@ -23,30 +23,21 @@ public class Shooter extends SubsystemBase {
     this.shooterRight = shooterRight;
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
-    ArrayList<Double> hoodAngle = new ArrayList<Double>();
-    ArrayList<Double> sepd = new ArrayList<Double>();
+    double[] hoodAngle =new double[10];
+    
 
-    hoodAngle.add(0,0.0);
-    hoodAngle.add(1,0.0);
-    hoodAngle.add(2,0.0);
-    hoodAngle.add(3,0.0);
-    hoodAngle.add(4,0.0);
-    hoodAngle.add(5,0.0);
-    hoodAngle.add(6,0.0);
-    hoodAngle.add(7,0.0);
-    hoodAngle.add(8,0.0);
-    hoodAngle.add(9,0.0);
+    hoodAngle[0] = 0.0; //84in
+    hoodAngle[1] = 0.0; //104.5in
+    hoodAngle[2] = 0.0; //125in
+    hoodAngle[3] = 0.0; //145.5in
+    hoodAngle[4] = 0.0; //166in
+    hoodAngle[5] = 0.0; //186.5in
+    hoodAngle[6] = 0.0; //207in
+    hoodAngle[7] = 0.0; //227.5in
+    hoodAngle[8] = 0.0; //248in
+    hoodAngle[9] = 0.0; //268.5in
 
-    sepd.add(0,0.0);
-    sepd.add(1,0.0);
-    sepd.add(2,0.0);
-    sepd.add(3,0.0);
-    sepd.add(4,0.0);
-    sepd.add(5,0.0);
-    sepd.add(6,0.0);
-    sepd.add(7,0.0);
-    sepd.add(8,0.0);
-    sepd.add(9,0.0);
+    
     
 
 

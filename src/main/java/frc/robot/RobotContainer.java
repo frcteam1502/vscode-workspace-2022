@@ -21,7 +21,6 @@ import frc.robot.subsystems.AngleFlap;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
@@ -43,7 +42,7 @@ public class RobotContainer {
   private MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
-  private LimelightDistance limelightDistance = new LimelightDistance(limelight);
+  private LimelightDistance limelightDistance = new LimelightDistance();
   private MoveHood moveHood = new MoveHood(angleFlap);
 
   public RobotContainer() {
