@@ -7,19 +7,22 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class AutoSimple extends CommandBase {
   private Drivetrain drivetrain;
   private Intake intake;
   private Shooter shooter;
   private Climber climber;
+  private Turret turret;
 
-  public AutoSimple(Drivetrain drivetrain, Intake intake, Shooter shooter, Climber climber) {
+  public AutoSimple(Drivetrain drivetrain, Intake intake, Shooter shooter, Climber climber, Turret turret){
     addRequirements(drivetrain, intake, shooter, climber);
     this.drivetrain = drivetrain;
     this.intake = intake;
     this.shooter = shooter;
     this.climber = climber;
+    this.turret = turret;
   }
 
   @Override
@@ -51,6 +54,8 @@ public class AutoSimple extends CommandBase {
     Timer.delay(1.2);
     //stop driving
     drive(0);
+    //Aim
+    while(!turret.turnTurret(.3));
     //shoot
     shooter.indexBall();
     Timer.delay(3);
