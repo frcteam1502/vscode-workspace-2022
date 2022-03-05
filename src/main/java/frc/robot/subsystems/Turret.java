@@ -28,7 +28,7 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  double m_s_seepd = 0.2;
+  double m_s_seepd = 0.4;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
   public void turnTurret(double m_t_seepd){
@@ -73,8 +73,11 @@ public class Turret extends SubsystemBase {
         breek = "left";
         turretMotor.set(-m_s_seepd);
       }
-      else if(breek == "no"){
+      else if(breek == "no" || breek == "right"){
         turretMotor.set(m_s_seepd);
+      }
+      else{
+        turretMotor.set(-m_s_seepd);
       }
     }
 
