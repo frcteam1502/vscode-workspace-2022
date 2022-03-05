@@ -13,7 +13,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
@@ -58,7 +57,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void move(double ySpeed, double xSpeed, double zRotation) {
-    m_drive.driveCartesian(ySpeed, xSpeed, zRotation);
+    frontLeft.set(xSpeed + ySpeed + zRotation);
+    frontRight.set(xSpeed - ySpeed - zRotation);
+    backLeft.set(xSpeed - ySpeed + zRotation);
+    backRight.set(xSpeed + ySpeed - zRotation);
   }
 
   @Override

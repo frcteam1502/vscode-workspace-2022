@@ -14,6 +14,7 @@
       "/LiveWindow/AutoDriveSubsystem": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Ungrouped/ADXRS450_Gyro[0]": "Gyro",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/MecanumDrive[1]": "MecanumDrive",

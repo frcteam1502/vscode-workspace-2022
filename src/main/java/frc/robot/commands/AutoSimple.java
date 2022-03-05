@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -35,20 +36,32 @@ public class AutoSimple extends CommandBase {
     */
 
     //start shooter
+    //TODO: lower power? Check after new configurations
     shooter.shoot();
     //start intake
     intake.runIntakeForward();
+    //TODO: drop intake
+
     //move out of box and pickup 2nd ball
-    drivetrain.move(0, .5, 0);
-    Timer.delay(3);
+    drive(.2);
+    Timer.delay(1.2);
+    //stop driving
+    drive(0);
     //shoot
     shooter.indexBall();
-    Timer.delay(1);
+    Timer.delay(3);
     //stop index
     shooter.indexBallStop();
     Timer.delay(2);
     //shoot
     shooter.indexBall();
+  }
+
+  public void drive(double power) {
+    Constants.Motors.DRIVE_FRONT_LEFT.set(power);
+    Constants.Motors.DRIVE_FRONT_RIGHT.set(-power);
+    Constants.Motors.DRIVE_BACK_LEFT.set(power);
+    Constants.Motors.DRIVE_BACK_RIGHT.set(-power);
   }
 
   @Override

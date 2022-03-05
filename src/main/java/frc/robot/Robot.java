@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import com.revrobotics.CANSparkMax;
+
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -39,6 +41,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    Constants.Motors.DRIVE_BACK_LEFT.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    Constants.Motors.DRIVE_FRONT_LEFT.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    Constants.Motors.DRIVE_FRONT_RIGHT.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    Constants.Motors.DRIVE_BACK_RIGHT.setIdleMode(CANSparkMax.IdleMode.kBrake);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
   
     if (m_autonomousCommand != null) {
@@ -53,6 +59,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    Constants.Motors.DRIVE_BACK_LEFT.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    Constants.Motors.DRIVE_FRONT_LEFT.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    Constants.Motors.DRIVE_FRONT_RIGHT.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    Constants.Motors.DRIVE_BACK_RIGHT.setIdleMode(CANSparkMax.IdleMode.kCoast);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
