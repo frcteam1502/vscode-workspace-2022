@@ -29,14 +29,13 @@ public class MoveLongArms extends CommandBase {
 
   @Override
   public void execute() {
-    
-  //   if(button == 1) ExtendArmsEncoders();
-  //   else if (button == 2) ContractArmsEncoder();
-  //   else climber.StopLongLongArms();
+    if(button == 1) ExtendArmsEncoders();
+    else if (button == 2) ContractArmsEncoder();
+    else climber.StopLongLongArms();
 
-  //   if (button == 3) RotateForwards();
-  //   else if (button == 4) RotateBackwards();
-  //   else button = 0;
+    if (button == 3) RotateForwards();
+    else if (button == 4) RotateBackwards();
+    else button = 0;
   }
 
   @Override
