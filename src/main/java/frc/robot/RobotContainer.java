@@ -5,14 +5,11 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveHood;
-import frc.robot.commands.MoveLongArms;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
@@ -23,18 +20,21 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.EncoderValues;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
   private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
-    Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
-  private Turret turret = new Turret(Motors.TURRET);
+  Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+  private static Turret turret = new Turret(Motors.TURRET);
   private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
   private Intake intake = new Intake(Motors.INTAKE);
-  private AngleFlap angleFlap = new AngleFlap(Motors.ANGLE);  
+  private AngleFlap angleFlap = new AngleFlap(Motors.FLAP);  
+  private EncoderValues encoderValues = new EncoderValues();
 
-  private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
+  private UpdateEncoders updateEncoders = new UpdateEncoders(encoderValues);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
   private MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
@@ -44,7 +44,6 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
   }
-  private final Drivetrain m_drive = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   
 
   /**
@@ -65,7 +64,6 @@ public class RobotContainer {
 
     XboxButtons.BUTTON_Y.whenPressed(climber::RotateBackwardsEncoder);
     XboxButtons.BUTTON_Y.whenReleased(climber::StopArmsRotate);
-
 
     /*
     XboxButtons.LEFT_BUMPER.whenPressed(new InstantCommand(climber::ExtendArms));
@@ -96,10 +94,10 @@ public class RobotContainer {
 
     XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
     XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
-  */
+  */    
   }
 
-  public Command getAutonomousCommand() {
+  /*public Command getAutonomousCommand() {
     return null;
   }
   
@@ -107,7 +105,7 @@ public class RobotContainer {
     
 
   //TeleOp Commands
-  public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
+ // public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
 
   //Autonomous Commands 
 
@@ -117,6 +115,4 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-
- 
 }

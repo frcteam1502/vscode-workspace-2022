@@ -10,7 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -21,21 +21,26 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+
     public enum Encoders {
         LeftArmAngleEncoder (Motors.LEFT_ARM_ANGLE.getEncoder()),
         RightArmAngleEncoder (Motors.RIGHT_ARM_ANGLE.getEncoder()),
         LeftExtenderEncoder (Motors.LEFT_ARM_EXTENDER.getEncoder()),
         RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
         LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
-        RightBabyEncoder (Motors.RIGHT_BABY.getEncoder());
+        RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
+        FlapEncoder (Motors.FLAP.getEncoder());
     
         public RelativeEncoder Encoder;
         Encoders(RelativeEncoder encoder) {
           this.Encoder = encoder;
         }
+        
     }
-    
-    public final static class Motors {
+
+     public final static class Motors {
+        
         // Drivetrain
         public static final CANSparkMax DRIVE_FRONT_LEFT = new CANSparkMax(12, MotorType.kBrushless);
         public static final CANSparkMax DRIVE_FRONT_RIGHT = new CANSparkMax(11, MotorType.kBrushless);
@@ -53,8 +58,11 @@ public final class Constants {
         // Shooter
         public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
         public static final CANSparkMax SHOOTER_LEFT = new CANSparkMax(14, MotorType.kBrushless);
-        public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);
-        public static final CANSparkMax ANGLE = new CANSparkMax(2, MotorType.kBrushless);
+        
+        public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);// TODO: change back from 16 to 5
+        
+        public static final CANSparkMax FLAP = new CANSparkMax(2, MotorType.kBrushless);
+
         public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
         public static final CANSparkMax INTAKE = new CANSparkMax(1, MotorType.kBrushless);
     }
@@ -66,9 +74,7 @@ public final class Constants {
         public static final XboxController CONTROLLER2 = new XboxController(3);
     }
 
-    public static final class XboxButtons {        
-        public static final JoystickButton MODE_BUTTON = new JoystickButton(Joysticks.CONTROLLER, 11); // no clue which number is mode button
-
+    public static final class XboxButtons {
         public static final JoystickButton LEFT_BUMPER = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kLeftBumper.value); // Extend
         public static final JoystickButton RIGHT_BUMPER = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kRightBumper.value); // Contract
         public static final JoystickButton BUTTON_Y = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kY.value); // Rotate Clockwise

@@ -8,21 +8,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Encoders;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Climber.EncoderValues;
+import frc.robot.subsystems.EncoderValues;
 
 public class UpdateEncoders extends CommandBase {
-  private Climber climber;
+  private EncoderValues encoderValues;
   /** Creates a new UpdateEncoders. */
-  public UpdateEncoders(Climber climber) {
+  public UpdateEncoders(EncoderValues encoderValues) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(climber);
-    this.climber = climber;
+    addRequirements(encoderValues);
+    this.encoderValues = encoderValues;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.ResetEncoders();
+    // climber.ResetEncoders();
     EncoderValues.leftArm = 0;
     EncoderValues.rightArm = 0;
     EncoderValues.leftArmAngle = 0;

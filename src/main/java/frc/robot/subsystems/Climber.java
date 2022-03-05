@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +19,6 @@ public class Climber extends SubsystemBase {
   public boolean individualMode = false;
 
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
-    setDefaultCommand(new UpdateEncoders(this));
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
     this.leftAngle = leftArmAngle;
@@ -181,50 +179,16 @@ public class Climber extends SubsystemBase {
   }
 
   // Encoder Stuff
-  public void ResetEncoders() {
-    this.leftExtender.getEncoder().setPosition(0);
-    this.rightExtender.getEncoder().setPosition(0);
-    this.leftAngle.getEncoder().setPosition(0);
-    this.rightAngle.getEncoder().setPosition(0);
-    this.leftBaby.getEncoder().setPosition(0);
-    this.rightBaby.getEncoder().setPosition(0);
-  }
 
-  public RelativeEncoder GetEncoders(String motor) {
-    switch (motor) {
-      case "Left Extender":
-        return leftExtender.getEncoder();
-      case "Right Extender":
-        return rightExtender.getEncoder();
-      case "Left Angle":
-        return leftAngle.getEncoder();
-      case "Right Angle":
-        return rightAngle.getEncoder();
-      case "Left Baby":
-        return leftBaby.getEncoder();
-      case "Right Baby":
-        return rightBaby.getEncoder();
-      default:
-        return null;
-    }
-  }
+
+
+
+
+
+
+
+
   
-  public static class EncoderValues {
-    public static double leftArm, rightArm, leftArmAngle, rightArmAngle, leftBaby, rightBaby;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
   // 3/5/2022 Encoder stuff was moved here. This class is so messy I hate it and want to purge all the unused methods especially the ones for one button climb (sorry Nick)
   private double leftSpeed, rightSpeed = 0.5;
 
