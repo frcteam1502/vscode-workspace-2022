@@ -39,7 +39,7 @@ public class AutoSimple extends CommandBase {
     //TODO: lower power? Check after new configurations
     shooter.shoot();
     //start intake
-    intake.runIntakeForward();
+    intake.moveIntake();
     //TODO: drop intake
 
     //move out of box and pickup 2nd ball
@@ -66,7 +66,7 @@ public class AutoSimple extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    drivetrain.move(0, 0, 0);
+    drivetrain.stopmotors();
     intake.stopIntake();
     shooter.indexBallStop();
     shooter.noShoot();
