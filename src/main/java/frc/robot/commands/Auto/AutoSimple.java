@@ -1,8 +1,9 @@
-package frc.robot.commands;
+package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -11,12 +12,14 @@ public class AutoSimple extends CommandBase {
   private Drivetrain drivetrain;
   private Intake intake;
   private Shooter shooter;
+  private Climber climber;
 
-  public AutoSimple(Drivetrain drivetrain, Intake intake, Shooter shooter) {
-    addRequirements(drivetrain, intake, shooter);
+  public AutoSimple(Drivetrain drivetrain, Intake intake, Shooter shooter, Climber climber) {
+    addRequirements(drivetrain, intake, shooter, climber);
     this.drivetrain = drivetrain;
     this.intake = intake;
     this.shooter = shooter;
+    this.climber = climber;
   }
 
   @Override
@@ -36,12 +39,13 @@ public class AutoSimple extends CommandBase {
     */
 
     //start shooter
-    //TODO: lower power? Check after new configurations
     shooter.shoot();
     //start intake
     intake.moveIntake();
-    //TODO: drop intake
-
+    //drop intake
+    climber.RotateArmsForwards();
+    Timer.delay(2);
+    climber.StopArmsRotate();
     //move out of box and pickup 2nd ball
     drive(.2);
     Timer.delay(1.2);

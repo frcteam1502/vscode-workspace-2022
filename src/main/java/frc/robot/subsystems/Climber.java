@@ -119,7 +119,7 @@ public class Climber extends SubsystemBase {
   public void RotateRightBaby(double speed) {
     rightBaby.set(speed);
   }
-  // TODO: Decide if recusion is the right choice... I'm begining to think no
+
   //"Autonomously" Extend/Contract Arms
   public void ExtendArmsToEncoder(double value) {
     if(leftExtender.getEncoder().getPosition() < value && rightExtender.getEncoder().getPosition() < value) {

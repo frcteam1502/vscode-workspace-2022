@@ -3,14 +3,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.RunIntake;
-import frc.robot.commands.blue1;
+import frc.robot.commands.Auto.AutoSimple;
+import frc.robot.commands.Auto.blue1;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.Motors;
-import frc.robot.commands.AutoSimple;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.PathFindingConstants.AutoConstants;
 import frc.robot.PathFindingConstants.DriveConstants;
@@ -76,7 +76,7 @@ public class RobotContainer {
   //Autonomous Commands
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
-  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake, shooter);
+  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake, shooter, climber);
  
   // TODO: Need to add the "shooting" aspect
   public blue1 blue1 = new blue1(m_drive, intake);
