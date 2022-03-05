@@ -32,7 +32,7 @@ public class MoveTurret extends CommandBase {
 
 
   private final PIDController rotationController = new PIDController(5e-3, 0, 0);
-  private static final double SPEED = 0.4;
+  private static final double SPEED = 0.1;
   protected double getVelocity() {
     return -SPEED;
   }
