@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Joysticks;
+import frc.robot.Constants.XboxButtons;
 import frc.robot.subsystems.Shooter;
 
 
@@ -24,10 +24,18 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Joysticks.CONTROLLER.getYButton() == true){
+    if (XboxButtons.BACK.get() == true){
       shooter.shoot();
     } else {
       shooter.noShoot();
+
+    if (XboxButtons.LEFT_STICK.get()){
+      shooter.indexBall();
+    }
+
+    if (XboxButtons.RIGHT_STICK.get()){
+      shooter.indexBallRev();
+    }
 
     }
   }

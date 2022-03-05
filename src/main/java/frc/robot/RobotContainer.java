@@ -17,6 +17,17 @@ import frc.robot.PathFindingConstants.DriveConstants;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.Shoot;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import frc.robot.Constants.Motors;
+import frc.robot.Constants.XboxButtons;
+import frc.robot.commands.DriveByJoysticks;
+import frc.robot.commands.MoveTurret;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.UpdateEncoders;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
@@ -33,18 +44,31 @@ public class RobotContainer {
   private final MoveTurret m_robotMoveTurret = new MoveTurret(m_robotTurret);
 
   public final Drivetrain m_drive = new Drivetrain();
+  
+  private Climber climber = new Climber(Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
+  private Turret turret = new Turret(Motors.TURRET);
+  
+
+  private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
+  private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(m_drive);
+  private MoveTurret moveTurret = new MoveTurret(turret);
+  private Shoot shoot = new Shoot(shooter);
 
   public RobotContainer() {
-    m_drive.setDefaultCommand(new RunCommand(() -> m_drive.move(
-            Joysticks.RIGHT_JOYSTICK.getX(),
-            Joysticks.RIGHT_JOYSTICK.getY(),
-            Joysticks.RIGHT_JOYSTICK.getZ()), 
-          m_drive));
     configureButtonBindings();
     setUpMChooser();
   }
+  
+  private void configureButtonBindings() {
+    XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
+    XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
 
-  private void configureButtonBindings() {}
+    XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
+    XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
+
+    XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
+    XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
+  }
 
   //TeleOp Commands
   public RunIntake runIntake = new RunIntake(intake);

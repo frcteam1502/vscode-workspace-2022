@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.Shoot;
 
 
 public class Shooter extends SubsystemBase {
@@ -11,9 +12,11 @@ public class Shooter extends SubsystemBase {
 
 
   public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel) {
+    setDefaultCommand(new Shoot(this));
     this.shooterRight = shooterRight;
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
+    
   }
 
   @Override
@@ -30,8 +33,15 @@ public class Shooter extends SubsystemBase {
   }
 
   public void indexBall(){
-    indexWheel.set(0.5);
+
+    indexWheel.set(0.25);
   }
+
+  public void indexBallRev(){
+
+    indexWheel.set(-0.25);
+  }
+
 
   public void indexBallStop(){
     indexWheel.set(0);

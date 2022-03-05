@@ -5,6 +5,8 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Motors;
 import frc.robot.PathFindingConstants.DriveConstants;
+import frc.robot.commands.DriveByJoysticks;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 
 public class Drivetrain extends SubsystemBase {
@@ -45,6 +48,8 @@ public class Drivetrain extends SubsystemBase {
   private SwerveModuleState[] state = null;
 
   public Drivetrain() {    
+    setDefaultCommand(new DriveByJoysticks(this));
+
     this.leftFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.leftBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.rightFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
@@ -56,11 +61,25 @@ public class Drivetrain extends SubsystemBase {
     m_drive.setMaxOutput(.3);
   }
 
-  public void move(double ySpeed, double xSpeed, double zRotation) {
-    frontLeft.set(xSpeed + ySpeed + zRotation);
-    frontRight.set(xSpeed - ySpeed - zRotation);
-    backLeft.set(xSpeed - ySpeed + zRotation);
-    backRight.set(xSpeed + ySpeed - zRotation);
+  public void TankDrive(double leftSpeed, double rightSpeed) {
+    frontLeft.set(leftSpeed);
+    backLeft.set(leftSpeed);
+    frontRight.set(rightSpeed);
+    backRight.set(rightSpeed);
+  }
+
+  public void MecanumDrive(double xSpeed, double ySpeed, double zRotation) {
+    xSpeed /= 2;
+    ySpeed /= 2;
+    zRotation *= 0.75;
+
+    frontLeft.set(ySpeed + xSpeed + zRotation);
+    backLeft.set(ySpeed - xSpeed + zRotation);
+    frontRight.set((ySpeed - xSpeed - zRotation));
+    backRight.set((ySpeed + xSpeed - zRotation));
+
+    MathUtil.applyDeadband(xSpeed, 0.02);
+    MathUtil.applyDeadband(ySpeed, 0.02);
   }
 
   @Override

@@ -69,7 +69,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    Constants.Motors.LEFT_ARM_EXTENDER.getEncoder().getPosition();
+  }
 
   @Override
   public void testInit() {

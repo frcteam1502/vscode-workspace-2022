@@ -1,11 +1,7 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Motors;
+import frc.robot.Constants.Motors.Joysticks;
 import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
@@ -16,19 +12,18 @@ public class RunIntake extends CommandBase {
     this.intake = intake;
   }
 
+
   @Override
   public void initialize() {}
 
   @Override
   public void execute() {
-    Motors.DRIVE_BACK_LEFT.set(.5);
+   if(Joysticks.JOYSTICK_LEFT.getTrigger()) intake.moveIntake();
+   else intake.stopIntake();
   }
 
   @Override
-  public void end(boolean interrupted) {
-    Motors.DRIVE_BACK_LEFT.set(0);
-
-  }
+  public void end(boolean interrupted) {}
 
   @Override
   public boolean isFinished() {
