@@ -12,6 +12,7 @@ import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveHood;
+import frc.robot.commands.MoveLongArms;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
@@ -24,7 +25,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
-  
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
@@ -54,6 +54,20 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+    XboxButtons.LEFT_BUMPER.whenPressed(climber::ExtendArmsEncoders);
+    XboxButtons.LEFT_BUMPER.whenReleased(climber::StopLongLongArms);
+
+    XboxButtons.RIGHT_BUMPER.whenPressed(climber::ContractArmsEncoder);
+    XboxButtons.RIGHT_BUMPER.whenReleased(climber::StopLongLongArms);
+
+    XboxButtons.BUTTON_A.whenPressed(climber::RotateForwardsEncoder);
+    XboxButtons.BUTTON_A.whenReleased(climber::StopArmsRotate);
+
+    XboxButtons.BUTTON_Y.whenPressed(climber::RotateBackwardsEncoder);
+    XboxButtons.BUTTON_Y.whenReleased(climber::StopArmsRotate);
+
+
+    /*
     XboxButtons.LEFT_BUMPER.whenPressed(new InstantCommand(climber::ExtendArms));
     XboxButtons.LEFT_BUMPER.whenReleased(new InstantCommand(climber::StopLongLongArms));
 
@@ -65,6 +79,7 @@ public class RobotContainer {
 
     XboxButtons.BUTTON_Y.whenPressed(new InstantCommand(climber::RotateArmsBackwards));
     XboxButtons.BUTTON_Y.whenReleased(new InstantCommand(climber::StopArmsRotate));
+    */
 
     XboxButtons.BUTTON_X.whenPressed(new InstantCommand(climber::RotateBabyFowards));
     XboxButtons.BUTTON_X.whenReleased(new InstantCommand(climber::StopBabies));

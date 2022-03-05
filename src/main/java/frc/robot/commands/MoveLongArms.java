@@ -10,17 +10,16 @@ import frc.robot.Constants.EncoderMaxes;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.EncoderValues;
 
+@Deprecated
 public class MoveLongArms extends CommandBase {
   private final Climber climber;
   private double leftSpeed = 0.5;
-  private double rightSpeed = -0.5;
+  private double rightSpeed = 0.5;
   private double button;
-  private boolean usingEncoders;
 
-  public MoveLongArms(Climber climber, double button, boolean usingEncoders) {
+  public MoveLongArms(Climber climber, double button) {
     this.climber = climber;
     this.button = button;
-    this.usingEncoders = usingEncoders;
     addRequirements(climber);
   }
 

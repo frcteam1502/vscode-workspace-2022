@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.EncoderMaxes;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.UpdateEncoders;
 
@@ -210,5 +211,72 @@ public class Climber extends SubsystemBase {
   
   public static class EncoderValues {
     public static double leftArm, rightArm, leftArmAngle, rightArmAngle, leftBaby, rightBaby;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // 3/5/2022 Encoder stuff was moved here. This class is so messy I hate it and want to purge all the unused methods especially the ones for one button climb (sorry Nick)
+  private double leftSpeed, rightSpeed = 0.5;
+
+  public void ExtendArmsEncoders() {
+    if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX && EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
+      MoveLeftArm(leftSpeed);
+      MoveRightArm(rightSpeed);
+    } else if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX) {
+      MoveLeftArm(leftSpeed);
+    } else if (EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
+      MoveRightArm(rightSpeed);
+    } else {
+      StopLongLongArms();
+    }
+  } 
+
+  public void ContractArmsEncoder() {
+    if (EncoderValues.leftArm > 0 && EncoderValues.rightArm < 2) {
+      MoveLeftArm(-leftSpeed);
+      MoveRightArm(-rightSpeed);
+    } else if (EncoderValues.leftArm > 0) {
+      MoveLeftArm(-leftSpeed);
+    } else if (EncoderValues.rightArm > 0) {
+      MoveRightArm(-rightSpeed);
+    } else {
+      StopLongLongArms();
+    }
+  }
+
+  public void RotateForwardsEncoder() {
+    if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX && EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
+      RotateLeftArm(leftSpeed / 2);
+      RotateRightArm(rightSpeed / 2);
+    } else if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX) {
+      RotateLeftArm(leftSpeed / 2);
+    } else if (EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
+      RotateRightArm(rightSpeed / 2);
+    } else {
+      StopArmsRotate();
+    }
+  }
+
+  public void RotateBackwardsEncoder() {
+    if (EncoderValues.leftArmAngle > 0 && EncoderValues.rightArmAngle < 0) {
+      RotateLeftArm(-leftSpeed / 2);
+      RotateRightArm(-rightSpeed / 2);
+    } else if (EncoderValues.leftArmAngle > 0) {
+      RotateLeftArm(-leftSpeed / 2);
+    } else if (EncoderValues.rightArmAngle > 0) {
+      RotateRightArm(-rightSpeed / 2);
+    } else {
+      StopArmsRotate();
+    }
   }
 }
