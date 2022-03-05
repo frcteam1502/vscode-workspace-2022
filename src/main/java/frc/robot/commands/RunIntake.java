@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Joysticks;
+import frc.robot.Constants.Motors;
 import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
@@ -21,14 +21,13 @@ public class RunIntake extends CommandBase {
 
   @Override
   public void execute() {
-    if(Joysticks.CONTROLLER.getAButton()) intake.runIntakeForward();
-    else if(Joysticks.CONTROLLER.getBButton()) intake.runIntakeBackward();
-    else intake.stopIntake();
-}
+    Motors.DRIVE_BACK_LEFT.set(.5);
+  }
 
   @Override
   public void end(boolean interrupted) {
-    intake.stopIntake();
+    Motors.DRIVE_BACK_LEFT.set(0);
+
   }
 
   @Override

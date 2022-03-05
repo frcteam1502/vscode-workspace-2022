@@ -14,7 +14,6 @@ public class Shooter extends SubsystemBase {
     this.shooterRight = shooterRight;
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
-    
   }
 
   @Override

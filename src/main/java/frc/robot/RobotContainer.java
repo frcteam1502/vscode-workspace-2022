@@ -12,12 +12,39 @@ import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.Motors;
 import frc.robot.commands.AutoSimple;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.PathFindingConstants.AutoConstants;
+import frc.robot.PathFindingConstants.DriveConstants;
+import frc.robot.commands.DriveByJoysticks;
+import frc.robot.commands.MoveTurret;
+import frc.robot.commands.Shoot;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
   //TeleOp Subsystems
-  public final Drivetrain m_drive = new Drivetrain();
   public Intake intake = new Intake(Motors.INTAKE);
   public Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
+
+  private final Shooter m_robotShooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
+  private final Shoot m_robotShoot = new Shoot(m_robotShooter);
+
+  private final Turret m_robotTurret = new Turret(Motors.TURRET);
+  private final MoveTurret m_robotMoveTurret = new MoveTurret(m_robotTurret);
+
+  public final Drivetrain m_drive = new Drivetrain();
+
+  public RobotContainer() {
+    m_drive.setDefaultCommand(new RunCommand(() -> m_drive.move(
+            Joysticks.RIGHT_JOYSTICK.getX(),
+            Joysticks.RIGHT_JOYSTICK.getY(),
+            Joysticks.RIGHT_JOYSTICK.getZ()), 
+          m_drive));
+    configureButtonBindings();
+    setUpMChooser();
+  }
+
+  private void configureButtonBindings() {}
 
   //TeleOp Commands
   public RunIntake runIntake = new RunIntake(intake);
@@ -30,15 +57,6 @@ public class RobotContainer {
   // TODO: Need to add the "shooting" aspect
   public blue1 blue1 = new blue1(m_drive, intake);
 
-  public RobotContainer() {
-    m_drive.setDefaultCommand(new RunCommand(() -> m_drive.move(
-            Joysticks.RIGHT_JOYSTICK.getX(),
-            Joysticks.RIGHT_JOYSTICK.getY(),
-            Joysticks.RIGHT_JOYSTICK.getZ()), 
-          m_drive));
-    configureButtonBindings();
-    setUpMChooser();
-  }
 
   //Sets up the sendable chooser for Autonomous
   private void setUpMChooser() {
@@ -51,6 +69,4 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return m_chooser.getSelected();
   }
-
-  private void configureButtonBindings() {}
-}
+}  
