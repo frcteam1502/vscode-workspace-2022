@@ -22,6 +22,9 @@
     }
   },
   "NetworkTables": {
+    "FMSInfo": {
+      "open": true
+    },
     "LiveWindow": {
       ".status": {
         "open": true
@@ -29,11 +32,17 @@
       "Climber": {
         "open": true
       },
+      "Turret": {
+        "open": true
+      },
       "Ungrouped": {
         "DigitalInput[0]": {
           "open": true
         },
         "DigitalInput[1]": {
+          "open": true
+        },
+        "Scheduler": {
           "open": true
         },
         "open": true

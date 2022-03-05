@@ -9,19 +9,15 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
-import frc.robot.Constants;
-//import frc.robot.Constants.Joysticks;s
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turret extends SubsystemBase {
 
   private CANSparkMax turretMotor;
-  private Limelight m_limelight;
 
   public Turret(CANSparkMax turretMotor) {
     this.turretMotor = turretMotor;
-    this.m_limelight = new Limelight();
   }
 
   DigitalInput rightlimitSwitch = new DigitalInput(0);
@@ -32,21 +28,16 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  double m_s_seepd = 0.1;
-  double m_t_seepd = 0.2;
+  double m_s_seepd = 0.2;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
-  public void turnTurret(){
+  public void turnTurret(double m_t_seepd){
     
-    //Testing Code -- Remove Later
-
-
-
-    // End Testing Code
+    Limelight.Target m_limelight = Limelight.getTarget();
 
     if (m_limelight.tv == 1){
 
-      if ( (m_limelight.tx >= -2.0) && (m_limelight.tx <= 2.0)){
+      if ( (m_limelight.tx >= -0.75) && (m_limelight.tx <= 0.75)){
         turretMotor.set(0);
         breek = "no";
         SmartDashboard.putString("Turret status", "centered");
@@ -62,26 +53,14 @@ public class Turret extends SubsystemBase {
         turretMotor.set(-m_s_seepd);
       }
 
-      else if (m_limelight.tx > 2.0){//change to right side of camera screen
-        if(breek == "left"){
-          turretMotor.set(-m_s_seepd);
-          SmartDashboard.putString("Turret status", "breaking left");
-        }
-        else{
-          turretMotor.set(m_t_seepd);
-          SmartDashboard.putString("Turret status", "turning right");
-        }
+      else if (m_limelight.tx > 0.75){//change to right side of camera screen
+        turretMotor.set(m_t_seepd);
+        SmartDashboard.putString("Turret status", "turning right");
       }  
 
-      else if (m_limelight.tx < -2.0){//change to left side of camera screen
-        if(breek == "right"){
-          turretMotor.set(m_s_seepd);
-          SmartDashboard.putString("Turret status", "breaking right");
-        } 
-        else{
-          turretMotor.set(-m_t_seepd);
-          SmartDashboard.putString("Turret status", "turning left");
-        }
+      else if (m_limelight.tx < -0.75){//change to left side of camera screen
+        turretMotor.set(-m_t_seepd);
+        SmartDashboard.putString("Turret status", "turning left");
       }
     }
     else {
@@ -100,6 +79,6 @@ public class Turret extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("Turretmotor", turretMotor.get());
-    
+    SmartDashboard.putNumber("m_t_seepd", m_t_seepd);
   }
 } 
