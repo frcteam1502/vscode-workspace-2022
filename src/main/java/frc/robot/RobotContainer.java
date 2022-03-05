@@ -36,7 +36,7 @@ public class RobotContainer {
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(encoderValues);
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
-  private MoveTurret moveTurret = new MoveTurret(turret);
+  public MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
   private MoveHood moveHood = new MoveHood(angleFlap);
