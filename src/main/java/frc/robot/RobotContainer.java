@@ -52,7 +52,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
    * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindings() {/*
     XboxButtons.LEFT_BUMPER.whenPressed(climber::ExtendArmsEncoders);
     XboxButtons.LEFT_BUMPER.whenReleased(climber::StopLongLongArms);
 
@@ -64,8 +64,9 @@ public class RobotContainer {
 
     XboxButtons.BUTTON_Y.whenPressed(climber::RotateBackwardsEncoder);
     XboxButtons.BUTTON_Y.whenReleased(climber::StopArmsRotate);
+    */
 
-    /*
+    
     XboxButtons.LEFT_BUMPER.whenPressed(new InstantCommand(climber::ExtendArms));
     XboxButtons.LEFT_BUMPER.whenReleased(new InstantCommand(climber::StopLongLongArms));
 
@@ -77,7 +78,7 @@ public class RobotContainer {
 
     XboxButtons.BUTTON_Y.whenPressed(new InstantCommand(climber::RotateArmsBackwards));
     XboxButtons.BUTTON_Y.whenReleased(new InstantCommand(climber::StopArmsRotate));
-    */
+    
 
     XboxButtons.BUTTON_X.whenPressed(new InstantCommand(climber::RotateBabyFowards));
     XboxButtons.BUTTON_X.whenReleased(new InstantCommand(climber::StopBabies));
