@@ -4,16 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Limelight;
 import frc.robot.subsystems.Turret;
 import frc.robot.PIDController;
 //import frc.robot.subsystems.AngleFlap;
+import frc.robot.Constants.XboxButtons;
 
 
 public class MoveTurret extends CommandBase {
-
+  private boolean on = true;
   private final Turret turret;
+  private boolean hasBeenReleased = true;
  // private final AngleFlap angleFlap;
 
   public MoveTurret(Turret tsubsystem/*, AngleFlap fsubsystem*/) {
@@ -44,7 +47,15 @@ public class MoveTurret extends CommandBase {
     Limelight.Target m_limelight = Limelight.getTarget();
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
-    turret.turnTurret(getVelocity() - offset);
+
+    if(XboxButtons.START.get() && hasBeenReleased) {
+      on = !on;
+      hasBeenReleased = false;
+    } else if(!XboxButtons.START.get()) {
+      hasBeenReleased = true;
+    }
+    
+    if(on) turret.turnTurret(getVelocity() - offset);
  
     //angleFlap.Moveflap();
   }

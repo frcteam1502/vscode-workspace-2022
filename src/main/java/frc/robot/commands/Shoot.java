@@ -41,7 +41,7 @@ public class Shoot extends CommandBase {
       shooter.shoot();
     } else shooter.noShoot();
 
-    if (Joysticks.CONTROLLER.getRightY() < -0.9) shooter.indexBall();
+    if (Joysticks.MANIP_CONTROLLER.getRightY() < -0.9) shooter.indexBall();
     else shooter.indexBallStop();
 
     /*

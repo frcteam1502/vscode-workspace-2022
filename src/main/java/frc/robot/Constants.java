@@ -71,24 +71,19 @@ public final class Constants {
     public final static class Joysticks {
         public static final Joystick JOYSTICK_LEFT = new Joystick(0);
         public static final Joystick JOYSTICK_RIGHT = new Joystick(1);
-        public static final XboxController CONTROLLER = new XboxController(2);
-        public static final XboxController CONTROLLER2 = new XboxController(3);
+        public static final XboxController MANIP_CONTROLLER = new XboxController(2);
+        public static final XboxController DRIVE_CONTROLLER = new XboxController(3);
     }
 
     public static final class XboxButtons {
-        public static final JoystickButton LEFT_BUMPER = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kLeftBumper.value); // Extend
-        public static final JoystickButton RIGHT_BUMPER = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kRightBumper.value); // Contract
-        public static final JoystickButton BUTTON_Y = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kY.value); // Rotate Clockwise
-        public static final JoystickButton BUTTON_A = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kA.value); // Rotate Counter Clockwise
-        public static final JoystickButton BUTTON_X = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kX.value); // Rotate babies Clockwise
-        public static final JoystickButton BUTTON_B = new JoystickButton(Joysticks.CONTROLLER, XboxController.Button.kB.value); // Rotate babies Counter Clockwise
-        public static final JoystickButton BACK = new JoystickButton(Joysticks.CONTROLLER, 7);
-        public static final JoystickButton START = new JoystickButton(Joysticks.CONTROLLER, 8);
-        // I dont know the values for these
-        public static final JoystickButton LEFT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 12);
-        public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.CONTROLLER, 13);
-        public static final JoystickButton LEFT_STICK = new JoystickButton(Joysticks.CONTROLLER, 14);
-        public static final JoystickButton RIGHT_STICK = new JoystickButton(Joysticks.CONTROLLER, 15);
+        public static final JoystickButton LEFT_BUMPER = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kLeftBumper.value); // Extend
+        public static final JoystickButton RIGHT_BUMPER = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kRightBumper.value); // Contract
+        public static final JoystickButton BUTTON_Y = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kY.value); // Rotate Clockwise
+        public static final JoystickButton BUTTON_A = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kA.value); // Rotate Counter Clockwise
+        public static final JoystickButton BUTTON_X = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kX.value); // Rotate babies Clockwise
+        public static final JoystickButton BUTTON_B = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kB.value); // Rotate babies Counter Clockwise
+        public static final JoystickButton BACK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 7);
+        public static final JoystickButton START = new JoystickButton(Joysticks.MANIP_CONTROLLER, 8);
     }
 
     public static final class EncoderMaxes {
