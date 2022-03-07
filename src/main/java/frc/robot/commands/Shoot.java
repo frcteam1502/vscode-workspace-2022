@@ -14,6 +14,7 @@ import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
   private Shooter shooter;
+  private boolean autoHood = true;
  
   public Shoot(Shooter subsystem) {
     addRequirements(subsystem);
@@ -28,7 +29,7 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     if (XboxButtons.BACK.get() == true){
-      shooter.shoot();
+      shooter.shoot(0.8);
     } else {
       shooter.noShoot();
     }
@@ -37,6 +38,18 @@ public class Shoot extends CommandBase {
       shooter.indexBall();
     }else{
       shooter.indexBallStop();
+    }
+
+    if (autoHood) {
+      shooter.moveHoodAutomatically();
+    } else {
+        if(Joysticks.CONTROLLER.getYButton()) {
+        shooter.angleUp();
+      } else if (Joysticks.CONTROLLER.getAButton()){
+        shooter.angleDown();
+      } else {
+        shooter.stopAngle();
+      }
     }
   }
 

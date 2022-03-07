@@ -31,10 +31,10 @@ public class RobotContainer {
   //private Climber climber = new Climber(
   //  Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
   private Turret turret = new Turret(Motors.TURRET);
-  private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
+  private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX, Motors.ANGLE);
   private Intake intake = new Intake(Motors.INTAKE);
   private Limelight limelight = new Limelight();
-  private AngleFlap angleFlap = new AngleFlap(Motors.ANGLE);
+  // private AngleFlap angleFlap = new AngleFlap(Motors.ANGLE);
   private EncoderValues encoderValues = new EncoderValues();
   
 
@@ -44,7 +44,7 @@ public class RobotContainer {
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
   private LimelightDistance limelightDistance = new LimelightDistance();
-  private MoveHood moveHood = new MoveHood(angleFlap);
+  // private MoveHood moveHood = new MoveHood(angleFlap);
   private UpdateEncoders updateEncoders = new UpdateEncoders(encoderValues);
 
   public RobotContainer() {

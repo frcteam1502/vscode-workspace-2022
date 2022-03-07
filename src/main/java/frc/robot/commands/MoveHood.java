@@ -9,6 +9,7 @@ import frc.robot.Constants.Joysticks;
 import frc.robot.subsystems.AngleFlap;
 import frc.robot.subsystems.Shooter;
 
+@Deprecated
 public class MoveHood extends CommandBase {
   private AngleFlap angleFlap;
   /** Creates a new MoveHood. */
@@ -25,6 +26,7 @@ public class MoveHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
     if(Joysticks.CONTROLLER.getYButton()) {
       angleFlap.angleUp();
     } else if (Joysticks.CONTROLLER.getAButton()){

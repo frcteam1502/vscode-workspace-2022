@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Encoders;
-
+import frc.robot.Constants.Motors;
 import frc.robot.subsystems.EncoderValues;
 
 public class UpdateEncoders extends CommandBase {
@@ -36,6 +36,9 @@ public class UpdateEncoders extends CommandBase {
 
     
     SmartDashboard.putNumber("EncoderValues.angle", EncoderValues.angle);
+
+    SmartDashboard.putNumber("Left Shoot v", Motors.SHOOTER_LEFT.getEncoder().getVelocity());
+    SmartDashboard.putNumber("Right Shoot v", Motors.SHOOTER_RIGHT.getEncoder().getVelocity());
   }
 
   // Called once the command ends or is interrupted.

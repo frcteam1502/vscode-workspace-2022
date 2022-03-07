@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.MoveHood;
 
+@Deprecated
 public class AngleFlap extends SubsystemBase {
   /** Creates a new AngleFlap. */
 
