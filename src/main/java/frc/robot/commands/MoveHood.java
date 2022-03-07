@@ -32,9 +32,6 @@ public class MoveHood extends CommandBase {
     } else {
       angleFlap.stopAngle();
     }
-  
-
-   
   }
 
   // Called once the command ends or is interrupted.

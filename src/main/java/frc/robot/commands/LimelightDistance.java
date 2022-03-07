@@ -5,14 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Limelight;
+import frc.robot.Limelight;
+import frc.robot.RobotContainer;
 
 public class LimelightDistance extends CommandBase {
-  private Limelight limelight;
+  private Limelight limelight = new Limelight();
   /** Creates a new LimelightDistance. */
-  public LimelightDistance(Limelight limelight) {
-    this.limelight = limelight;
-    addRequirements(limelight);
+  public LimelightDistance() {
+   
+   
     
     // Use addRequirements() here to declare subsystem dependencies.
   }
