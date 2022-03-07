@@ -42,7 +42,7 @@ public class Shooter extends SubsystemBase {
 
   public void indexBall(){
 
-    indexWheel.set(0.5);
+    indexWheel.set(0.55);
   }
 
   public void indexBallStop(){

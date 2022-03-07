@@ -68,10 +68,8 @@ public final class Constants {
     }
 
     public final static class Joysticks {
-        public static final Joystick JOYSTICK_LEFT = new Joystick(0);
-        public static final Joystick JOYSTICK_RIGHT = new Joystick(1);
-        public static final XboxController MANIP_CONTROLLER = new XboxController(2);
-        public static final XboxController DRIVE_CONTROLLER = new XboxController(3);
+        public static final XboxController MANIP_CONTROLLER = new XboxController(0);
+        public static final XboxController DRIVE_CONTROLLER = new XboxController(1);
     }
 
     public static final class XboxButtons {

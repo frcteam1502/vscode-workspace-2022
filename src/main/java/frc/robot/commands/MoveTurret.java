@@ -43,12 +43,7 @@ public class MoveTurret extends CommandBase {
   private boolean manual = true;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-     if(manual) {
-       runManually();
-       return;
-     }
-  
+  public void execute() {  
     Limelight.Target m_limelight = Limelight.getTarget();
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
@@ -64,14 +59,14 @@ public class MoveTurret extends CommandBase {
     SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
     
     if(on) turret.turnTurret(getVelocity() - offset);
-    else turret.turretStop();
+    else runManually();
  
     //angleFlap.Moveflap();
   }
 
   private void runManually() {
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8) turret.turnRight();
-    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8) turret.turnLeft();
+    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8) turret.turretRight();
+    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8) turret.turretLeft();
     else turret.turretStop();
   }
 
