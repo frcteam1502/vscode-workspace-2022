@@ -39,9 +39,9 @@ public class Shoot extends CommandBase {
     }else{
       shooter.indexBallStop();
     }
-
+shooter.moveHoodAutomatically();
     if (autoHood) {
-      shooter.moveHoodAutomatically();
+      
     } else {
         if(Joysticks.CONTROLLER.getYButton()) {
         shooter.angleUp();

@@ -5,6 +5,7 @@
       "/LiveWindow/AngleFlap": "Subsystem",
       "/LiveWindow/Climber": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
+      "/LiveWindow/EncoderValues": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/Limelight": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
@@ -15,11 +16,17 @@
     }
   },
   "NetworkTables": {
+    "FMSInfo": {
+      "open": true
+    },
     "LiveWindow": {
       ".status": {
         "open": true
       },
       "Climber": {
+        "open": true
+      },
+      "Shooter": {
         "open": true
       },
       "open": true

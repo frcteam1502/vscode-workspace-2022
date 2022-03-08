@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
   private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
   double[] hoodAngle;
   double[] speed;
-  Limelight.Target m_limelight = Limelight.getTarget();
+  
 
 
   public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel, CANSparkMax angle) {
@@ -78,22 +78,23 @@ public class Shooter extends SubsystemBase {
   }
 
   public void moveHoodAutomatically(){
+    Limelight.Target m_limelight = Limelight.getTarget();
     if(m_limelight.ty >= 11.9){
       moveHoodToTarget(0);
       shoot(0.8);
-    } else if (m_limelight.ty < 11.9 && m_limelight.tx >= 6.3) {
+    } else if (m_limelight.ty < 11.9 && m_limelight.ty >= 6.3) {
       moveHoodToTarget(1);
       shoot(0.8);
-    } else if (m_limelight.ty < 6.3 && m_limelight.tx >= 2.65) {
+    } else if (m_limelight.ty < 6.3 && m_limelight.ty >= 2.65) {
       moveHoodToTarget(2);
       shoot(0.8);
-    } else if (m_limelight.ty < 2.65 && m_limelight.tx >= -0.28) {
+    } else if (m_limelight.ty < 2.65 && m_limelight.ty >= -0.28) {
       moveHoodToTarget(3);
       shoot(0.8);
-    } else if (m_limelight.ty < -0.28 && m_limelight.tx >= -2.99) {
+    } else if (m_limelight.ty < -0.28 && m_limelight.ty >= -2.99) {
       moveHoodToTarget(4);
       shoot(0.85); 
-    } else if (m_limelight.ty < -2.99 && m_limelight.tx >= -5.23) {
+    } else if (m_limelight.ty < -2.99 && m_limelight.ty >= -5.23) {
       moveHoodToTarget(5);
       shoot(0.95);
     } else if (m_limelight.ty < -5.23) {

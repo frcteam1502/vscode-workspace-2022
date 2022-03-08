@@ -32,6 +32,7 @@ public class Limelight {
   public static Target getTarget() {
     double tx = getTableEntry("tx").getDouble(0);
     double ty = getTableEntry("ty").getDouble(0);
+    ty = 2;
     double ta = getTableEntry("ta").getDouble(0);
     double tv = getTableEntry("tv").getDouble(0);
     double ts = getTableEntry("ts").getDouble(0);
