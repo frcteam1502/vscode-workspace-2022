@@ -88,11 +88,11 @@ public class Turret extends SubsystemBase {
     turretMotor.set(0);
   }
 
-  public void turretRight() {
-    turretMotor.set(-0.2);
+  public void turretRight(double squeez) {
+    turretMotor.set(squeez / 2);
   }
 
-  public void turretLeft() {
-    turretMotor.set(0.2);
+  public void turretLeft(double squeez) {
+    turretMotor.set(squeez / 2);
   }
 } 
