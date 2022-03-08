@@ -34,25 +34,34 @@ import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
   //TeleOp Subsystems
-  public Intake intake = new Intake(Motors.INTAKE);
-  public Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
+  private final Intake intake = new Intake(Motors.INTAKE);
 
-  private final Shooter m_robotShooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
-  private final Shoot m_robotShoot = new Shoot(m_robotShooter);
+  private final Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
 
   private final Turret m_robotTurret = new Turret(Motors.TURRET);
+
+  private final Drivetrain m_drive = new Drivetrain();
+  
+  private final Climber climber = new Climber(Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);  
+
+  //TeleOp Commands
+  private final RunIntake runIntake = new RunIntake(intake);
+
   private final MoveTurret m_robotMoveTurret = new MoveTurret(m_robotTurret);
 
-  public final Drivetrain m_drive = new Drivetrain();
-  
-  private Climber climber = new Climber(Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
-  private Turret turret = new Turret(Motors.TURRET);
-  
+  private final Shoot m_robotShoot = new Shoot(shooter);
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(climber);
+
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(m_drive);
-  private MoveTurret moveTurret = new MoveTurret(turret);
-  private Shoot shoot = new Shoot(shooter);
+
+  //Autonomous Commands
+  public SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
+  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake, shooter, climber, m_robotTurret);
+ 
+  // TODO: Need to add the "shooting" aspect
+  public blue1 blue1 = new blue1(m_drive, intake);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -69,18 +78,6 @@ public class RobotContainer {
     XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
     XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));
   }
-
-  //TeleOp Commands
-  public RunIntake runIntake = new RunIntake(intake);
-
-  //Autonomous Commands
-  public SendableChooser<Command> m_chooser = new SendableChooser<>();
-  
-  public AutoSimple simpleAuto = new AutoSimple(m_drive, intake, shooter, climber, turret);
- 
-  // TODO: Need to add the "shooting" aspect
-  public blue1 blue1 = new blue1(m_drive, intake);
-
 
   //Sets up the sendable chooser for Autonomous
   private void setUpMChooser() {
