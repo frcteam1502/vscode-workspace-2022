@@ -4,16 +4,20 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Limelight;
 import frc.robot.subsystems.Turret;
 import frc.robot.PIDController;
+import frc.robot.Constants.Joysticks;
 //import frc.robot.subsystems.AngleFlap;
+import frc.robot.Constants.XboxButtons;
 
 
 public class MoveTurret extends CommandBase {
-
+  private boolean on = false;
   private final Turret turret;
+  private boolean hasBeenReleased = true;
  // private final AngleFlap angleFlap;
 
   public MoveTurret(Turret tsubsystem/*, AngleFlap fsubsystem*/) {
@@ -36,17 +40,34 @@ public class MoveTurret extends CommandBase {
   protected double getVelocity() {
     return -SPEED;
   }
-
+  private boolean manual = true;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-  
+  public void execute() {  
     Limelight.Target m_limelight = Limelight.getTarget();
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
-    turret.turnTurret(getVelocity() - offset);
+
+    if(XboxButtons.START.get() && hasBeenReleased) {
+      on = !on;
+      hasBeenReleased = false;
+    } else if(!XboxButtons.START.get()) {
+      hasBeenReleased = true;
+    }
+
+    SmartDashboard.putBoolean("on", on);
+    SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
+    
+    if(on) turret.turnTurret(getVelocity() - offset);
+    else runManually();
  
     //angleFlap.Moveflap();
+  }
+
+  private void runManually() {
+    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8) turret.turretRight();
+    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8) turret.turretLeft();
+    else turret.turretStop();
   }
 
   // Called once the command ends or is interrupted.
