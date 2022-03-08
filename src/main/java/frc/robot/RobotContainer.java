@@ -40,7 +40,7 @@ public class RobotContainer {
 
   private final Turret m_robotTurret = new Turret(Motors.TURRET);
 
-  private final Drivetrain m_drive = new Drivetrain();
+  public final Drivetrain m_drive = new Drivetrain();
   
   private final Climber climber = new Climber(Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);  
 

@@ -47,7 +47,7 @@ public class AutoSimple extends CommandBase {
     intake.moveIntake();
     //drop intake
     climber.RotateArmsForwards();
-    Timer.delay(2);
+    Timer.delay(5);
     climber.StopArmsRotate();
     //move out of box and pickup 2nd ball
     drive(.2);
