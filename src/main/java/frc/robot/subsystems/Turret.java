@@ -84,4 +84,15 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("Turretmotor", turretMotor.get());
     SmartDashboard.putNumber("m_t_seepd", m_t_seepd);
   }
+  public void turretStop() {
+    turretMotor.set(0);
+  }
+
+  public void turretRight() {
+    turretMotor.set(-0.2);
+  }
+
+  public void turretLeft() {
+    turretMotor.set(0.2);
+  }
 } 
