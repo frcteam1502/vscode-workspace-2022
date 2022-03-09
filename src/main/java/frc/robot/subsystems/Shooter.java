@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.revrobotics.CANSparkMax;
 
+import frc.robot.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -107,11 +108,19 @@ public class Shooter extends SubsystemBase {
   }
   
   double dummy;
+  private final PIDController angleController = new PIDController(3e-3, 0, 0);
+
+ 
+
   private void moveHoodToTarget(int target) {
+
+    double error = EncoderValues.angle - hoodAngle[target];
+    double offset = angleController.getCorrection(error);
+
     if(EncoderValues.angle < hoodAngle[target]) {
-      angle.set(0.1);
+      angle.set(offset);
     } else if (EncoderValues.angle > hoodAngle[target]) {
-      angle.set(-0.1);
+      angle.set(offset);
     } else {
       angle.set(0);
     }
