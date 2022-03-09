@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
 
   private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
   double[] hoodAngle;
-  double[] speed;
+  
   
 
 
@@ -30,10 +30,10 @@ public class Shooter extends SubsystemBase {
     this.indexWheel = indexWheel;
     this.angle = angle;
     hoodAngle = new double[7];
-    speed = new double[7];
+    
     
 
-    hoodAngle[0] = 7.595; 
+    hoodAngle[0] = 0.1; 
     hoodAngle[1] = 28.785; 
     hoodAngle[2] = 45.499; 
     hoodAngle[3] = 59.786; 
@@ -41,13 +41,7 @@ public class Shooter extends SubsystemBase {
     hoodAngle[5] = 57.19; 
     hoodAngle[6] = 70.263; 
 
-    speed[0] = 0.8;
-    speed[1] = 0.8;
-    speed[2] = 0.8;
-    speed[3] = 0.8;
-    speed[4] = 0.85;
-    speed[5] = 0.95;
-    speed[6] = 0.95;
+   
 
   }
 
@@ -82,8 +76,8 @@ public class Shooter extends SubsystemBase {
     Limelight.Target m_limelight = Limelight.getTarget();
     if(m_limelight.ty >= 11.9){
       moveHoodToTarget(0);
-      shooterRight.set(0.8);
-      shooterLeft.set(0.8);
+      shooterRight.set(0.7);
+      shooterLeft.set(0.7);
     } else if (m_limelight.ty < 11.9 && m_limelight.ty >= 6.3) {
       moveHoodToTarget(1);
       shooterRight.set(0.8);

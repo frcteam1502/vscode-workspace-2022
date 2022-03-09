@@ -33,9 +33,9 @@ public class Drivetrain extends SubsystemBase {
     if (Math.abs(ySpeed) < 0.01) ySpeed = 0;
     if (Math.abs(zRotation) < 0.01) zRotation = 0;
 
-    xSpeed *= 0.1;
-    ySpeed *= 0.1;
-    zRotation *= 0.1;
+    xSpeed *= 0.4;
+    ySpeed *= 0.4;
+    zRotation *= 0.4;
 
     SmartDashboard.putNumber("xSpeed", xSpeed);
     SmartDashboard.putNumber("ySpeed", ySpeed);
