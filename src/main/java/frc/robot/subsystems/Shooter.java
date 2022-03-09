@@ -29,17 +29,15 @@ public class Shooter extends SubsystemBase {
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
     this.angle = angle;
-    hoodAngle = new double[7];
+    hoodAngle = new double[5];
     
     
 
     hoodAngle[0] = 0.1; 
-    hoodAngle[1] = 28.785; 
-    hoodAngle[2] = 45.499; 
-    hoodAngle[3] = 59.786; 
-    hoodAngle[4] = 55.64; 
-    hoodAngle[5] = 57.19; 
-    hoodAngle[6] = 70.263; 
+    hoodAngle[1] = 18.785; 
+    hoodAngle[2] = 32.499; 
+    hoodAngle[3] = 33.786;
+    hoodAngle[4] = 55.263;
 
    
 
@@ -74,38 +72,34 @@ public class Shooter extends SubsystemBase {
 
   public void moveHoodAutomatically(){
     Limelight.Target m_limelight = Limelight.getTarget();
-    if(m_limelight.ty >= 11.9){
-      moveHoodToTarget(0);
-      shooterRight.set(0.7);
-      shooterLeft.set(0.7);
-    } else if (m_limelight.ty < 11.9 && m_limelight.ty >= 6.3) {
-      moveHoodToTarget(1);
-      shooterRight.set(0.8);
-      shooterLeft.set(0.8);
-    } else if (m_limelight.ty < 6.3 && m_limelight.ty >= 2.65) {
-      moveHoodToTarget(2);
-      shooterRight.set(0.8);
-      shooterLeft.set(0.8);
-    } else if (m_limelight.ty < 2.65 && m_limelight.ty >= -0.28) {
-      moveHoodToTarget(3);
-      shooterRight.set(0.8);
-      shooterLeft.set(0.8);
-    } else if (m_limelight.ty < -0.28 && m_limelight.ty >= -2.99) {
+    if(m_limelight.ta > 0){
+      if(m_limelight.ty >= 11.9){
+        moveHoodToTarget(0);
+        shooterRight.set(0.7);
+        shooterLeft.set(0.7);
+     } else if (m_limelight.ty < 11.9 && m_limelight.ty >= 6.3) {
+        moveHoodToTarget(1);
+       shooterRight.set(0.75);
+        shooterLeft.set(0.75);
+      } else if (m_limelight.ty < 6.3 && m_limelight.ty >= 2.65) {
+        moveHoodToTarget(2);
+        shooterRight.set(0.8);
+        shooterLeft.set(0.8);
+      } else if (m_limelight.ty < 2.65 && m_limelight.ty >= -0.28) {
+        moveHoodToTarget(3);
+        shooterRight.set(0.8);
+        shooterLeft.set(0.8);
+      } 
+    } else {
       moveHoodToTarget(4);
-      shooterRight.set(0.85);
-      shooterLeft.set(0.85); 
-    } else if (m_limelight.ty < -2.99 && m_limelight.ty >= -5.23) {
-      moveHoodToTarget(5);
-      shooterRight.set(0.95);
-      shooterLeft.set(0.95);
-    } else if (m_limelight.ty < -5.23) {
-      moveHoodToTarget(6);
-      shooterRight.set(0.95);
-      shooterLeft.set(0.95);
+      shooterRight.set(0.4);
+       shooterLeft.set(0.4);
+       SmartDashboard.putNumber("limelight in code", m_limelight.ty);
     }
-    SmartDashboard.putNumber("limelight in code", m_limelight.ty);
+    
+    
+    
   }
-  
   double dummy;
   private void moveHoodToTarget(int target) {
     if(EncoderValues.angle < hoodAngle[target]) {
