@@ -16,6 +16,7 @@
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/EncoderValues": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Limelight": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Turret": "Subsystem",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
@@ -47,6 +48,7 @@
         "Scheduler": {
           "open": true
         },
+      "Shooter": {
         "open": true
       },
       "open": true
@@ -58,4 +60,6 @@
       "open": true
     }
   }
+  }
 }
+

@@ -5,18 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Joysticks;
-import frc.robot.subsystems.AngleFlap;
-import frc.robot.subsystems.Shooter;
+import frc.robot.Limelight;
+import frc.robot.RobotContainer;
 
-@Deprecated
-public class MoveHood extends CommandBase {
-  private AngleFlap angleFlap;
-  /** Creates a new MoveHood. */
-  public MoveHood(AngleFlap angleFlap) {
+public class LimelightDistance extends CommandBase {
+  private Limelight limelight = new Limelight();
+  /** Creates a new LimelightDistance. */
+  public LimelightDistance() {
+   
+   
+    
     // Use addRequirements() here to declare subsystem dependencies.
-    this.angleFlap = angleFlap;
-    addRequirements(angleFlap);
   }
 
   // Called when the command is initially scheduled.
@@ -26,14 +25,7 @@ public class MoveHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(Joysticks.MANIP_CONTROLLER.getYButton()) {
-      angleFlap.angleUp();
-    } else if (Joysticks.MANIP_CONTROLLER.getAButton()){
-      angleFlap.angleDown();
-    } else {
-      angleFlap.stopAngle();
-    }
+    
   }
 
   // Called once the command ends or is interrupted.

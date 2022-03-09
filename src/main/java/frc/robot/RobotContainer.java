@@ -9,18 +9,17 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
-import frc.robot.commands.MoveHood;
+import frc.robot.commands.LimelightDistance;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
-import frc.robot.subsystems.AngleFlap;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.EncoderValues;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
-import frc.robot.subsystems.EncoderValues;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -29,17 +28,17 @@ public class RobotContainer {
   private Climber climber = new Climber(
   Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
   private Turret turret = new Turret(Motors.TURRET);
-  private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX);
+  private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX, Motors.ANGLE);
   private Intake intake = new Intake(Motors.INTAKE);
-  private AngleFlap angleFlap = new AngleFlap(Motors.FLAP);  
   private EncoderValues encoderValues = new EncoderValues();
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(encoderValues);
+  private Limelight limelight = new Limelight();
   private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
   public MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
-  private MoveHood moveHood = new MoveHood(angleFlap);
+  private LimelightDistance limelightDistance = new LimelightDistance();
 
   public RobotContainer() {
     configureButtonBindings();
@@ -90,8 +89,8 @@ public class RobotContainer {
     XboxButtons.LEFT_BUMPER.whileHeld(new StartEndCommand(climber::ExtendArms, climber::StopLongLongArms, climber));
     XboxButtons.RIGHT_BUMPER.whileHeld(new StartEndCommand(climber::ContractArms, climber::StopLongLongArms, climber));
 
-    XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
-    XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
+    //XboxButtons.BUTTON_Y.whileHeld(new StartEndCommand(climber::RotateArmsForwards, climber::StopArmsRotate, climber));
+    //XboxButtons.BUTTON_A.whileHeld(new StartEndCommand(climber::RotateArmsBackwards, climber::StopArmsRotate, climber));
 
     XboxButtons.BUTTON_X.whileHeld(new StartEndCommand(climber::RotateBabyFowards, climber::StopBabies, climber));
     XboxButtons.BUTTON_B.whileHeld(new StartEndCommand(climber::RotateBabyBackwards, climber::StopBabies, climber));

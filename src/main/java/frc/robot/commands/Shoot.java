@@ -4,9 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.XboxButtons;
@@ -15,8 +12,7 @@ import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
   private Shooter shooter;
-  private boolean shoot = false;
-  private boolean backButtonHasBeenReleased = true;
+  private boolean autoHood, backButtonHasBeenReleased, shoot = true;
  
   public Shoot(Shooter subsystem) {
     addRequirements(subsystem);
@@ -38,25 +34,16 @@ public class Shoot extends CommandBase {
     }
 
     if (shoot) {
-      shooter.shoot();
+      shooter.shoot(0.8);
     } else shooter.noShoot();
 
     if (Joysticks.MANIP_CONTROLLER.getRightY() < -0.9) shooter.indexBall();
     else shooter.indexBallStop();
 
-    /*
-    if (XboxButtons.BACK.get() == true){
-      shooter.shoot();
-    } else {
-      shooter.noShoot();
-    }
+shooter.moveHoodAutomatically();
 
-    if (Joysticks.CONTROLLER2.getRightBumper()){
-      shooter.indexBall();
-    } else{
-      shooter.indexBallStop();
-    }
-    */
+    
+    
   }
 
     

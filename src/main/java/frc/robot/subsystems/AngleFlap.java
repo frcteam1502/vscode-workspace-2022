@@ -9,7 +9,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.MoveHood;
 
-
+@Deprecated
 public class AngleFlap extends SubsystemBase {
 //   /** Creates a new AngleFlap. */
 //   private static Limelight m_limelight = Constants.limelight;
@@ -26,7 +26,15 @@ public class AngleFlap extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void moveHood(double speed) {
-    angle.set(speed);
+  public void angleUp() {
+    angle.set(0.1);
+  }
+
+  public void angleDown() {
+    angle.set(-0.1);
+  }
+  
+  public void stopAngle() {
+    angle.set(0);
   }
 }

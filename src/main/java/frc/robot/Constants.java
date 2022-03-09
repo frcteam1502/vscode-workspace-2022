@@ -7,7 +7,6 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -30,7 +29,7 @@ public final class Constants {
         RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
         LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
         RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
-        FlapEncoder (Motors.FLAP.getEncoder());
+        AngleEncoder (Motors.ANGLE.getEncoder());
     
         public RelativeEncoder Encoder;
         Encoders(RelativeEncoder encoder) {
@@ -61,7 +60,7 @@ public final class Constants {
         
         public static final CANSparkMax TURRET = new CANSparkMax(5, MotorType.kBrushless);// TODO: change back from 16 to 5
         
-        public static final CANSparkMax FLAP = new CANSparkMax(2, MotorType.kBrushless);
+        public static final CANSparkMax ANGLE = new CANSparkMax(2, MotorType.kBrushless);
 
         public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
         public static final CANSparkMax INTAKE = new CANSparkMax(1, MotorType.kBrushless);
@@ -72,7 +71,9 @@ public final class Constants {
         public static final XboxController DRIVE_CONTROLLER = new XboxController(1);
     }
 
-    public static final class XboxButtons {
+    public static final class XboxButtons {        
+        public static final JoystickButton MODE_BUTTON = new JoystickButton(Joysticks.MANIP_CONTROLLER, 11); // no clue which number is mode button
+
         public static final JoystickButton LEFT_BUMPER = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kLeftBumper.value); // Extend
         public static final JoystickButton RIGHT_BUMPER = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kRightBumper.value); // Contract
         public static final JoystickButton BUTTON_Y = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kY.value); // Rotate Clockwise
@@ -80,7 +81,11 @@ public final class Constants {
         public static final JoystickButton BUTTON_X = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kX.value); // Rotate babies Clockwise
         public static final JoystickButton BUTTON_B = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kB.value); // Rotate babies Counter Clockwise
         public static final JoystickButton BACK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 7);
-        public static final JoystickButton START = new JoystickButton(Joysticks.MANIP_CONTROLLER, 8);
+        // I dont know the values for these
+        public static final JoystickButton LEFT_JOYSTICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 12);
+        public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 13);
+        public static final JoystickButton LEFT_STICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 14);
+        public static final JoystickButton RIGHT_STICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 15);
     }
 
     public static final class EncoderMaxes {

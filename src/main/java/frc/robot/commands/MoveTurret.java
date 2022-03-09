@@ -4,23 +4,13 @@
 
 package frc.robot.commands;
 
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Limelight;
-import frc.robot.subsystems.Turret;
 import frc.robot.PIDController;
-import frc.robot.Constants.Joysticks;
-//import frc.robot.subsystems.AngleFlap;
-import frc.robot.Constants.XboxButtons;
+import frc.robot.subsystems.Turret;
 
 
 public class MoveTurret extends CommandBase {
-  private boolean on = true;
   private final Turret turret;
-  private boolean hasBeenReleased = true;
- // private final AngleFlap angleFlap;
 
   public MoveTurret(Turret tsubsystem/*, AngleFlap fsubsystem*/) {
 
@@ -39,41 +29,9 @@ public class MoveTurret extends CommandBase {
   static double variablemanualmodifier = 5; // TODO: change this value if drivers complain about turret speed. do not remove
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {  
-    Limelight.Target m_limelight = Limelight.getTarget();
-
-    double error = m_limelight.tx;
-    double offset = rotationController.getCorrection(error);
-
-    if(XboxButtons.START.get() && hasBeenReleased) {
-      on = !on;
-      hasBeenReleased = false;
-    } else if(!XboxButtons.START.get()) {
-      hasBeenReleased = true;
-    }
-
-    SmartDashboard.putBoolean("on", on);
-    SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
-    if(on) {
-      turret.turnTurret(-offset);
-    }
-    else{
-      runManually();
-    }
-  }
-
-
-
-  private void runManually() {
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1){
-      turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() / variablemanualmodifier);
-    }
-    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1){
-      turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() / variablemanualmodifier);
-    }
-    else{
-      turret.turretStop();
-    } 
+  public void execute() {
+    
+    turret.turnTurret();
   }
 
   // Called once the command ends or is interrupted.
