@@ -20,8 +20,8 @@ public class Turret extends SubsystemBase {
     this.turretMotor = turretMotor;
   }
 
-  DigitalInput rightlimitSwitch = new DigitalInput(0);
-  DigitalInput leftlimitSwitch = new DigitalInput(1);
+  private DigitalInput rightlimitSwitch = new DigitalInput(0);
+  private DigitalInput leftlimitSwitch = new DigitalInput(1);
 
   @Override
   public void periodic() {
@@ -89,10 +89,14 @@ public class Turret extends SubsystemBase {
   }
 
   public void turretRight(double squeez) {
-    turretMotor.set(squeez / 2);
+    if(rightlimitSwitch.get()){
+      turretMotor.set(squeez / 2);
+    }
   }
 
   public void turretLeft(double squeez) {
+    if(leftlimitSwitch.get()){
     turretMotor.set(squeez / 2);
+    }
   }
 } 

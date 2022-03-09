@@ -34,9 +34,6 @@ public class MoveTurret extends CommandBase {
     rotationController.reset();
   }
 
-  DigitalInput rightlimitSwitch = new DigitalInput(0);
-  DigitalInput leftlimitSwitch = new DigitalInput(1);
-
   private final PIDController rotationController = new PIDController(5e-3, 0, 0);
   private static final double SPEED = 0.1;
   protected double getVelocity() {
@@ -47,6 +44,7 @@ public class MoveTurret extends CommandBase {
   @Override
   public void execute() {  
     Limelight.Target m_limelight = Limelight.getTarget();
+
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
 
@@ -59,10 +57,10 @@ public class MoveTurret extends CommandBase {
 
     SmartDashboard.putBoolean("on", on);
     SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1 && rightlimitSwitch.get()){
+    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1){
       turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis());
     }
-    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1 && leftlimitSwitch.get()){
+    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1){
       turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis());
     }
     else if(on) {
@@ -75,10 +73,10 @@ public class MoveTurret extends CommandBase {
   }
 
   private void runManually() {
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1 && rightlimitSwitch.get()){
+    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1){
       turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis());
     }
-    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1 && leftlimitSwitch.get()){
+    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1){
       turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis());
     }
     else{
