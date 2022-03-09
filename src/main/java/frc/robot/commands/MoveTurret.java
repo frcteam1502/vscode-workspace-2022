@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Limelight;
@@ -34,19 +34,16 @@ public class MoveTurret extends CommandBase {
     rotationController.reset();
   }
 
-  DigitalInput rightlimitSwitch = new DigitalInput(0);
-  DigitalInput leftlimitSwitch = new DigitalInput(1);
-
   private final PIDController rotationController = new PIDController(5e-3, 0, 0);
   private static final double SPEED = 0.1;
   protected double getVelocity() {
     return -SPEED;
   }
-  private boolean manual = true;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
     Limelight.Target m_limelight = Limelight.getTarget();
+
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
 
@@ -59,13 +56,7 @@ public class MoveTurret extends CommandBase {
 
     SmartDashboard.putBoolean("on", on);
     SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1 && rightlimitSwitch.get()){
-      turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis());
-    }
-    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1 && leftlimitSwitch.get()){
-      turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis());
-    }
-    else if(on) {
+    if(on) {
       turret.turnTurret(getVelocity() - offset);
     }
     else{
@@ -75,11 +66,11 @@ public class MoveTurret extends CommandBase {
   }
 
   private void runManually() {
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1 && rightlimitSwitch.get()){
-      turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis());
+    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1){
+      turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() / 5);
     }
-    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1 && leftlimitSwitch.get()){
-      turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis());
+    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1){
+      turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() / 5);
     }
     else{
       turret.turretStop();
