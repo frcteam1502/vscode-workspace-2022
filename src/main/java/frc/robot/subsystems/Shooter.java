@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
 import frc.robot.commands.Shoot;
@@ -66,7 +67,7 @@ public class Shooter extends SubsystemBase {
       shooterRight.set(0);
       shooterLeft.set(0);
   }
-
+// HELP MY LEG
   public void indexBall(){
 
     indexWheel.set(0.5);
@@ -81,36 +82,47 @@ public class Shooter extends SubsystemBase {
     Limelight.Target m_limelight = Limelight.getTarget();
     if(m_limelight.ty >= 11.9){
       moveHoodToTarget(0);
-      shoot(0.8);
+      shooterRight.set(0.8);
+      shooterLeft.set(0.8);
     } else if (m_limelight.ty < 11.9 && m_limelight.ty >= 6.3) {
       moveHoodToTarget(1);
-      shoot(0.8);
+      shooterRight.set(0.8);
+      shooterLeft.set(0.8);
     } else if (m_limelight.ty < 6.3 && m_limelight.ty >= 2.65) {
       moveHoodToTarget(2);
-      shoot(0.8);
+      shooterRight.set(0.8);
+      shooterLeft.set(0.8);
     } else if (m_limelight.ty < 2.65 && m_limelight.ty >= -0.28) {
       moveHoodToTarget(3);
-      shoot(0.8);
+      shooterRight.set(0.8);
+      shooterLeft.set(0.8);
     } else if (m_limelight.ty < -0.28 && m_limelight.ty >= -2.99) {
       moveHoodToTarget(4);
-      shoot(0.85); 
+      shooterRight.set(0.85);
+      shooterLeft.set(0.85); 
     } else if (m_limelight.ty < -2.99 && m_limelight.ty >= -5.23) {
       moveHoodToTarget(5);
-      shoot(0.95);
+      shooterRight.set(0.95);
+      shooterLeft.set(0.95);
     } else if (m_limelight.ty < -5.23) {
       moveHoodToTarget(6);
-      shoot(0.95);
+      shooterRight.set(0.95);
+      shooterLeft.set(0.95);
     }
+    SmartDashboard.putNumber("limelight in code", m_limelight.ty);
   }
-
+  
+  double dummy;
   private void moveHoodToTarget(int target) {
     if(EncoderValues.angle < hoodAngle[target]) {
-      angle.set(0.01);
-    } else if (EncoderValues.angle < hoodAngle[target]) {
-      angle.set(-0.01);
+      angle.set(0.1);
+    } else if (EncoderValues.angle > hoodAngle[target]) {
+      angle.set(-0.1);
     } else {
       angle.set(0);
     }
+    dummy = angle.get();
+    SmartDashboard.putNumber("angle motor power", dummy);
   }
 
   public void angleUp() {
