@@ -16,7 +16,7 @@ import frc.robot.Constants.XboxButtons;
 
 
 public class MoveTurret extends CommandBase {
-  private boolean on = false;
+  private boolean on = true;
   private final Turret turret;
   private boolean hasBeenReleased = true;
  // private final AngleFlap angleFlap;
@@ -34,11 +34,8 @@ public class MoveTurret extends CommandBase {
     rotationController.reset();
   }
 
-  private final PIDController rotationController = new PIDController(5e-3, 0, 0);
-  private static final double SPEED = 0.1;
-  protected double getVelocity() {
-    return -SPEED;
-  }
+  private final PIDController rotationController = new PIDController(5e-2, 0, 0);
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
@@ -57,7 +54,7 @@ public class MoveTurret extends CommandBase {
     SmartDashboard.putBoolean("on", on);
     SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
     if(on) {
-      turret.turnTurret(getVelocity() - offset);
+      turret.turnTurret(-offset);
     }
     else{
       runManually();
