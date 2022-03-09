@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Limelight;
@@ -35,7 +36,7 @@ public class MoveTurret extends CommandBase {
   }
 
   private final PIDController rotationController = new PIDController(5e-2, 0, 0);
-
+  static double variablemanualmodifier = 5; // TODO: change this value if drivers complain about turret speed. do not remove
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
@@ -59,15 +60,16 @@ public class MoveTurret extends CommandBase {
     else{
       runManually();
     }
-    //angleFlap.Moveflap();
   }
+
+
 
   private void runManually() {
     if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1){
-      turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() / 5);
+      turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() / variablemanualmodifier);
     }
     else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1){
-      turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() / 5);
+      turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() / variablemanualmodifier);
     }
     else{
       turret.turretStop();
