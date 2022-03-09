@@ -90,7 +90,7 @@ public class Turret extends SubsystemBase {
 
   public void turretRight(double squeez) {
     if(rightlimitSwitch.get()){
-      turretMotor.set(squeez / 2);
+      turretMotor.set(-squeez / 2);
     }
   }
 
