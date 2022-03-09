@@ -47,15 +47,15 @@ public class AutoSimple extends CommandBase {
     intake.moveIntake();
     //drop intake
     climber.RotateArmsForwards();
-    Timer.delay(5);
+    Timer.delay(1.8);
     climber.StopArmsRotate();
     //move out of box and pickup 2nd ball
     drive(.2);
-    Timer.delay(1.2);
+    Timer.delay(1.5);
     //stop driving
     drive(0);
     //Aim
-    while(!turret.turnTurret(.3));
+    //while(!turret.turnTurret(.3));
     //shoot
     shooter.indexBall();
     Timer.delay(3);
@@ -64,6 +64,9 @@ public class AutoSimple extends CommandBase {
     Timer.delay(2);
     //shoot
     shooter.indexBall();
+    Timer.delay(5);
+    //end
+    end(true);
   }
 
   public void drive(double power) {
@@ -79,6 +82,7 @@ public class AutoSimple extends CommandBase {
     intake.stopIntake();
     shooter.indexBallStop();
     shooter.noShoot();
+    climber.StopArmsRotate();
   }
 
   @Override

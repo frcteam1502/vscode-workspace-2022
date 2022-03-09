@@ -23,8 +23,8 @@ public class Shooter extends SubsystemBase {
   public void periodic() {}
 
   public void shoot(){
-      shooterRight.set(0.8);
-      shooterLeft.set(0.8);
+      shooterRight.set(0.7);
+      shooterLeft.set(0.7);
     }
   
   public void noShoot(){
