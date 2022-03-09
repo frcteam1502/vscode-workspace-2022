@@ -96,8 +96,8 @@ public class Shooter extends SubsystemBase {
       }
     } else {
       moveHoodToTarget(4);
-      shooterRight.set(0.6);
-       shooterLeft.set(0.6);
+      shooterRight.set(0.4);
+       shooterLeft.set(0.4);
        SmartDashboard.putNumber("limelight in code", m_limelight.ty);
     }
     
@@ -106,6 +106,7 @@ public class Shooter extends SubsystemBase {
   }
   double dummy;
   private void moveHoodToTarget(int target) {
+    SmartDashboard.putNumber("Zone", target);
     if(EncoderValues.angle < hoodAngle[target]) {
       angle.set(0.1);
     } else if (EncoderValues.angle > hoodAngle[target]) {
