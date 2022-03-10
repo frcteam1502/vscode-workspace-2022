@@ -63,8 +63,11 @@ public class AutoSimple extends CommandBase {
     //shoot
     shooter.indexBall();
     Timer.delay(5);
-    //end
-    end(true);
+    //Move forward a hair
+    drive(.2);
+    Timer.delay(.5);
+    drive(0);
+    Timer.delay(10);
   }
 
   public void drive(double power) {
