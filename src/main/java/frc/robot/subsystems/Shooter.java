@@ -50,8 +50,8 @@ public class Shooter extends SubsystemBase {
 
   public void shoot(double speed){
 
-      shooterRight.set(0.95);
-      shooterLeft.set(0.95);
+      shooterRight.set(speed);
+      shooterLeft.set(speed);
     }
   
   public void noShoot(){
@@ -91,8 +91,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.8);
       } else {
         shooterRight.set(0.6);
-       shooterLeft.set(0.6);
-       moveHoodToTarget(4);
+        shooterLeft.set(0.6);
+        moveHoodToTarget(4);
       }
     } else {
       moveHoodToTarget(4);

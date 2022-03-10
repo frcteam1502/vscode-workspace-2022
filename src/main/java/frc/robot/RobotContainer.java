@@ -5,6 +5,9 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
@@ -14,6 +17,7 @@ import frc.robot.commands.MoveTurret;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
+import frc.robot.commands.Auto.AutoSimple;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.EncoderValues;
@@ -40,8 +44,14 @@ public class RobotContainer {
   private RunIntake runIntake = new RunIntake(intake);
   private LimelightDistance limelightDistance = new LimelightDistance();
 
+  //Autonomous Commands
+  public SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
+  public AutoSimple simpleAuto = new AutoSimple(intake, shooter, climber, turret);
+
   public RobotContainer() {
     configureButtonBindings();
+    setUpMChooser();
   }
   
 
@@ -97,22 +107,14 @@ public class RobotContainer {
   */    
   }
 
-  /*public Command getAutonomousCommand() {
-    return null;
+  private void setUpMChooser() {
+    m_chooser.setDefaultOption("Simple Auto", simpleAuto);
+    SmartDashboard.putData(m_chooser);
   }
   
-    // Drive at half speed when the right bumper is held
-    
+  //An accessor method to be used in Robot to find the selected Auto
+  public Command getAutonomousCommand() {
+    return m_chooser.getSelected();
+  }
 
-  //TeleOp Commands
- // public DriveByJoysticks teleOpDrive = new DriveByJoysticks(m_drive);
-
-  //Autonomous Commands 
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   * @param List 
-   *
-   * @return the command to run in autonomous
-   */
 }
