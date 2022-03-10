@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
+import frc.robot.PIDController;
 import frc.robot.commands.Shoot;
 
 
@@ -105,12 +106,17 @@ public class Shooter extends SubsystemBase {
     
   }
   double dummy;
+
+  private final PIDController angleController = new PIDController(4e-3, 0, 0);
+
   private void moveHoodToTarget(int target) {
+
     SmartDashboard.putNumber("Zone", target);
-    if(EncoderValues.angle < hoodAngle[target]) {
-      angle.set(0.1);
-    } else if (EncoderValues.angle > hoodAngle[target]) {
-      angle.set(-0.1);
+    double error = EncoderValues.angle - hoodAngle[target];
+    double offset = angleController.getCorrection(error);
+
+    if(EncoderValues.angle < hoodAngle[target] || EncoderValues.angle > hoodAngle[target] ){
+      angle.set(offset);
     } else {
       angle.set(0);
     }
