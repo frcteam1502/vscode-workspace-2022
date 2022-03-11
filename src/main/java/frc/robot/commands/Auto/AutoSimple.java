@@ -13,6 +13,7 @@ public class AutoSimple extends CommandBase {
   private Shooter shooter;
   private Climber climber;
   private Turret turret;
+  private boolean IAlreadRan = false;
 
   public AutoSimple(Intake intake, Shooter shooter, Climber climber, Turret turret){
     addRequirements(intake, shooter, climber);
@@ -27,6 +28,7 @@ public class AutoSimple extends CommandBase {
 
   @Override
   public void execute() {
+    if(IAlreadRan) return;
     /* 
     Start
     1) Start shooter motor
@@ -67,7 +69,7 @@ public class AutoSimple extends CommandBase {
     drive(.2);
     Timer.delay(.5);
     drive(0);
-    Timer.delay(10);
+    IAlreadRan = true;
   }
 
   public void drive(double power) {

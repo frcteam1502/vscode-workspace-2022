@@ -33,7 +33,7 @@ public class MoveLongArms extends CommandBase {
 
     if (button == 3) RotateForwards();
     else if (button == 4) RotateBackwards();
-    else button = 0;
+    else climber.StopArmsRotate();
   }
 
   @Override
@@ -47,7 +47,7 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void ExtendArmsEncoders() {
-    if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX && EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
+    if (Math.abs(EncoderValues.leftArm) < EncoderMaxes.LEFT_MAX && EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
       climber.MoveLeftArm(leftSpeed);
       climber.MoveRightArm(rightSpeed);
     } else if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX) {
@@ -60,7 +60,7 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void ContractArmsEncoder() {
-    if (EncoderValues.leftArm > 0 && EncoderValues.rightArm < 2) {
+    if (Math.abs(EncoderValues.leftArm) > 0 && EncoderValues.rightArm < 2) {
       climber.MoveLeftArm(-leftSpeed);
       climber.MoveRightArm(-rightSpeed);
     } else if (EncoderValues.leftArm > 0) {
@@ -73,7 +73,7 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void RotateForwards() {
-    if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX && EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
+    if (Math.abs(EncoderValues.leftArmAngle) < EncoderMaxes.LEFT_ANGLE_MAX && EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
       climber.RotateLeftArm(leftSpeed / 2);
       climber.RotateRightArm(rightSpeed / 2);
     } else if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX) {
@@ -86,7 +86,7 @@ public class MoveLongArms extends CommandBase {
   }
 
   private void RotateBackwards() {
-    if (EncoderValues.leftArmAngle > 0 && EncoderValues.rightArmAngle < 0) {
+    if (Math.abs(EncoderValues.leftArmAngle) > 0 && EncoderValues.rightArmAngle < 0) {
       climber.RotateLeftArm(-leftSpeed / 2);
       climber.RotateRightArm(-rightSpeed / 2);
     } else if (EncoderValues.leftArmAngle > 0) {
