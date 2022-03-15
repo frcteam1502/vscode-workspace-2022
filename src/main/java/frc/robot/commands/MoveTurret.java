@@ -54,7 +54,7 @@ public class MoveTurret extends CommandBase {
     SmartDashboard.putBoolean("on", on);
     SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
     if(on) {
-      turret.turnTurret(getVelocity() - offset);
+      turret.turnTurret(offset);
     }
     else{
       runManually();

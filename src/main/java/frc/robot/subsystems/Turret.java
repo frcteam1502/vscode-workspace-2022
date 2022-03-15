@@ -87,9 +87,9 @@ public class Turret extends SubsystemBase {
   }
   public void turnTurretmanual(){
 
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8){
+    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8 && rightlimitSwitch.get()){
       turretMotor.set(-0.3);
-    } else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8){
+    } else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8  && leftlimitSwitch.get()){
       turretMotor.set(0.3);
     } else {
       turretMotor.set(0);
