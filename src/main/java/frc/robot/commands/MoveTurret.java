@@ -35,10 +35,7 @@ public class MoveTurret extends CommandBase {
   }
 
   private final PIDController rotationController = new PIDController(5e-3, 0, 0);
-  private static final double SPEED = 0.1;
-  protected double getVelocity() {
-    return -SPEED;
-  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
@@ -66,15 +63,7 @@ public class MoveTurret extends CommandBase {
   }
 
   private void runManually() {
-    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.1){
-      turret.turretRight(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() / 5);
-    }
-    else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.1){
-      turret.turretLeft(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() / 5);
-    }
-    else{
-      turret.turretStop();
-    } 
+    turret.turnTurretmanual(); 
   }
 
   // Called once the command ends or is interrupted.

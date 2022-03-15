@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
+import frc.robot.Constants.Joysticks;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -84,16 +85,15 @@ public class Turret extends SubsystemBase {
     SmartDashboard.putNumber("Turretmotor", turretMotor.get());
     SmartDashboard.putNumber("m_t_seepd", m_t_seepd);
   }
-  public void turretStop() {
-    turretMotor.set(0);
-  }
+  public void turnTurretmanual(){
 
-  public void turretRight(double squeez) {
-    turretMotor.set(squeez);
-
-  }
-
-  public void turretLeft(double squeez) {
-    turretMotor.set(-squeez);
+    if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8){
+      turretMotor.set(-0.3);
+    } else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8){
+      turretMotor.set(0.3);
+    } else {
+      turretMotor.set(0);
+    }
+    
   }
 } 
