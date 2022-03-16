@@ -12,11 +12,15 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/AutoDriveSubsystem": "Subsystem",
+      "/LiveWindow/Climber": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
+      "/LiveWindow/Turret": "Subsystem",
       "/LiveWindow/Ungrouped/ADXRS450_Gyro[0]": "Gyro",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
       "/LiveWindow/Ungrouped/MecanumDrive[1]": "MecanumDrive",
       "/LiveWindow/Ungrouped/PIDController[10]": "PIDController",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
@@ -43,5 +47,8 @@
     "SmartDashboard": {
       "open": true
     }
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

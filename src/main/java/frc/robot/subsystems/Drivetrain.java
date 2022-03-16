@@ -54,11 +54,17 @@ public class Drivetrain extends SubsystemBase {
     this.leftBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.rightFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.rightBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-
+/*
+I gotta add a velocity conversion factor... Probably
+    this.leftFrontEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    this.leftBackEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    this.rightFrontEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    this.rightBackEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+*/
     resetEncoders();
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
 
-    m_drive.setMaxOutput(.3);
+    //m_drive.setMaxOutput(.3);
   }
 
   public void TankDrive(double leftSpeed, double rightSpeed) {

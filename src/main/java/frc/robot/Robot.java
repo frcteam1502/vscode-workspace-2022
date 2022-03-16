@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Odo X", m_robotContainer.m_drive.m_odometry.getPoseMeters().getX());
     SmartDashboard.putNumber("Odo Y", m_robotContainer.m_drive.m_odometry.getPoseMeters().getY());
-    SmartDashboard.putNumber("Odo H", m_robotContainer.m_drive.m_odometry.getPoseMeters().getRotation().getDegrees());
+    SmartDashboard.putNumber("Odo Theta", m_robotContainer.m_drive.m_odometry.getPoseMeters().getRotation().getDegrees());
   }
   
   @Override

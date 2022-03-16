@@ -10,7 +10,7 @@ public class PathFindingConstants {
     public static final class DriveConstants {
         public static final boolean kLeftEncoderReversed = false;
         public static final boolean kRightEncoderReversed = true;
-        public static final double kPDriveVel = 0.21646;
+        public static final double kPDriveVel = 10; //0.21646
         
         public static final Translation2d frontLeft = new Translation2d(0.2286, 0.257175);
         public static final Translation2d frontRight = new Translation2d(0.2286, -0.257175);
@@ -23,10 +23,9 @@ public class PathFindingConstants {
     
         public static final double kEncoderCPR = 535.5;
         public static final double kGearRatio = 12.75;
-        public static final double kWheelDiameterMeters = 0.2;
+        public static final double kWheelDiameterMeters = 0.1524;
         public static final double kWheelCircumfrence = Math.PI * kWheelDiameterMeters;
-        public static final double kEncoderDistancePerPulse =
-            kWheelCircumfrence / kGearRatio;
+        public static final double kEncoderDistancePerPulse = kWheelCircumfrence / kGearRatio;
       }
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
