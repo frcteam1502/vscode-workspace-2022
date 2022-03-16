@@ -29,7 +29,7 @@ public class Shooter extends SubsystemBase {
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
     this.angle = angle;
-    hoodAngle = new double[5];
+    hoodAngle = new double[6];
     
     
 
@@ -38,6 +38,7 @@ public class Shooter extends SubsystemBase {
     hoodAngle[2] = 32.499; 
     hoodAngle[3] = 33.786;
     hoodAngle[4] = 55.263;
+    hoodAngle[5] = 21.86;
 
    
 
@@ -85,10 +86,14 @@ public class Shooter extends SubsystemBase {
         moveHoodToTarget(2);
         shooterRight.set(0.8);
         shooterLeft.set(0.8);
-      } else if (m_limelight.ty < 2.65 && m_limelight.ty >= -0.28) {
+      } else if (m_limelight.ty < 2.65 && m_limelight.ty >= -0.6) {
         moveHoodToTarget(3);
         shooterRight.set(0.8);
         shooterLeft.set(0.8);
+      } else if (m_limelight.ty < -0.6 && m_limelight.ty >= 0.0) {
+        moveHoodToTarget(5);
+        shooterRight.set(0.97);
+        shooterLeft.set(0.97);
       } else {
         shooterRight.set(0.6);
         shooterLeft.set(0.6);
