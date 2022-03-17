@@ -64,7 +64,7 @@ I gotta add a velocity conversion factor... Probably
     resetEncoders();
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
 
-    //m_drive.setMaxOutput(.3);
+    m_drive.setMaxOutput(.3);
   }
 
   public void TankDrive(double leftSpeed, double rightSpeed) {

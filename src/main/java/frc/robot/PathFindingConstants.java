@@ -10,7 +10,7 @@ public class PathFindingConstants {
     public static final class DriveConstants {
         public static final boolean kLeftEncoderReversed = false;
         public static final boolean kRightEncoderReversed = true;
-        public static final double kPDriveVel = 10; //0.21646
+        public static final double kPDriveVel = 0.21646;
         
         public static final Translation2d frontLeft = new Translation2d(0.2286, 0.257175);
         public static final Translation2d frontRight = new Translation2d(0.2286, -0.257175);
