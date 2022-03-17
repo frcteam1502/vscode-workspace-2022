@@ -25,7 +25,7 @@ public class DriveByJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.MecanumDrive(Joysticks.JOYSTICK_LEFT.getX(), -Joysticks.JOYSTICK_LEFT.getY(), Joysticks.JOYSTICK_RIGHT.getX());
+    drivetrain.MecanumDrive(Joysticks.DRIVE_CONTROLLER.getLeftX(), -Joysticks.DRIVE_CONTROLLER.getLeftY(), Joysticks.DRIVE_CONTROLLER.getRightX());
   }
 
   // Called once the command ends or is interrupted.

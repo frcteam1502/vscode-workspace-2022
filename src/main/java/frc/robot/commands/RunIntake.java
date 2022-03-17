@@ -18,7 +18,7 @@ public class RunIntake extends CommandBase {
 
   @Override
   public void execute() {
-   if(Joysticks.JOYSTICK_LEFT.getTrigger()) intake.moveIntake();
+   if(Joysticks.MANIP_CONTROLLER.getRightBumper()) intake.moveIntake();
    else intake.stopIntake();
   }
 
