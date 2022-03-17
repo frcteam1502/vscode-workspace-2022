@@ -18,7 +18,6 @@ import frc.robot.Constants.XboxButtons;
 public class MoveTurret extends CommandBase {
   private boolean on = false;
   private final Turret turret;
-  private boolean hasBeenReleased = true;
  // private final AngleFlap angleFlap;
 
   public MoveTurret(Turret tsubsystem/*, AngleFlap fsubsystem*/) {
@@ -44,15 +43,14 @@ public class MoveTurret extends CommandBase {
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
 
-    if(XboxButtons.START.get() && hasBeenReleased) {
-      on = !on;
-      hasBeenReleased = false;
+    if(XboxButtons.START.get()) {
+      on = true;
     } else if(!XboxButtons.START.get()) {
-      hasBeenReleased = true;
+      on = false;
     }
 
     SmartDashboard.putBoolean("on", on);
-    SmartDashboard.putBoolean("Has Been Released", hasBeenReleased);
+
     if(on) {
       turret.turnTurret(offset);
     }
