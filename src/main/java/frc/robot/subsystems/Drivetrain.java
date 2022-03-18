@@ -39,7 +39,7 @@ public class Drivetrain extends SubsystemBase {
   private RelativeEncoder rightBackEncoder = backRight.getEncoder();
 
   // The gyro sensor
-  private final Gyro m_gyro = new ADXRS450_Gyro();
+  public final Gyro m_gyro = new ADXRS450_Gyro();
 
   // Odometry class for tracking robot pose
   public final SwerveDriveOdometry m_odometry;
@@ -54,13 +54,7 @@ public class Drivetrain extends SubsystemBase {
     this.leftBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.rightFrontEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     this.rightBackEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-/*
-I gotta add a velocity conversion factor... Probably
-    this.leftFrontEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    this.leftBackEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    this.rightFrontEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    this.rightBackEncoder.setVelocityConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-*/
+
     resetEncoders();
     m_odometry = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d());
 
@@ -171,5 +165,9 @@ I gotta add a velocity conversion factor... Probably
     array.add(backRight);
     if (motor >= 0 && motor <= 3) return array.get(motor);
     else return null;
+  }
+
+  public double getAverageEncoderDistance() {
+    return ((leftFrontEncoder.getPosition() + rightFrontEncoder.getPosition()) / 2.0);
   }
 }

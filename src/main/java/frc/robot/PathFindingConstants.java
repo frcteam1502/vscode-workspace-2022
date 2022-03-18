@@ -23,14 +23,14 @@ public class PathFindingConstants {
     
         public static final double kEncoderCPR = 535.5;
         public static final double kGearRatio = 12.75;
-        public static final double kWheelDiameterMeters = 0.1524;
+        public static final double kWheelDiameterMeters = 0.1524; //6in
         public static final double kWheelCircumfrence = Math.PI * kWheelDiameterMeters;
         public static final double kEncoderDistancePerPulse = kWheelCircumfrence / kGearRatio;
       }
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
       public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 1;
-        public static final double kMaxAccelerationMetersPerSecondSquared = .5;
+        public static final double kMaxSpeedMetersPerSecond = 5; //1
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1; //.5
       }
 }
