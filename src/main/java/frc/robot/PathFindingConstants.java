@@ -30,7 +30,7 @@ public class PathFindingConstants {
       
       //WE CAN CHANGE THESE ON THE FLY!!! Good for us
       public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 5; //1
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1; //.5
+        public static final double kMaxSpeedMetersPerSecond = 5;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 5;
       }
 }
