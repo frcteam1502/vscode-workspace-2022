@@ -8,7 +8,7 @@ public class DriveStraightByEncoder extends CommandBase {
   private Drivetrain drive;
   private PIDController distanceController = new PIDController(5e-3, 0, 0);
   private PIDController rotationController = new PIDController(5e-3, 0, 0);
-  private double initialHeading, goalDistance;
+  private double goalDistance;
 
   public DriveStraightByEncoder(Drivetrain drive, double goalDistanceMeters) {
     addRequirements(drive);
@@ -18,18 +18,22 @@ public class DriveStraightByEncoder extends CommandBase {
 
   @Override
   public void initialize() {
+    //reset encoders
     drive.resetEncoders();
+    //reset gyro to 0 degrees
     drive.m_gyro.reset();
-    initialHeading = drive.m_gyro.getAngle();
+    //set up distance PID
     distanceController.reset();
+    distanceController.setSetpoint(goalDistance);
+    //set up rotation controlling PID
     rotationController.reset();
+    rotationController.setSetpoint(drive.m_gyro.getAngle());
   }
 
   @Override
   public void execute() {
-    double power = distanceController.calculate(drive.getAverageEncoderDistance(), goalDistance);
-    rotationController.setSetpoint(drive.m_gyro.getAngle() - initialHeading);
-    double offset = rotationController.getPositionError();
+    double power = distanceController.calculate(drive.getAverageEncoderDistance());
+    double offset = rotationController.calculate(drive.m_gyro.getAngle());
     drive.TankDrive(power - offset, power + offset);
   }
 

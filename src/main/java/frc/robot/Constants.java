@@ -22,6 +22,9 @@ public final class Constants {
 
     public final Limelight limelight = new Limelight();
 
+    public static final double feetToMeter = 0.3048;
+    public static final double meterTofeet = 3.280839895;
+
     public enum Encoders {
         LeftArmAngleEncoder (Motors.LEFT_ARM_ANGLE.getEncoder()),
         RightArmAngleEncoder (Motors.RIGHT_ARM_ANGLE.getEncoder()),
