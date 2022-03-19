@@ -29,8 +29,8 @@ public class UpdateEncoders extends CommandBase {
     EncoderValues.rightArmAngle = 0;
     EncoderValues.leftBaby = 0;
     EncoderValues.rightBaby = 0;
-    
     EncoderValues.angle = 0;
+    EncoderValues.turret = 0;
   }
 
   @Override
@@ -41,6 +41,7 @@ public class UpdateEncoders extends CommandBase {
     EncoderValues.rightArmAngle = Encoders.RightArmAngleEncoder.Encoder.getPosition();
     EncoderValues.leftBaby = Encoders.LeftBabyEncoder.Encoder.getPosition();
     EncoderValues.rightBaby = Encoders.RightBabyEncoder.Encoder.getPosition();
+    EncoderValues.turret = Encoders.TurretEncoder.Encoder.getPosition();
 
     SmartDashboard.putNumber("Encoders.LeftExtenderEncoder.Encoder.getPosition", -Encoders.LeftExtenderEncoder.Encoder.getPosition());
     SmartDashboard.putNumber("Encoders.RightExtenderEncoder.Encoder.getPosition", Encoders.RightExtenderEncoder.Encoder.getPosition());
@@ -48,6 +49,7 @@ public class UpdateEncoders extends CommandBase {
     SmartDashboard.putNumber("Encoders.RightArmAngleEncoder.Encoder.getPosition", Encoders.RightArmAngleEncoder.Encoder.getPosition());
     SmartDashboard.putNumber("Encoders.LeftBabyEncoder.Encoder.getPosition", Encoders.LeftBabyEncoder.Encoder.getPosition());
     SmartDashboard.putNumber("Encoders.RightBabyEncoder.Encoder.getPosition", Encoders.RightBabyEncoder.Encoder.getPosition());
+    SmartDashboard.putNumber("Encoders.TurretEncoders.Encoder.getPosition", Encoders.TurretEncoder.Encoder.getPosition());
     
     EncoderValues.angle = Encoders.AngleEncoder.Encoder.getPosition();
 

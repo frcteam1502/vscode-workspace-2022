@@ -29,7 +29,8 @@ public final class Constants {
         RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
         LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
         RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
-        AngleEncoder (Motors.ANGLE.getEncoder());
+        AngleEncoder (Motors.ANGLE.getEncoder()),
+        TurretEncoder (Motors.TURRET.getEncoder());
     
         public RelativeEncoder Encoder;
         Encoders(RelativeEncoder encoder) {
