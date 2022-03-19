@@ -18,7 +18,8 @@ import frc.robot.subsystems.EncoderValues;
 
 public class MoveTurret extends CommandBase {
   private boolean on = false;
-  private boolean off = false;
+  private boolean off = false; 
+  private boolean center = false; 
   private final Turret turret;
  // private final AngleFlap angleFlap;
 
@@ -47,12 +48,12 @@ public class MoveTurret extends CommandBase {
     double Cerror = EncoderValues.turret;
     double Coffset = centerController.getCorrection(Cerror);
 
-    if(XboxButtons.START.get()) {
+    if(Joysticks.MANIP_CONTROLLER.getPOV() == 180) {
       on = true;
     } else if(!XboxButtons.START.get()) {
       on = false;
     }
-    if(Joysticks.MANIP_CONTROLLER.getPOV() == 180) {
+    if(Joysticks.MANIP_CONTROLLER.getPOV() == 0) {
       off = true;
     } else if(!XboxButtons.START.get()) {
       off = false;
@@ -60,8 +61,16 @@ public class MoveTurret extends CommandBase {
 
     
     SmartDashboard.putBoolean("on", on);
-    if (off){
-      turret.turnTurret(Coffset);
+    if (off || center){
+      if (EncoderValues.turret < 0.5 && EncoderValues.turret < -0.5 ){
+        turret.centerturret(Coffset, true);
+        center = false;
+      }
+      else{
+        turret.centerturret(Coffset, false);
+        center = true;
+      }
+      
     }
     else if(on) {
       turret.turnTurret(offset);

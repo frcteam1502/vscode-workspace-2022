@@ -96,7 +96,12 @@ public class Turret extends SubsystemBase {
     }
     
   }
-  public void centerturret(double centerspeed){
-    turretMotor.set(m_s_seepd);
+  public void centerturret(double centerspeed, boolean notatcenter){
+    if (notatcenter){
+    turretMotor.set(centerspeed);
+    }
+    else{
+      turretMotor.set(0);
+    }
   }
 } 
