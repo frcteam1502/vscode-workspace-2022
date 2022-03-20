@@ -4,12 +4,10 @@
 
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
-
 import com.revrobotics.CANSparkMax;
 
 import frc.robot.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
@@ -65,12 +63,10 @@ public class Shooter extends SubsystemBase {
   }
 // HELP MY LEG
   public void indexBall(){
-
     indexWheel.set(0.5);
   }
 
   public void indexBallStop(){
-
     indexWheel.set(0);
   }
 
@@ -119,11 +115,9 @@ public class Shooter extends SubsystemBase {
   }
   double dummy;
   private final PIDController angleController = new PIDController(6e-3, 0, 0);
-
- 
-
+  
   private void moveHoodToTarget(int target) {
-
+    RobotContainer.hoodInPos = false;
     double error = EncoderValues.angle - hoodAngle[target];
     double offset = angleController.getCorrection(error);
 
@@ -132,10 +126,12 @@ public class Shooter extends SubsystemBase {
     } else if (EncoderValues.angle > hoodAngle[target]) {
       angle.set(-offset);
     } else {
+      RobotContainer.hoodInPos = true;
       angle.set(0);
     }
     dummy = angle.get();
     SmartDashboard.putNumber("angle motor power", dummy);
+    SmartDashboard.putBoolean("Hood in Position", RobotContainer.hoodInPos);
   }
 
   public void angleUp() {
