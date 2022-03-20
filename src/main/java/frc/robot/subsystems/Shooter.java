@@ -4,11 +4,10 @@
 
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
-
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.PIDController;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
@@ -29,7 +28,7 @@ public class Shooter extends SubsystemBase {
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
     this.angle = angle;
-    hoodAngle = new double[7];
+    hoodAngle = new double[8];
     
     
 
@@ -40,6 +39,7 @@ public class Shooter extends SubsystemBase {
     hoodAngle[4] = 55.263;
     hoodAngle[5] = 21.86;
     hoodAngle[6] = 7.3;
+    hoodAngle[7] = 29.4;
 
    
 
@@ -63,19 +63,17 @@ public class Shooter extends SubsystemBase {
   }
 // HELP MY LEG
   public void indexBall(){
-
     indexWheel.set(0.5);
   }
 
   public void indexBallStop(){
-
     indexWheel.set(0);
   }
 
   public void moveHoodAutomatically(){
     Limelight.Target m_limelight = Limelight.getTarget();
     if(m_limelight.ta > 0){
-      if(m_limelight.ty >= 10.9){
+      if(m_limelight.ty >= 12.9){
         moveHoodToTarget(0);
         shooterRight.set(0.7);
         shooterLeft.set(0.7);
@@ -83,7 +81,7 @@ public class Shooter extends SubsystemBase {
         moveHoodToTarget(6);
        shooterRight.set(0.7);
         shooterLeft.set(0.7);
-     } else if (m_limelight.ty < 12.9 && m_limelight.ty >= 6.3) {
+     } else if (m_limelight.ty < 10.9 && m_limelight.ty >= 6.3) {
         moveHoodToTarget(1);
        shooterRight.set(0.75);
         shooterLeft.set(0.75);
@@ -91,10 +89,14 @@ public class Shooter extends SubsystemBase {
         moveHoodToTarget(2);
         shooterRight.set(0.8);
         shooterLeft.set(0.8);
-      } else if (m_limelight.ty < 2.65 && m_limelight.ty >= -0.6) {
+      } else if (m_limelight.ty < 2.65 && m_limelight.ty >= 0.9) {
         moveHoodToTarget(3);
         shooterRight.set(0.8);
         shooterLeft.set(0.8);
+      } else if (m_limelight.ty < 0.9 && m_limelight.ty >= -0.6) {
+        moveHoodToTarget(7);
+        shooterRight.set(0.85);
+        shooterLeft.set(0.85);
       } else if (m_limelight.ty < -0.6 && m_limelight.ty >= 0.0) {
         moveHoodToTarget(5);
         shooterRight.set(0.97);
@@ -110,22 +112,26 @@ public class Shooter extends SubsystemBase {
        shooterLeft.set(0.4);
        SmartDashboard.putNumber("limelight in code", m_limelight.ty);
     }
-    
-    
-    
   }
   double dummy;
+  private final PIDController angleController = new PIDController(6e-3, 0, 0);
+  
   private void moveHoodToTarget(int target) {
-    SmartDashboard.putNumber("Zone", target);
+    RobotContainer.hoodInPos = false;
+    double error = EncoderValues.angle - hoodAngle[target];
+    double offset = angleController.getCorrection(error);
+
     if(EncoderValues.angle < hoodAngle[target]) {
-      angle.set(0.1);
+      angle.set(-offset);
     } else if (EncoderValues.angle > hoodAngle[target]) {
-      angle.set(-0.1);
+      angle.set(-offset);
     } else {
+      RobotContainer.hoodInPos = true;
       angle.set(0);
     }
     dummy = angle.get();
     SmartDashboard.putNumber("angle motor power", dummy);
+    SmartDashboard.putBoolean("Hood in Position", RobotContainer.hoodInPos);
   }
 
   public void angleUp() {

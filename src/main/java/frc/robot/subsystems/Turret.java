@@ -26,11 +26,8 @@ public class Turret extends SubsystemBase {
     public void periodic() {
       // This method will be called once per scheduler run
     }
-  
-    
     
     public void turnTurret(){
-
       if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8){
         turretMotor.set(-0.3);
       } else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8){
@@ -38,12 +35,5 @@ public class Turret extends SubsystemBase {
       } else {
         turretMotor.set(0);
       }
-      
     }
-
-   
-   
-
-
 }
-
