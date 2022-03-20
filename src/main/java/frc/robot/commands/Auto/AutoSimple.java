@@ -13,7 +13,7 @@ public class AutoSimple extends CommandBase {
   private Shooter shooter;
   private Climber climber;
   private Turret turret;
-  private boolean IAlreadRan = true;
+  private boolean IAlreadRan = false;
 
   public AutoSimple(Intake intake, Shooter shooter, Climber climber, Turret turret){
     addRequirements(intake, shooter, climber);
@@ -42,7 +42,8 @@ public class AutoSimple extends CommandBase {
     */
 
     //start shooter
-    shooter.shoot(.7);
+    //TODO:: undo
+    // shooter.shoot(.7);
     //start intake
     intake.moveIntake();
     //drop intake
