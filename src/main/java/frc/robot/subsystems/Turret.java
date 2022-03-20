@@ -60,7 +60,7 @@ public class Turret extends SubsystemBase {
       }  
 
       else if (m_limelight.tx < -0.75){//change to left side of camera screen
-        turretMotor.set(-m_t_seepd);
+        turretMotor.set(m_t_seepd);
         SmartDashboard.putString("Turret status", "turning left");
       }
     }

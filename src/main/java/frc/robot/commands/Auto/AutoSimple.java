@@ -13,7 +13,7 @@ public class AutoSimple extends CommandBase {
   private Shooter shooter;
   private Climber climber;
   private Turret turret;
-  private boolean IAlreadRan = false;
+  private boolean IAlreadRan = true;
 
   public AutoSimple(Intake intake, Shooter shooter, Climber climber, Turret turret){
     addRequirements(intake, shooter, climber);

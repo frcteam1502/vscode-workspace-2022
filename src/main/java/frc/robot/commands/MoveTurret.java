@@ -73,7 +73,7 @@ public class MoveTurret extends CommandBase {
       
     }
     else if(on) {
-      turret.turnTurret(offset);
+      turret.turnTurret(-offset);
     }
     else{
       runManually();
