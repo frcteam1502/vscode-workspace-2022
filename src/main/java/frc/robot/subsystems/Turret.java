@@ -7,10 +7,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Joysticks;
-import frc.robot.commands.MoveTurret;
 
 public class Turret extends SubsystemBase {
 
@@ -20,9 +18,7 @@ public class Turret extends SubsystemBase {
   boolean movingRight = true;
   
   public Turret(CANSparkMax turretMotor) {
-    setDefaultCommand(new MoveTurret(this));
     this.turretMotor = turretMotor;
-    //setDefaultCommand(new Shoot(this));
   }
 
   
@@ -35,9 +31,9 @@ public class Turret extends SubsystemBase {
     
     public void turnTurret(){
 
-      if(Joysticks.CONTROLLER.getRightTriggerAxis() > 0.8){
+      if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8){
         turretMotor.set(-0.3);
-      } else if(Joysticks.CONTROLLER.getLeftTriggerAxis() > 0.8){
+      } else if(Joysticks.MANIP_CONTROLLER.getLeftTriggerAxis() > 0.8){
         turretMotor.set(0.3);
       } else {
         turretMotor.set(0);

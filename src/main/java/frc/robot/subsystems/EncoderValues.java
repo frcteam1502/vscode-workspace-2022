@@ -32,6 +32,4 @@ public class EncoderValues extends SubsystemBase {
       Motors.RIGHT_BABY.getEncoder().setPosition(0);
       Motors.ANGLE.getEncoder().setPosition(0);
     }
-
-
 }

@@ -1,4 +1,13 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "SPARK MAX [5]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -26,6 +35,19 @@
       "Climber": {
         "open": true
       },
+      "Turret": {
+        "open": true
+      },
+      "Ungrouped": {
+        "DigitalInput[0]": {
+          "open": true
+        },
+        "DigitalInput[1]": {
+          "open": true
+        },
+        "Scheduler": {
+          "open": true
+        },
       "Shooter": {
         "open": true
       },
@@ -33,6 +55,11 @@
     },
     "SmartDashboard": {
       "open": true
+    },
+    "limelight": {
+      "open": true
     }
   }
+  }
 }
+

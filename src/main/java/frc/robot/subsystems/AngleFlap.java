@@ -11,8 +11,8 @@ import frc.robot.commands.MoveHood;
 
 @Deprecated
 public class AngleFlap extends SubsystemBase {
-  /** Creates a new AngleFlap. */
-
+//   /** Creates a new AngleFlap. */
+//   private static Limelight m_limelight = Constants.limelight;
   private CANSparkMax angle;
 
   public AngleFlap(CANSparkMax angle) {
@@ -27,11 +27,11 @@ public class AngleFlap extends SubsystemBase {
   }
 
   public void angleUp() {
-    angle.set(0.05);
+    angle.set(0.1);
   }
 
   public void angleDown() {
-    angle.set(-0.05);
+    angle.set(-0.1);
   }
   
   public void stopAngle() {

@@ -54,8 +54,8 @@ public class Shooter extends SubsystemBase {
 
   public void shoot(double speed){
 
-      shooterRight.set(0.95);
-      shooterLeft.set(0.95);
+      shooterRight.set(speed);
+      shooterLeft.set(speed);
     }
   
   public void noShoot(){
@@ -117,7 +117,6 @@ public class Shooter extends SubsystemBase {
        SmartDashboard.putNumber("limelight in code", m_limelight.ty);
     }
   }
-  
   double dummy;
   private final PIDController angleController = new PIDController(6e-3, 0, 0);
 
@@ -140,11 +139,11 @@ public class Shooter extends SubsystemBase {
   }
 
   public void angleUp() {
-    angle.set(0.05);
+    angle.set(0.1);
   }
 
   public void angleDown() {
-    angle.set(-0.05);
+    angle.set(-0.1);
   }
   
   public void stopAngle() {

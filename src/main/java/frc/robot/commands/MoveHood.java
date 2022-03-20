@@ -27,9 +27,9 @@ public class MoveHood extends CommandBase {
   @Override
   public void execute() {
 
-    if(Joysticks.CONTROLLER.getYButton()) {
+    if(Joysticks.MANIP_CONTROLLER.getYButton()) {
       angleFlap.angleUp();
-    } else if (Joysticks.CONTROLLER.getAButton()){
+    } else if (Joysticks.MANIP_CONTROLLER.getAButton()){
       angleFlap.angleDown();
     } else {
       angleFlap.stopAngle();

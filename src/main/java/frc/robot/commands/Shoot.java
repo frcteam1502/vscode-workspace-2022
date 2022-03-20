@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.XboxButtons;
@@ -14,7 +12,7 @@ import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
   private Shooter shooter;
-  private boolean autoHood = true;
+  private boolean autoHood, backButtonHasBeenReleased, shoot = true;
  
   public Shoot(Shooter subsystem) {
     addRequirements(subsystem);
@@ -28,29 +26,24 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (XboxButtons.BACK.get() == true){
-      shooter.shoot(0.8);
-    } else {
-      shooter.noShoot();
+    if (XboxButtons.BACK.get() && backButtonHasBeenReleased) {
+      backButtonHasBeenReleased = false;
+      shoot = !shoot;
+    } else if (!XboxButtons.BACK.get()) {
+      backButtonHasBeenReleased = true;
     }
 
-    if (Joysticks.CONTROLLER2.getRightBumper()){
-      shooter.indexBall();
-    }else{
-      shooter.indexBallStop();
-    }
+    if (shoot) {
+      shooter.shoot(0.8);
+    } else shooter.noShoot();
+
+    if (Joysticks.MANIP_CONTROLLER.getRightY() < -0.9) shooter.indexBall();
+    else shooter.indexBallStop();
+
 shooter.moveHoodAutomatically();
-    if (autoHood) {
-      
-    } else {
-        if(Joysticks.CONTROLLER.getYButton()) {
-        shooter.angleUp();
-      } else if (Joysticks.CONTROLLER.getAButton()){
-        shooter.angleDown();
-      } else {
-        shooter.stopAngle();
-      }
-    }
+
+    
+    
   }
 
     
