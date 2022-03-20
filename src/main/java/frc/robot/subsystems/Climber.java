@@ -8,14 +8,10 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.EncoderMaxes;
 import frc.robot.Constants.XboxButtons;
-import frc.robot.commands.UpdateEncoders;
 
 public class Climber extends SubsystemBase {
   private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
-  private final double extenderSpeed = 2.5;
-  private final double rotateSpeed = 2.0;
   public boolean individualMode = false;
 
   public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
@@ -70,6 +66,7 @@ public class Climber extends SubsystemBase {
     rightBaby.set(0);
   }
 
+
   // Move Arms
   public void ExtendArms() {
     leftExtender.set(0.3);
@@ -79,7 +76,6 @@ public class Climber extends SubsystemBase {
     leftExtender.set(-0.3);
     rightExtender.set(-0.3);
   }
-
   public void MoveLeftArm(double speed) {
     leftExtender.set(speed);
   }
@@ -105,7 +101,6 @@ public class Climber extends SubsystemBase {
     rightAngle.set(speed);
   }
 
-
   // Rotate Babies
   public void RotateBabyFowards() {
     leftBaby.set(0.3);
@@ -114,133 +109,5 @@ public class Climber extends SubsystemBase {
   public void RotateBabyBackwards() {
     leftBaby.set(-0.3);
     rightBaby.set(-0.3);
-  }
-
-  public void RotateLeftBaby(double speed) {
-    leftBaby.set(speed);
-  }
-  public void RotateRightBaby(double speed) {
-    rightBaby.set(speed);
-  }
-  // TODO: Decide if recusion is the right choice... I'm begining to think no
-  //"Autonomously" Extend/Contract Arms
-  public void ExtendArmsToEncoder(double value) {
-    if(leftExtender.getEncoder().getPosition() < value && rightExtender.getEncoder().getPosition() < value) {
-      MoveLeftArm(extenderSpeed);
-      MoveRightArm(-extenderSpeed);
-    } 
-    else if(leftExtender.getEncoder().getPosition() < value) leftExtender.set(extenderSpeed);
-    else if(rightExtender.getEncoder().getPosition() < value) rightExtender.set(-extenderSpeed);
-    else StopLongLongArms();
-  }
-
-  public void RetractArmsToEncoder(double value) {
-    if(leftExtender.getEncoder().getPosition() > value && rightExtender.getEncoder().getPosition() > value) {
-      MoveLeftArm(-extenderSpeed);
-      MoveRightArm(extenderSpeed);
-    } 
-    else if(leftExtender.getEncoder().getPosition() > value) leftExtender.set(-extenderSpeed);
-    else if(rightExtender.getEncoder().getPosition() > value) rightExtender.set(extenderSpeed);
-    else StopLongLongArms();
-  }
-
-  //"Autonomously" Rotate Arms
-  public void RotateArmsForwardsToEncoder(double value) {
-    if(leftAngle.getEncoder().getPosition() < value && rightAngle.getEncoder().getPosition() < value)
-      RotateArmsForwards();
-    else if(leftAngle.getEncoder().getPosition() < value) RotateLeftArm(rotateSpeed);
-    else if(rightAngle.getEncoder().getPosition() < value) RotateRightArm(-rotateSpeed);
-    else StopArmsRotate();
-  }
-
-  public void RotateArmsBackwardsToEncoder(double value) {
-    if(leftAngle.getEncoder().getPosition() > value && rightAngle.getEncoder().getPosition() > value)
-      RotateArmsBackwards();
-    else if(leftAngle.getEncoder().getPosition() > value) RotateLeftArm(-rotateSpeed);
-    else if(rightAngle.getEncoder().getPosition() > value) RotateRightArm(rotateSpeed);
-    else StopArmsRotate();
-  }
-
-  //"Autonomously" Rotate Babies
-  public void RotateBabiesForwardsToEncoder(double value) {
-    if(leftBaby.getEncoder().getPosition() < value && rightBaby.getEncoder().getPosition() < value)
-      RotateArmsForwards();
-    else if(leftBaby.getEncoder().getPosition() < value) RotateLeftArm(rotateSpeed);
-    else if(rightBaby.getEncoder().getPosition() < value) RotateRightArm(-rotateSpeed);
-    else StopBabies();
-  }
-
-  public void RotateBabiesBackwardsToEncoder(double value) {
-    if(leftBaby.getEncoder().getPosition() > value && rightBaby.getEncoder().getPosition() > value)
-      RotateArmsBackwards();
-    else if(leftBaby.getEncoder().getPosition() > value) RotateLeftArm(-rotateSpeed);
-    else if(rightBaby.getEncoder().getPosition() > value) RotateRightArm(rotateSpeed);
-    else StopBabies();
-  }
-
-  // Encoder Stuff
-
-
-
-
-
-
-
-
-
-  
-  // 3/5/2022 Encoder stuff was moved here. This class is so messy I hate it and want to purge all the unused methods especially the ones for one button climb (sorry Nick)
-  private double leftSpeed, rightSpeed = 0.5;
-
-  public void ExtendArmsEncoders() {
-    if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX && EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
-      MoveLeftArm(leftSpeed);
-      MoveRightArm(rightSpeed);
-    } else if (EncoderValues.leftArm < EncoderMaxes.LEFT_MAX) {
-      MoveLeftArm(leftSpeed);
-    } else if (EncoderValues.rightArm < EncoderMaxes.RIGHT_MAX) {
-      MoveRightArm(rightSpeed);
-    } else {
-      StopLongLongArms();
-    }
-  } 
-
-  public void ContractArmsEncoder() {
-    if (EncoderValues.leftArm > 0 && EncoderValues.rightArm < 2) {
-      MoveLeftArm(-leftSpeed);
-      MoveRightArm(-rightSpeed);
-    } else if (EncoderValues.leftArm > 0) {
-      MoveLeftArm(-leftSpeed);
-    } else if (EncoderValues.rightArm > 0) {
-      MoveRightArm(-rightSpeed);
-    } else {
-      StopLongLongArms();
-    }
-  }
-
-  public void RotateForwardsEncoder() {
-    if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX && EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
-      RotateLeftArm(leftSpeed / 2);
-      RotateRightArm(rightSpeed / 2);
-    } else if (EncoderValues.leftArmAngle < EncoderMaxes.LEFT_ANGLE_MAX) {
-      RotateLeftArm(leftSpeed / 2);
-    } else if (EncoderValues.rightArmAngle < EncoderMaxes.RIGHT_ANGLE_MAX) {
-      RotateRightArm(rightSpeed / 2);
-    } else {
-      StopArmsRotate();
-    }
-  }
-
-  public void RotateBackwardsEncoder() {
-    if (EncoderValues.leftArmAngle > 0 && EncoderValues.rightArmAngle < 0) {
-      RotateLeftArm(-leftSpeed / 2);
-      RotateRightArm(-rightSpeed / 2);
-    } else if (EncoderValues.leftArmAngle > 0) {
-      RotateLeftArm(-leftSpeed / 2);
-    } else if (EncoderValues.rightArmAngle > 0) {
-      RotateRightArm(-rightSpeed / 2);
-    } else {
-      StopArmsRotate();
-    }
   }
 }
