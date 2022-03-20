@@ -108,12 +108,12 @@ public class Climber extends SubsystemBase {
 
   // Rotate Babies
   public void RotateBabyFowards() {
-    leftBaby.set(0.3);
-    rightBaby.set(0.3);
+    leftBaby.set(0.45);
+    rightBaby.set(0.45);
   }
   public void RotateBabyBackwards() {
-    leftBaby.set(-0.3);
-    rightBaby.set(-0.3);
+    leftBaby.set(-0.45);
+    rightBaby.set(-0.45);
   }
 
   public void RotateLeftBaby(double speed) {

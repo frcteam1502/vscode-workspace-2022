@@ -49,7 +49,7 @@ public final class Constants {
         // Climber
         public static final CANSparkMax LEFT_ARM_ANGLE = new CANSparkMax(4, MotorType.kBrushless);
         public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(3, MotorType.kBrushless);
-        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(10, MotorType.kBrushless);
+        public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(22, MotorType.kBrushless);
         public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(9, MotorType.kBrushless);
         public static final CANSparkMax LEFT_BABY = new CANSparkMax(8, MotorType.kBrushless);
         public static final CANSparkMax RIGHT_BABY = new CANSparkMax(7, MotorType.kBrushless);
