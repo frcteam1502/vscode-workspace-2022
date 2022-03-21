@@ -38,7 +38,7 @@ public class Turret extends SubsystemBase {
 
     if (m_limelight.tv == 1){
 
-      if ( (m_limelight.tx >= -0.75) && (m_limelight.tx <= 0.75)){
+      if ( (m_limelight.tx >= -0.1) && (m_limelight.tx <= 0.1)){ // THIS THING CHANGED IT WAS 0.75
         turretMotor.set(0);
         breek = "no";
         SmartDashboard.putString("Turret status", "centered");
@@ -54,12 +54,12 @@ public class Turret extends SubsystemBase {
         turretMotor.set(-m_s_seepd);
       }
 
-      else if (m_limelight.tx > 0.75){//change to right side of camera screen
+      else if (m_limelight.tx > 0.1){//change to right side of camera screen // THIS THING CHANGED IT WAS 0.75
         turretMotor.set(m_t_seepd);
         SmartDashboard.putString("Turret status", "turning right");
       }  
 
-      else if (m_limelight.tx < -0.75){//change to left side of camera screen
+      else if (m_limelight.tx < -0.1){//change to left side of camera screen // THIS THING CHANGED IT WAS 0.75
         turretMotor.set(m_t_seepd);
         SmartDashboard.putString("Turret status", "turning left");
       }

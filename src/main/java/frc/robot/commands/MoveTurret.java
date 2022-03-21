@@ -36,7 +36,8 @@ public class MoveTurret extends CommandBase {
     rotationController.reset();
   }
 
-  private final PIDController rotationController = new PIDController(5e-3, 0, 0);
+  // Make faster here?
+  private final PIDController rotationController = new PIDController(30e-3, 0, 0);
   private final PIDController centerController = new PIDController(5e-3, 0, 0);
   // Called every time the scheduler runs while the command is scheduled.
   @Override
