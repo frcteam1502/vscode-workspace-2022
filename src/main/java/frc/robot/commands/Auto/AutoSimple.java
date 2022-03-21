@@ -44,11 +44,12 @@ public class AutoSimple extends CommandBase {
     //start shooter
     shooter.shoot(.7);
     //start intake
-    intake.moveIntake();
+    
     //drop intake
     climber.RotateArmsForwards();
     Timer.delay(1.8);
     climber.StopArmsRotate();
+    intake.moveIntake();
     //move out of box and pickup 2nd ball
     drive(.2);
     Timer.delay(1.5);

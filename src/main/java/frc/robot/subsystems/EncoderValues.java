@@ -21,8 +21,6 @@ public class EncoderValues extends SubsystemBase {
 
     public static double leftArm, rightArm, leftArmAngle, rightArmAngle, leftBaby, rightBaby, angle, turret = 0;
 
-
-
     public void ResetEncoders() {
       Motors.LEFT_ARM_EXTENDER.getEncoder().setPosition(0);
       Motors.RIGHT_ARM_EXTENDER.getEncoder().setPosition(0);

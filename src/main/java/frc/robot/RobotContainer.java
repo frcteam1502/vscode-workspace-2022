@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
-import frc.robot.commands.LimelightDistance;
 import frc.robot.commands.MoveTurret;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
@@ -26,7 +25,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  public static boolean hoodInPos;
 
   private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
@@ -42,7 +41,6 @@ public class RobotContainer {
   public MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
-  private LimelightDistance limelightDistance = new LimelightDistance();
 
   //Autonomous Commands
   public SendableChooser<Command> m_chooser = new SendableChooser<>();

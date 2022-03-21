@@ -12,7 +12,7 @@ import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
   private Shooter shooter;
-  private boolean autoHood, backButtonHasBeenReleased, shoot = true;
+  private boolean backButtonHasBeenReleased, shoot = true;
  
   public Shoot(Shooter subsystem) {
     addRequirements(subsystem);
