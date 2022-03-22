@@ -34,7 +34,7 @@ public class DriveStraightByEncoder extends CommandBase {
   public void execute() {
     double power = distanceController.calculate(drive.getAverageEncoderDistance());
     double offset = rotationController.calculate(drive.m_gyro.getAngle());
-    drive.TankDrive(power - offset, power + offset);
+    drive.TankDrive(power - offset, -power - offset);
   }
 
   @Override
