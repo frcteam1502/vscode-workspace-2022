@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.Auto.ByEncoder.TestAuto;
 import frc.robot.commands.Auto.ByTime.AutoSimple;
 import frc.robot.commands.Auto.PathPlanner.blue1;
 import frc.robot.subsystems.Intake;
@@ -63,6 +64,8 @@ public class RobotContainer {
   // TODO: Need to add the "shooting" aspect
   public blue1 blue1 = new blue1(m_drive, intake);
 
+  public TestAuto test = new TestAuto(m_drive, intake);
+
   public RobotContainer() {
     configureButtonBindings();
     setUpMChooser();
@@ -83,6 +86,7 @@ public class RobotContainer {
   private void setUpMChooser() {
     m_chooser.setDefaultOption("Simple Auto", simpleAuto);
     m_chooser.addOption("Blue 1", blue1);
+    m_chooser.addOption("Test", test);
     SmartDashboard.putData(m_chooser);
   }
   

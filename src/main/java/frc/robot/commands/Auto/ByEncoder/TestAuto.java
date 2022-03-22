@@ -9,11 +9,11 @@ import frc.robot.subsystems.Intake;
 public class TestAuto extends SequentialCommandGroup {
   public TestAuto(Drivetrain drive, Intake intake) {
     addCommands(
-      new InstantCommand(intake::moveIntake, intake)//,
+      //new InstantCommand(intake::moveIntake, intake),
 
       //new WaitCommand(3),
 
-      //new DriveStraightByEncoder(drive, 2),
+      new DriveStraightByEncoder(drive, 2)//,
 
       //new TurnByGyro(drive, -45)
 
