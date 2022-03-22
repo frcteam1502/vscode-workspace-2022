@@ -35,10 +35,10 @@ public class MoveTurret extends CommandBase {
   public void initialize() {
     rotationController.reset();
   }
-
-  // Make faster here?
+  public double TurretClimbMax = -100;
   private final PIDController rotationController = new PIDController(30e-3, 0, 0);
-  private final PIDController centerController = new PIDController(5e-3, 0, 0);
+  private final PIDController centerController = new PIDController(20e-3, 0, 0);
+  private final PIDController climbAdjustController = new PIDController(3e-3, 0, 0);
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
@@ -47,7 +47,9 @@ public class MoveTurret extends CommandBase {
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
     double Cerror = EncoderValues.turret;
-    double Coffset = centerController.getCorrection(Cerror);
+    // double Coffset = centerController.getCorrection(Cerror);
+    double AdjustError = EncoderValues.turret - TurretClimbMax;
+    double climbAdjustOffset = climbAdjustController.getCorrection(AdjustError);
 
     if(Joysticks.MANIP_CONTROLLER.getPOV() == 180) {
       on = true;
@@ -62,24 +64,31 @@ public class MoveTurret extends CommandBase {
 
     
     SmartDashboard.putBoolean("on", on);
-    if (off || center){
-      if (EncoderValues.turret < 0.5 && EncoderValues.turret < -0.5 ){
-        turret.centerturret(Coffset, true);
-        center = false;
-      }
-      else{
-        turret.centerturret(Coffset, false);
-        center = true;
-      }
+    // if (off || center){
+    //   if (EncoderValues.turret < 0.25 && EncoderValues.turret > -0.25 ){
+    //     turret.centerturret(Coffset, true);
+    //     center = false;
+    //   }
+    //   else{
+    //     turret.centerturret(Coffset, false);
+    //     center = true;
+    //   }
       
-    }
-    else if(on) {
+    // }
+    if(on) {
       turret.turnTurret(-offset);
     }
     else{
       runManually();
     }
     //angleFlap.Moveflap();
+
+    SmartDashboard.putBoolean("LEFT ARM MORE THAN 30", EncoderValues.leftArm > 30);
+    SmartDashboard.putBoolean("ClimbMode", turret.climbMode);
+    SmartDashboard.putNumber("ClimbAjustOffset", climbAdjustOffset);
+    if(EncoderValues.leftArm > 30 || turret.climbMode) {
+      turret.RotateToClimbMode(-climbAdjustOffset);
+    }
   }
 
   private void runManually() {

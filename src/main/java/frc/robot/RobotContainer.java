@@ -26,6 +26,7 @@ import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
   public static boolean hoodInPos;
+  public static boolean TurretCenterd;
 
   private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(

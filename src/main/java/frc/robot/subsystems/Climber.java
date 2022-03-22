@@ -86,12 +86,12 @@ public class Climber extends SubsystemBase {
 
   // Rotate Arms, Uped to .4 for testing
   public void RotateArmsForwards() {
-    leftAngle.set(0.4);
-    rightAngle.set(-0.4);
+    leftAngle.set(0.5);
+    rightAngle.set(-0.5);
   }
   public void RotateArmsBackwards() {
-    leftAngle.set(-0.4);
-    rightAngle.set(0.4);
+    leftAngle.set(-0.5);
+    rightAngle.set(0.5);
   }
 
   public void RotateLeftArm(double speed) {

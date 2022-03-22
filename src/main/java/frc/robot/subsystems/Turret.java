@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.Joysticks;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,7 +33,11 @@ public class Turret extends SubsystemBase {
   double m_s_seepd = 0.4;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
+  private boolean TurretCenterd;
+
   public void turnTurret(double m_t_seepd){
+    TurretCenterd = false;
+    RobotContainer.TurretCenterd = false;
     
     Limelight.Target m_limelight = Limelight.getTarget();
 
@@ -41,7 +46,8 @@ public class Turret extends SubsystemBase {
       if ( (m_limelight.tx >= -0.1) && (m_limelight.tx <= 0.1)){ // THIS THING CHANGED IT WAS 0.75
         turretMotor.set(0);
         breek = "no";
-        SmartDashboard.putString("Turret status", "centered");
+        TurretCenterd = true;
+        RobotContainer.TurretCenterd = true;
       }
 
       else if (!rightlimitSwitch.get()){//trys to go to left 
@@ -84,7 +90,9 @@ public class Turret extends SubsystemBase {
 
     SmartDashboard.putNumber("Turretmotor", turretMotor.get());
     SmartDashboard.putNumber("m_t_seepd", m_t_seepd);
+    SmartDashboard.putBoolean("Turret Centerd", TurretCenterd);
   }
+
   public void turnTurretmanual(){
 
     if(Joysticks.MANIP_CONTROLLER.getRightTriggerAxis() > 0.8 && rightlimitSwitch.get()){
@@ -102,6 +110,20 @@ public class Turret extends SubsystemBase {
     }
     else{
       turretMotor.set(0);
+    }
+  }
+
+  public double TurretClimbMax = -100;
+  public boolean climbMode;
+
+  public void RotateToClimbMode(double speed) {
+    if(EncoderValues.turret > TurretClimbMax) {
+      turretMotor.set(speed);
+      climbMode = true;
+    }
+    else {
+      turretMotor.set(0);
+      climbMode = false;
     }
   }
 } 
