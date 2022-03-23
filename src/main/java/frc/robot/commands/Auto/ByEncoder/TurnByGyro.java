@@ -23,6 +23,7 @@ public class TurnByGyro extends CommandBase {
     turnController.reset();
     turnController.setSetpoint(turnAngle);
     turnController.setTolerance(.1);
+    turnController.setIntegratorRange(-.8, .8);
   }
 
   @Override

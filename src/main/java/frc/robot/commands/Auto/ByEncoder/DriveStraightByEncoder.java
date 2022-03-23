@@ -26,6 +26,7 @@ public class DriveStraightByEncoder extends CommandBase {
     distanceController.reset();
     distanceController.setSetpoint(goalDistance);
     distanceController.setTolerance(.1);
+    distanceController.setIntegratorRange(-.9, .9);
     //set up rotation controlling PID
     rotationController.reset();
     rotationController.setSetpoint(drive.m_gyro.getAngle());
