@@ -1,13 +1,12 @@
 package frc.robot.commands.Auto.ByEncoder;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveStraightByEncoder extends CommandBase {
   private Drivetrain drive;
-  private PIDController distanceController = new PIDController(5e-2, 0, 0);
+  private PIDController distanceController = new PIDController(5.3e-1, 0, 0);
   private PIDController rotationController = new PIDController(5e-2, 0, 0);
   private double goalDistance;
 
@@ -37,7 +36,6 @@ public class DriveStraightByEncoder extends CommandBase {
     double power = distanceController.calculate(drive.getAverageEncoderDistance());
     double offset = rotationController.calculate(drive.m_gyro.getAngle());
     drive.TankDrive(power - offset, -power - offset);
-    SmartDashboard.putBoolean("done", goalDistance <= drive.getAverageEncoderDistance());
   }
 
   @Override
@@ -47,6 +45,6 @@ public class DriveStraightByEncoder extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return goalDistance <= drive.getAverageEncoderDistance(); //false
+    return distanceController.atSetpoint(); //false
   }
 }

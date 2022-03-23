@@ -13,9 +13,9 @@ public class TestAuto extends SequentialCommandGroup {
 
       //new WaitCommand(3),
 
-      new DriveStraightByEncoder(drive, 2)//,
+      //new DriveStraightByEncoder(drive, 2),
 
-      //new TurnByGyro(drive, -45)
+      new TurnByGyro(drive, 90)
 
       
     );

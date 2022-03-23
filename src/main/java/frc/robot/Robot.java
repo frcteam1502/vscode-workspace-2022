@@ -25,8 +25,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Back Left Motor", m_robotContainer.m_drive.getMotor(2).get());
     SmartDashboard.putNumber("Back Right Motor", m_robotContainer.m_drive.getMotor(3).get());
 
-    SmartDashboard.putNumber("Left Enc", m_robotContainer.m_drive.getMotor(0).getEncoder().getPosition());
-    SmartDashboard.putNumber("Right Enc", m_robotContainer.m_drive.getMotor(2).getEncoder().getPosition());
+    SmartDashboard.putNumber("Gyro", m_robotContainer.m_drive.m_gyro.getAngle());
+
+    SmartDashboard.putNumber("Averaged Encoder Value", m_robotContainer.m_drive.getAverageEncoderDistance());
 
     SmartDashboard.putNumber("Odo X", m_robotContainer.m_drive.m_odometry.getPoseMeters().getX());
     SmartDashboard.putNumber("Odo Y", m_robotContainer.m_drive.m_odometry.getPoseMeters().getY());
