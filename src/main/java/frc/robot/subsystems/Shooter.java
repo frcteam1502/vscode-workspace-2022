@@ -142,6 +142,10 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putBoolean("Hood in Position", RobotContainer.hoodInPos);
   }
 
+  public void setAngle(double speed) {
+    angle.set(speed);
+  }
+
   public void angleUp() {
     angle.set(0.1);
   }

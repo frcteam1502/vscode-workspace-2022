@@ -35,6 +35,10 @@ public class Turret extends SubsystemBase {
   
   private boolean TurretCenterd;
 
+  public void turretSet(double speed) {
+    turretMotor.set(speed);
+  }
+
   public void turnTurret(double m_t_seepd){
     TurretCenterd = false;
     RobotContainer.TurretCenterd = false;
