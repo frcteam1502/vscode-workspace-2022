@@ -21,7 +21,7 @@ public class FourBall extends SequentialCommandGroup {
 
       /** Drive out of box and pickup 2nd ball */
       new ParallelCommandGroup(
-        new DriveStraightByEncoder(drive, 2), 
+        new DriveStraightByEncoder(drive, 1.2), 
         new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
       ),
 
@@ -32,20 +32,28 @@ public class FourBall extends SequentialCommandGroup {
       ),
 
       /** Drive and turn to human player */
-      new DriveStraightByEncoder(drive, 4),
-      new TurnByGyro(drive, -45),
+      new TurnByGyro(drive, -21),
+      new DriveStraightByEncoder(drive, 3.75),
+      new TurnByGyro(drive, 40),
 
       /** Drive to human player and pickup waiting ball */
       new ParallelCommandGroup(
-        new DriveStraightByEncoder(drive, .5), 
+        new DriveStraightByEncoder(drive, .52), 
         new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
       ),
 
-      new WaitCommand(3),//Wait for human player to deposit 2nd ball
+      /** Wait for human player to deposit 2nd ball */
+      new WaitCommand(3),
 
-      new DriveStraightByEncoder(drive, -4)//Backup away from human player towards hub
+      /** Get into shooting position */
+      new TurnByGyro(drive, -40),
+      new DriveStraightByEncoder(drive, -3.1),//Backup away from human player towards hub
 
-      //shoot
+      /** Shoot 2 balls */
+      new ParallelCommandGroup(
+        new WaitCommand(4), 
+        new StartEndCommand(shooter::indexBall, shooter::indexBallStop, shooter)
+      )
     );
   }
 }
