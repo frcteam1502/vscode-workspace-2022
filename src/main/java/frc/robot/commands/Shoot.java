@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 
 public class Shoot extends CommandBase {
@@ -26,6 +27,12 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(Turret.climbMode) {
+      shooter.noShoot();
+      shooter.stopAngle();
+      return;
+    }
+
     if (XboxButtons.BACK.get() && backButtonHasBeenReleased) {
       backButtonHasBeenReleased = false;
       shoot = !shoot;

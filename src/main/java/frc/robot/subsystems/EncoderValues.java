@@ -19,7 +19,7 @@ public class EncoderValues extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-    public static double leftArm, rightArm, leftArmAngle, rightArmAngle, leftBaby, rightBaby, angle = 0;
+    public static double leftArm, rightArm, leftArmAngle, rightArmAngle, leftBaby, rightBaby, angle, turret = 0;
 
     public void ResetEncoders() {
       Motors.LEFT_ARM_EXTENDER.getEncoder().setPosition(0);
@@ -29,5 +29,6 @@ public class EncoderValues extends SubsystemBase {
       Motors.LEFT_BABY.getEncoder().setPosition(0);
       Motors.RIGHT_BABY.getEncoder().setPosition(0);
       Motors.ANGLE.getEncoder().setPosition(0);
+      Motors.TURRET.getEncoder().setPosition(0);
     }
 }

@@ -29,7 +29,8 @@ public final class Constants {
         RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
         LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
         RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
-        AngleEncoder (Motors.ANGLE.getEncoder());
+        AngleEncoder (Motors.ANGLE.getEncoder()),
+        TurretEncoder (Motors.TURRET.getEncoder());
     
         public RelativeEncoder Encoder;
         Encoders(RelativeEncoder encoder) {
@@ -81,6 +82,7 @@ public final class Constants {
         public static final JoystickButton BUTTON_X = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kX.value); // Rotate babies Clockwise
         public static final JoystickButton BUTTON_B = new JoystickButton(Joysticks.MANIP_CONTROLLER, XboxController.Button.kB.value); // Rotate babies Counter Clockwise
         public static final JoystickButton BACK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 7);
+        public static final JoystickButton START = new JoystickButton(Joysticks.MANIP_CONTROLLER, 8);
         // I dont know the values for these
         public static final JoystickButton LEFT_JOYSTICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 12);
         public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 13);
