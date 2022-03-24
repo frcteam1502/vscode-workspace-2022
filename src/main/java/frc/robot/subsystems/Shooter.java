@@ -37,8 +37,8 @@ public class Shooter extends SubsystemBase {
     hoodAngle[2] = 18.785; 
     hoodAngle[3] = 21.86;
     hoodAngle[4] = 24.8;
-    hoodAngle[5] = 26.499; 
-    hoodAngle[6] = 33.786;
+    hoodAngle[5] = 28.499; 
+    hoodAngle[6] = 35.786;
     hoodAngle[7] = 55.263;
 
     
@@ -101,14 +101,18 @@ public class Shooter extends SubsystemBase {
         moveHoodToTarget(4);
         shooterRight.set(0.765);
         shooterLeft.set(0.765);
-      } else if (m_limelight.ty < -2.3 && m_limelight.ty >= -6.1) {
+      } else if (m_limelight.ty < -2.3 && m_limelight.ty >= -5.5) {
         moveHoodToTarget(5);
         shooterRight.set(0.8);
         shooterLeft.set(0.8);
+      } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -6.9) {
+        moveHoodToTarget(6);
+        shooterRight.set(0.83);
+        shooterLeft.set(0.83);
       } else {
         shooterRight.set(0.6);
         shooterLeft.set(0.6);
-        moveHoodToTarget(4);
+        moveHoodToTarget(7);
       }
     } else {
       moveHoodToTarget(7);
