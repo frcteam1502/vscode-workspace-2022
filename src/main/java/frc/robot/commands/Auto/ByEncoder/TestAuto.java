@@ -8,16 +8,31 @@ import frc.robot.subsystems.Intake;
 
 public class TestAuto extends SequentialCommandGroup {
   public TestAuto(Drivetrain drive, Intake intake) {
+    //Drive in square
     addCommands(
       //new InstantCommand(intake::moveIntake, intake),
 
-      //new WaitCommand(3),
+      new DriveStraightByEncoder(drive, 1),
 
-      //new DriveStraightByEncoder(drive, 2),
+      new TurnByGyro(drive, 90),
+
+      new WaitCommand(.1),
+
+      new DriveStraightByEncoder(drive, 1),
+
+      new TurnByGyro(drive, 90),
+
+      new WaitCommand(.1),
+
+      new DriveStraightByEncoder(drive, 1),
+
+      new TurnByGyro(drive, 90),
+
+      new WaitCommand(.1),
+
+      new DriveStraightByEncoder(drive, 1),
 
       new TurnByGyro(drive, 90)
-
-      
     );
   }
 }
