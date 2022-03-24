@@ -75,10 +75,6 @@ public class AutoSimple extends CommandBase {
     //shoot
     shooter.indexBall();
     Timer.delay(5);
-    //Move forward a hair
-    drive(.2);
-    Timer.delay(.5);
-    drive(0);
     IAlreadRan = true;
   }
 
