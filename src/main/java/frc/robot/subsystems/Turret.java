@@ -114,7 +114,7 @@ public class Turret extends SubsystemBase {
   }
 
   public double TurretClimbMax = -100;
-  public boolean climbMode;
+  public static boolean climbMode = false;
 
   public void RotateToClimbMode(double speed) {
     if(EncoderValues.turret > TurretClimbMax) {

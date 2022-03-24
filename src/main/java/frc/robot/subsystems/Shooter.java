@@ -124,11 +124,8 @@ public class Shooter extends SubsystemBase {
   double dummy;
   private final PIDController angleController = new PIDController(6e-3, 0, 0);
   
-  private boolean hodinPos;
   private void moveHoodToTarget(int target) {
     RobotContainer.hoodInPos = false;
-    hodinPos = false;
-
     double error = EncoderValues.angle - hoodAngle[target];
     double offset = angleController.getCorrection(error);
 
@@ -138,13 +135,11 @@ public class Shooter extends SubsystemBase {
       angle.set(-offset);
     } else {
       RobotContainer.hoodInPos = true;
-      hodinPos = true;
       angle.set(0);
     }
     dummy = angle.get();
     SmartDashboard.putNumber("angle motor power", dummy);
     SmartDashboard.putBoolean("Hood in Position", RobotContainer.hoodInPos);
-    SmartDashboard.putBoolean("Local Hood in Position", hodinPos);
   }
 
   public void angleUp() {
@@ -157,19 +152,5 @@ public class Shooter extends SubsystemBase {
   
   public void stopAngle() {
     angle.set(0);
-  }
-
-  public double HoodClimbMax = -15;
-  public boolean climbMode;
-
-  public void RotateToClimbMode(double speed) {
-    noShoot();
-    if(EncoderValues.angle > HoodClimbMax) {
-      angle.set(speed);
-      climbMode = true;
-    }
-    else {
-      angle.set(0);
-    }
   }
 }

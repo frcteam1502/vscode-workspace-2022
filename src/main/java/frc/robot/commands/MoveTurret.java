@@ -84,9 +84,9 @@ public class MoveTurret extends CommandBase {
     //angleFlap.Moveflap();
 
     SmartDashboard.putBoolean("LEFT ARM MORE THAN 30", EncoderValues.leftArm > 30);
-    SmartDashboard.putBoolean("ClimbMode", turret.climbMode);
+    SmartDashboard.putBoolean("ClimbMode", Turret.climbMode);
     SmartDashboard.putNumber("ClimbAjustOffset", climbAdjustOffset);
-    if(EncoderValues.leftArm > 30 || turret.climbMode) {
+    if(EncoderValues.leftArm > 30 || Turret.climbMode) {
       turret.RotateToClimbMode(-climbAdjustOffset);
     }
   }
