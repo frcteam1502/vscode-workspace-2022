@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.Auto.ByEncoder.FourBall;
 import frc.robot.commands.Auto.ByEncoder.TestAuto;
 import frc.robot.commands.Auto.ByTime.AutoSimple;
 import frc.robot.commands.Auto.PathPlanner.blue1;
@@ -62,9 +63,11 @@ public class RobotContainer {
   public AutoSimple simpleAuto = new AutoSimple(m_drive, intake, shooter, climber, m_robotTurret);
  
   // TODO: Need to add the "shooting" aspect
-  public blue1 blue1 = new blue1(m_drive, intake);
+  //public blue1 blue1 = new blue1(m_drive, intake);
 
-  public TestAuto test = new TestAuto(m_drive, intake);
+  //public TestAuto test = new TestAuto(m_drive, intake);
+
+  public FourBall fourBall = new FourBall(m_drive, intake, shooter, climber);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -85,8 +88,9 @@ public class RobotContainer {
   //Sets up the sendable chooser for Autonomous
   private void setUpMChooser() {
     m_chooser.setDefaultOption("Simple Auto", simpleAuto);
-    m_chooser.addOption("Blue 1", blue1);
-    m_chooser.addOption("Test", test);
+    m_chooser.addOption("Four Ball", fourBall);
+    //m_chooser.addOption("Blue 1", blue1);
+    //m_chooser.addOption("Test", test);
     SmartDashboard.putData(m_chooser);
   }
   
