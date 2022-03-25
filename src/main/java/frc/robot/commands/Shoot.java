@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Joysticks;
 import frc.robot.Constants.XboxButtons;
+import frc.robot.subsystems.EncoderValues;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
@@ -28,8 +29,12 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     if(Turret.climbMode) {
+      if(EncoderValues.angle > 2) {
+        shooter.angleDown();
+      } else {
+        shooter.stopAngle();
+      }
       shooter.noShoot();
-      shooter.stopAngle();
       return;
     }
 
