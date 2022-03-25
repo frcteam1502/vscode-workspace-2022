@@ -116,6 +116,14 @@ public class AutoSimple extends CommandBase {
 
   public void turnTurret(double m_t_seepd) {
     Limelight.Target m_limelight = Limelight.getTarget();
+    
+    /*
+    if (EncoderValues.angle < -80 || EncoderValues.angle < 80) {
+      turret.turretSet(0);
+      TurretCenterd = true;
+      reutrn;
+    }
+    */
 
     if (m_limelight.tv == 1){
 
