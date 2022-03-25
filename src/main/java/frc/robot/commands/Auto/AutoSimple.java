@@ -74,7 +74,10 @@ public class AutoSimple extends CommandBase {
     Timer.delay(2);
     //shoot
     shooter.indexBall();
-    Timer.delay(5);
+    Timer.delay(2);
+    drive(0.2);
+    Timer.delay(.75);
+    drive(0);
     IAlreadRan = true;
   }
 
@@ -98,7 +101,7 @@ public class AutoSimple extends CommandBase {
     return false;
   }
 
-  private final PIDController rotationController = new PIDController(10e-3, 0, 0);
+  private final PIDController rotationController = new PIDController(6e-3, 0, 0);
   public double TurretClimbMax = -100;
   
   private void moveTurret() {
@@ -116,17 +119,17 @@ public class AutoSimple extends CommandBase {
 
     if (m_limelight.tv == 1){
 
-      if ( (m_limelight.tx >= -0.4) && (m_limelight.tx <= 0.4)){ // THIS THING CHANGED IT WAS 0.75
+      if ( (m_limelight.tx >= -0.5) && (m_limelight.tx <= 0.5)){ // THIS THING CHANGED IT WAS 0.75
         turret.turretSet(0);
         breek = "no";
         TurretCenterd = true;
       }
 
-      else if (m_limelight.tx > 0.4){//change to right side of camera screen // THIS THING CHANGED IT WAS 0.75
+      else if (m_limelight.tx > 0.5){//change to right side of camera screen // THIS THING CHANGED IT WAS 0.75
         turret.turretSet(m_t_seepd);
       }  
 
-      else if (m_limelight.tx < -0.4){//change to left side of camera screen // THIS THING CHANGED IT WAS 0.75
+      else if (m_limelight.tx < -0.5){//change to left side of camera screen // THIS THING CHANGED IT WAS 0.75
         turret.turretSet(m_t_seepd);
       }
     }
