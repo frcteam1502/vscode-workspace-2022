@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.Motors;
+import frc.robot.commands.Auto.AutoSimple;
+
 import com.revrobotics.CANSparkMax;
 
 public class Robot extends TimedRobot {

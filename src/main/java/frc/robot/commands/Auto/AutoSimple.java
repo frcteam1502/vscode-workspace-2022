@@ -1,11 +1,14 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Limelight;
 import frc.robot.PIDController;
+import frc.robot.Constants.Motors;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.EncoderValues;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
@@ -16,7 +19,8 @@ public class AutoSimple extends CommandBase {
   private Climber climber;
   private Turret turret;
   private boolean IAlreadRan = false;
-  private boolean TurretCenterd;
+  private boolean TurretCenterd = false;
+  public static boolean iMissed = false;
   String breek = "no";
   double m_s_seepd = 0.4;
 
@@ -33,9 +37,6 @@ public class AutoSimple extends CommandBase {
 
   @Override
   public void execute() {
-    // while(!TurretCenterd) moveTurret();
-    // drive(0.1);
-    // Timer.delay(1);
     if(IAlreadRan) return;
     /* 
     Start
@@ -63,7 +64,8 @@ public class AutoSimple extends CommandBase {
     Timer.delay(1.5);
     //stop driving
     drive(0);
-    while(!TurretCenterd) moveTurret();
+    while(!TurretCenterd && !iMissed) moveTurret();
+    turret.turretSet(0);
     //Aim
     //while(!turret.turnTurret(.3));
     //shoot
@@ -105,7 +107,10 @@ public class AutoSimple extends CommandBase {
   public double TurretClimbMax = -100;
   
   private void moveTurret() {
-    if(TurretCenterd) return;
+    iMissed = (Motors.TURRET.getEncoder().getPosition() < -50 || Motors.TURRET.getEncoder().getPosition() > 50);
+
+    if(TurretCenterd || iMissed) return; 
+
     Limelight.Target m_limelight = Limelight.getTarget();
 
     double error = m_limelight.tx;
@@ -116,14 +121,6 @@ public class AutoSimple extends CommandBase {
 
   public void turnTurret(double m_t_seepd) {
     Limelight.Target m_limelight = Limelight.getTarget();
-    
-    /*
-    if (EncoderValues.angle < -80 || EncoderValues.angle < 80) {
-      turret.turretSet(0);
-      TurretCenterd = true;
-      reutrn;
-    }
-    */
 
     if (m_limelight.tv == 1){
 
