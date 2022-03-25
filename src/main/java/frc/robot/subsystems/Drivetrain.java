@@ -21,9 +21,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  public void periodic() {}
 
   public void move(double xSpeed, double ySpeed, double zRotation) {
     if (Math.abs(xSpeed) < 0.01) xSpeed = 0;
@@ -52,5 +50,20 @@ public class Drivetrain extends SubsystemBase {
 
     // MathUtil.applyDeadband(xSpeed, 0.02);
     // MathUtil.applyDeadband(ySpeed, 0.02);
+  }
+
+  public void TankDrive(double leftSpeed, double rightSpeed) {
+    frontLeft.set(leftSpeed);
+    backLeft.set(leftSpeed);
+    frontRight.set(rightSpeed);
+    backRight.set(rightSpeed);
+  }
+
+  public void Forward() {
+    TankDrive(.2, -.2);
+  }
+
+  public void Stop() {
+    TankDrive(0, 0);
   }
 }

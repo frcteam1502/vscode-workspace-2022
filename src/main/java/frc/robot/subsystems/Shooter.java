@@ -54,8 +54,11 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void shoot(double speed){
+  public void shoot() {
+    shoot();
+  }
 
+  public void shoot(double speed){
       shooterRight.set(speed);
       shooterLeft.set(speed);
     }

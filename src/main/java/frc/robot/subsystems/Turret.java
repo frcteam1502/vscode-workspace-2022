@@ -33,7 +33,7 @@ public class Turret extends SubsystemBase {
   double m_s_seepd = 0.4;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
-  private boolean TurretCenterd;
+  public boolean TurretCenterd;
 
   public void turretSet(double speed) {
     turretMotor.set(speed);

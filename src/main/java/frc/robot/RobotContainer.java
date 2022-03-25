@@ -17,6 +17,7 @@ import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
 import frc.robot.commands.Auto.AutoSimple;
+import frc.robot.commands.Auto.TwoBall;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.EncoderValues;
@@ -47,6 +48,8 @@ public class RobotContainer {
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
   public AutoSimple simpleAuto = new AutoSimple(intake, shooter, climber, turret);
+
+  public TwoBall twoBall = new TwoBall(climber, drivetrain, intake, turret, shooter);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -108,6 +111,7 @@ public class RobotContainer {
 
   private void setUpMChooser() {
     m_chooser.setDefaultOption("Simple Auto", simpleAuto);
+    m_chooser.addOption("2 Ball", twoBall);
     SmartDashboard.putData(m_chooser);
   }
   

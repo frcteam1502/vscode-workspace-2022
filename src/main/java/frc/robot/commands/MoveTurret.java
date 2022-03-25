@@ -18,36 +18,27 @@ import frc.robot.subsystems.EncoderValues;
 
 public class MoveTurret extends CommandBase {
   private boolean on = false;
-  private boolean off = false; 
-  private boolean center = false; 
+  private boolean off = false;
   private final Turret turret;
- // private final AngleFlap angleFlap;
 
-  public MoveTurret(Turret tsubsystem/*, AngleFlap fsubsystem*/) {
-
-    addRequirements(tsubsystem/*, fsubsystem*/);
+  public MoveTurret(Turret tsubsystem) {
+    addRequirements(tsubsystem);
     turret = tsubsystem;
-    //angleFlap = fsubsystem;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     rotationController.reset();
   }
   public double TurretClimbMax = -100;
   private final PIDController rotationController = new PIDController(30e-3, 0, 0);
-  private final PIDController centerController = new PIDController(20e-3, 0, 0);
   private final PIDController climbAdjustController = new PIDController(3e-3, 0, 0);
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
     Limelight.Target m_limelight = Limelight.getTarget();
 
     double error = m_limelight.tx;
     double offset = rotationController.getCorrection(error);
-    double Cerror = EncoderValues.turret;
-    // double Coffset = centerController.getCorrection(Cerror);
     double AdjustError = EncoderValues.turret - TurretClimbMax;
     double climbAdjustOffset = climbAdjustController.getCorrection(AdjustError);
 
@@ -64,24 +55,12 @@ public class MoveTurret extends CommandBase {
 
     
     SmartDashboard.putBoolean("on", on);
-    // if (off || center){
-    //   if (EncoderValues.turret < 0.25 && EncoderValues.turret > -0.25 ){
-    //     turret.centerturret(Coffset, true);
-    //     center = false;
-    //   }
-    //   else{
-    //     turret.centerturret(Coffset, false);
-    //     center = true;
-    //   }
-      
-    // }
     if(on) {
       turret.turnTurret(-offset);
     }
     else{
       runManually();
     }
-    //angleFlap.Moveflap();
 
     SmartDashboard.putBoolean("LEFT ARM MORE THAN 30", EncoderValues.leftArm > 30);
     SmartDashboard.putBoolean("ClimbMode", Turret.climbMode);
