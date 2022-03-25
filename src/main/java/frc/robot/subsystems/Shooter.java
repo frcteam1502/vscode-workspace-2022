@@ -33,12 +33,12 @@ public class Shooter extends SubsystemBase {
     
 
     hoodAngle[0] = 0.1;
-    hoodAngle[1] = 8.9;
+    hoodAngle[1] = 4.9;
     hoodAngle[2] = 18.785; 
     hoodAngle[3] = 21.86;
     hoodAngle[4] = 24.8;
     hoodAngle[5] = 28.499; 
-    hoodAngle[6] = 35.786;
+    hoodAngle[6] = 32.786;
     hoodAngle[7] = 55.263;
 
     
@@ -67,7 +67,7 @@ public class Shooter extends SubsystemBase {
   }
 // HELP MY LEG
   public void indexBall(){
-    indexWheel.set(0.5);
+    indexWheel.set(0.6);
   }
 
   public void indexBallStop(){
@@ -81,11 +81,11 @@ public class Shooter extends SubsystemBase {
         moveHoodToTarget(0);
         shooterRight.set(0.7);
         shooterLeft.set(0.7);
-     } else if (m_limelight.ty < 9.5 && m_limelight.ty >= 5.9) {
+     } else if (m_limelight.ty < 9.5 && m_limelight.ty >= 5.7) {
         moveHoodToTarget(1);
        shooterRight.set(0.7);
         shooterLeft.set(0.7);
-      } else if (m_limelight.ty < 5.9 && m_limelight.ty >= 3.2) {
+      } else if (m_limelight.ty < 5.7 && m_limelight.ty >= 3.2) {
         moveHoodToTarget(2);
         shooterRight.set(0.725);
         shooterLeft.set(0.725);
@@ -107,8 +107,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.8);
       } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -6.9) {
         moveHoodToTarget(6);
-        shooterRight.set(0.83);
-        shooterLeft.set(0.83);
+        shooterRight.set(0.84);
+        shooterLeft.set(0.84);
       } else {
         shooterRight.set(0.6);
         shooterLeft.set(0.6);
@@ -122,7 +122,7 @@ public class Shooter extends SubsystemBase {
     }
   }
   double dummy;
-  private final PIDController angleController = new PIDController(6e-3, 0, 0);
+  private final PIDController angleController = new PIDController(9e-3, 0, 0);
   
   private void moveHoodToTarget(int target) {
     RobotContainer.hoodInPos = false;
