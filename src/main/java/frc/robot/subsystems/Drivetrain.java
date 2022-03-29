@@ -5,6 +5,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DriveByJoysticks;
@@ -29,6 +31,9 @@ public class Drivetrain extends SubsystemBase {
     if (Math.abs(xSpeed) < 0.01) xSpeed = 0;
     if (Math.abs(ySpeed) < 0.01) ySpeed = 0;
     if (Math.abs(zRotation) < 0.01) zRotation = 0;
+
+    ySpeed = MathUtil.applyDeadband(ySpeed, 0.02);
+    xSpeed = MathUtil.applyDeadband(xSpeed, 0.02);
 
     xSpeed *= 0.6;
     ySpeed *= 0.6;
