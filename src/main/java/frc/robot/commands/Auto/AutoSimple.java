@@ -18,7 +18,11 @@ public class AutoSimple extends CommandBase {
   private Shooter shooter;
   private Climber climber;
   private Turret turret;
+  
+
+  // TODO: Make false before matches
   private boolean IAlreadRan = false;
+
   private boolean TurretCenterd = false;
   public static boolean iMissed = false;
   String breek = "no";
