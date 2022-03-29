@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import frc.robot.PIDController;
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
@@ -17,6 +16,7 @@ import frc.robot.commands.Shoot;
 public class Shooter extends SubsystemBase {
 
   private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
+  private final PIDController angleController = new PIDController(15e-3, 0, 0);
   double[] hoodAngle;
   
   
@@ -118,14 +118,12 @@ public class Shooter extends SubsystemBase {
       moveHoodToTarget(7);
       shooterRight.set(0.4);
        shooterLeft.set(0.4);
-       SmartDashboard.putNumber("limelight in code", m_limelight.ty);
+      //  SmartDashboard.putNumber("limelight in code", m_limelight.ty);
     }
   }
-  double dummy;
-  private final PIDController angleController = new PIDController(15e-3, 0, 0);
+  
   
   private void moveHoodToTarget(int target) {
-    RobotContainer.hoodInPos = false;
     double error = EncoderValues.angle - hoodAngle[target];
     double offset = angleController.getCorrection(error);
 
@@ -134,12 +132,10 @@ public class Shooter extends SubsystemBase {
     } else if (EncoderValues.angle > hoodAngle[target]) {
       angle.set(-offset);
     } else {
-      RobotContainer.hoodInPos = true;
       angle.set(0);
     }
-    dummy = angle.get();
-    SmartDashboard.putNumber("angle motor power", dummy);
-    SmartDashboard.putBoolean("Hood in Position", RobotContainer.hoodInPos);
+
+    SmartDashboard.putBoolean("Hood in Position", Math.abs(error) < 2);
   }
 
   public void setAngle(double speed) {

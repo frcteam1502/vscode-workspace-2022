@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DriveByJoysticks;
 
@@ -31,31 +30,28 @@ public class Drivetrain extends SubsystemBase {
     if (Math.abs(ySpeed) < 0.01) ySpeed = 0;
     if (Math.abs(zRotation) < 0.01) zRotation = 0;
 
+    ySpeed = MathUtil.applyDeadband(ySpeed, 0.01);
+    xSpeed = MathUtil.applyDeadband(xSpeed, 0.01);
+    zRotation = MathUtil.applyDeadband(zRotation, 0.01);
+ 
     xSpeed *= 0.6;
     ySpeed *= 0.6;
     zRotation *= 0.6;
 
-    xSpeed = MathUtil.applyDeadband(xSpeed, 0.01);
-    ySpeed = MathUtil.applyDeadband(ySpeed, 0.01);
-    zRotation = MathUtil.applyDeadband(zRotation, 0.01);
+    // SmartDashboard.putNumber("xSpeed", xSpeed);
+    // SmartDashboard.putNumber("ySpeed", ySpeed);
+    // SmartDashboard.putNumber("zRotation", zRotation);
 
-    SmartDashboard.putNumber("xSpeed", xSpeed);
-    SmartDashboard.putNumber("ySpeed", ySpeed);
-    SmartDashboard.putNumber("zRotation", zRotation);
-
-    SmartDashboard.putNumber("Front Left", (ySpeed + xSpeed + zRotation));
+    // SmartDashboard.putNumber("Front Left", (ySpeed + xSpeed + zRotation));
     frontLeft.set((ySpeed + xSpeed + zRotation));
 
-    SmartDashboard.putNumber("Back Left", (ySpeed - xSpeed + zRotation));
+    // SmartDashboard.putNumber("Back Left", (ySpeed - xSpeed + zRotation));
     backLeft.set((ySpeed - xSpeed + zRotation));
     
-    SmartDashboard.putNumber("Front Right", (ySpeed - xSpeed - zRotation));
+    // SmartDashboard.putNumber("Front Right", (ySpeed - xSpeed - zRotation));
     frontRight.set(-(ySpeed - xSpeed - zRotation));
     
-    SmartDashboard.putNumber("Back Right", (ySpeed + xSpeed - zRotation));
+    // SmartDashboard.putNumber("Back Right", (ySpeed + xSpeed - zRotation));
     backRight.set(-(ySpeed + xSpeed - zRotation));
-
-    // MathUtil.applyDeadband(xSpeed, 0.02);
-    // MathUtil.applyDeadband(ySpeed, 0.02);
   }
 }
