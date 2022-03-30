@@ -4,10 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Encoders;
-import frc.robot.Constants.Motors;
 import frc.robot.subsystems.EncoderValues;
 
 public class UpdateEncoders extends CommandBase {
@@ -43,24 +41,24 @@ public class UpdateEncoders extends CommandBase {
     EncoderValues.rightBaby = Encoders.RightBabyEncoder.Encoder.getPosition();
     EncoderValues.turret = Encoders.TurretEncoder.Encoder.getPosition();
 
-    SmartDashboard.putNumber("Encoders.LeftExtenderEncoder.Encoder.getPosition", -Encoders.LeftExtenderEncoder.Encoder.getPosition());
-    SmartDashboard.putNumber("Encoders.RightExtenderEncoder.Encoder.getPosition", Encoders.RightExtenderEncoder.Encoder.getPosition());
-    SmartDashboard.putNumber("Encoders.LeftArmAngleEncoder.Encoder.getPosition", -Encoders.LeftArmAngleEncoder.Encoder.getPosition());
-    SmartDashboard.putNumber("Encoders.RightArmAngleEncoder.Encoder.getPosition", Encoders.RightArmAngleEncoder.Encoder.getPosition());
-    SmartDashboard.putNumber("Encoders.LeftBabyEncoder.Encoder.getPosition", Encoders.LeftBabyEncoder.Encoder.getPosition());
-    SmartDashboard.putNumber("Encoders.RightBabyEncoder.Encoder.getPosition", Encoders.RightBabyEncoder.Encoder.getPosition());
-    SmartDashboard.putNumber("Encoders.TurretEncoders.Encoder.getPosition", Encoders.TurretEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.LeftExtenderEncoder.Encoder.getPosition", -Encoders.LeftExtenderEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.RightExtenderEncoder.Encoder.getPosition", Encoders.RightExtenderEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.LeftArmAngleEncoder.Encoder.getPosition", -Encoders.LeftArmAngleEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.RightArmAngleEncoder.Encoder.getPosition", Encoders.RightArmAngleEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.LeftBabyEncoder.Encoder.getPosition", Encoders.LeftBabyEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.RightBabyEncoder.Encoder.getPosition", Encoders.RightBabyEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.TurretEncoders.Encoder.getPosition", Encoders.TurretEncoder.Encoder.getPosition());
     
     EncoderValues.angle = Encoders.AngleEncoder.Encoder.getPosition();
 
     
-    SmartDashboard.putNumber("Encoders.AngleEncoder.Encoder.getPosition", Encoders.AngleEncoder.Encoder.getPosition());
+    // SmartDashboard.putNumber("Encoders.AngleEncoder.Encoder.getPosition", Encoders.AngleEncoder.Encoder.getPosition());
 
     
-    SmartDashboard.putNumber("EncoderValues.angle", EncoderValues.angle);
+    // SmartDashboard.putNumber("EncoderValues.angle", EncoderValues.angle);
 
-    SmartDashboard.putNumber("Left Shoot v", Motors.SHOOTER_LEFT.getEncoder().getVelocity());
-    SmartDashboard.putNumber("Right Shoot v", Motors.SHOOTER_RIGHT.getEncoder().getVelocity());
+    // SmartDashboard.putNumber("Left Shoot v", Motors.SHOOTER_LEFT.getEncoder().getVelocity());
+    // SmartDashboard.putNumber("Right Shoot v", Motors.SHOOTER_RIGHT.getEncoder().getVelocity());
   }
 
   // Called once the command ends or is interrupted.

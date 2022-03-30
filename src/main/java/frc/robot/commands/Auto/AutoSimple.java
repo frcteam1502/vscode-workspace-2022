@@ -1,14 +1,12 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Limelight;
 import frc.robot.PIDController;
 import frc.robot.Constants.Motors;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.EncoderValues;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;

@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import frc.robot.PIDController;
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
@@ -17,6 +16,7 @@ import frc.robot.commands.Shoot;
 public class Shooter extends SubsystemBase {
 
   private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
+  private final PIDController angleController = new PIDController(20e-3, 0, 0);
   double[] hoodAngle;
   
   
@@ -33,7 +33,7 @@ public class Shooter extends SubsystemBase {
     
 
     hoodAngle[0] = 0.1;
-    hoodAngle[1] = 12.9;
+    hoodAngle[1] = 9.9;
     hoodAngle[2] = 12.785; 
     hoodAngle[3] = 21.86;
     hoodAngle[4] = 21.8;
@@ -103,8 +103,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.79);
       } else if (m_limelight.ty < -2.3 && m_limelight.ty >= -5.5) {
         moveHoodToTarget(5);
-        shooterRight.set(0.825);
-        shooterLeft.set(0.825);
+        shooterRight.set(0.8);
+        shooterLeft.set(0.8);
       } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -6.9) {
         moveHoodToTarget(6);
         shooterRight.set(0.84);
@@ -118,14 +118,12 @@ public class Shooter extends SubsystemBase {
       moveHoodToTarget(7);
       shooterRight.set(0.4);
        shooterLeft.set(0.4);
-       SmartDashboard.putNumber("limelight in code", m_limelight.ty);
+      //  SmartDashboard.putNumber("limelight in code", m_limelight.ty);
     }
   }
-  double dummy;
-  private final PIDController angleController = new PIDController(20e-3, 0, 0);
+  
   
   private void moveHoodToTarget(int target) {
-    RobotContainer.hoodInPos = false;
     double error = EncoderValues.angle - hoodAngle[target];
     double offset = angleController.getCorrection(error);
 
@@ -134,12 +132,9 @@ public class Shooter extends SubsystemBase {
     } else if (EncoderValues.angle > hoodAngle[target]) {
       angle.set(-offset);
     } else {
-      RobotContainer.hoodInPos = true;
       angle.set(0);
     }
-    dummy = angle.get();
-    SmartDashboard.putNumber("angle motor power", dummy);
-    SmartDashboard.putBoolean("Hood in Position", RobotContainer.hoodInPos);
+    SmartDashboard.putBoolean("Hood in Position", Math.abs(error) < 2);
   }
 
   public void setAngle(double speed) {
