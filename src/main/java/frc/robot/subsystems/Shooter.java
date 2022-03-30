@@ -33,7 +33,7 @@ public class Shooter extends SubsystemBase {
     
 
     hoodAngle[0] = 0.1;
-    hoodAngle[1] = 9.9;
+    hoodAngle[1] = 12.9;
     hoodAngle[2] = 12.785; 
     hoodAngle[3] = 21.86;
     hoodAngle[4] = 21.8;
@@ -103,8 +103,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.79);
       } else if (m_limelight.ty < -2.3 && m_limelight.ty >= -5.5) {
         moveHoodToTarget(5);
-        shooterRight.set(0.8);
-        shooterLeft.set(0.8);
+        shooterRight.set(0.825);
+        shooterLeft.set(0.825);
       } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -6.9) {
         moveHoodToTarget(6);
         shooterRight.set(0.84);
@@ -122,7 +122,7 @@ public class Shooter extends SubsystemBase {
     }
   }
   double dummy;
-  private final PIDController angleController = new PIDController(15e-3, 0, 0);
+  private final PIDController angleController = new PIDController(20e-3, 0, 0);
   
   private void moveHoodToTarget(int target) {
     RobotContainer.hoodInPos = false;
