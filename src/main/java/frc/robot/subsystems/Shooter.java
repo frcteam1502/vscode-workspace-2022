@@ -33,10 +33,10 @@ public class Shooter extends SubsystemBase {
     
 
     hoodAngle[0] = 0.1;
-    hoodAngle[1] = 4.9;
-    hoodAngle[2] = 18.785; 
+    hoodAngle[1] = 9.9;
+    hoodAngle[2] = 12.785; 
     hoodAngle[3] = 21.86;
-    hoodAngle[4] = 24.8;
+    hoodAngle[4] = 21.8;
     hoodAngle[5] = 28.499; 
     hoodAngle[6] = 32.786;
     hoodAngle[7] = 55.263;
@@ -67,7 +67,7 @@ public class Shooter extends SubsystemBase {
   }
 // HELP MY LEG
   public void indexBall(){
-    indexWheel.set(0.6);
+    indexWheel.set(0.9);
   }
 
   public void indexBallStop(){
@@ -83,12 +83,12 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.7);
      } else if (m_limelight.ty < 9.5 && m_limelight.ty >= 5.7) {
         moveHoodToTarget(1);
-       shooterRight.set(0.7);
-        shooterLeft.set(0.7);
+       shooterRight.set(0.725);
+        shooterLeft.set(0.725);
       } else if (m_limelight.ty < 5.7 && m_limelight.ty >= 3.2) {
         moveHoodToTarget(2);
-        shooterRight.set(0.725);
-        shooterLeft.set(0.725);
+        shooterRight.set(0.74);
+        shooterLeft.set(0.74);
       } else if (m_limelight.ty < 3.2 && m_limelight.ty >= 0.9) {
         moveHoodToTarget(2);
         shooterRight.set(0.75);
@@ -99,8 +99,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.75);
       } else if (m_limelight.ty < -0.4 && m_limelight.ty >= -2.3) {
         moveHoodToTarget(4);
-        shooterRight.set(0.765);
-        shooterLeft.set(0.765);
+        shooterRight.set(0.79);
+        shooterLeft.set(0.79);
       } else if (m_limelight.ty < -2.3 && m_limelight.ty >= -5.5) {
         moveHoodToTarget(5);
         shooterRight.set(0.8);
@@ -122,7 +122,7 @@ public class Shooter extends SubsystemBase {
     }
   }
   double dummy;
-  private final PIDController angleController = new PIDController(9e-3, 0, 0);
+  private final PIDController angleController = new PIDController(15e-3, 0, 0);
   
   private void moveHoodToTarget(int target) {
     RobotContainer.hoodInPos = false;

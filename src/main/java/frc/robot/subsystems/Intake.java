@@ -23,7 +23,7 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public void moveIntake(){ 
-    intake.set(0.5);
+    intake.set(0.9);
   }
   public void stopIntake(){
     intake.set(0);
