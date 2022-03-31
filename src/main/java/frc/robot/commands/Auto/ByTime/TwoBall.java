@@ -36,7 +36,7 @@ public class TwoBall extends SequentialCommandGroup {
 
       /** Shoot 2 balls */
       new ParallelRaceGroup(
-        new WaitCommand(4), 
+        new WaitCommand(3), 
         new StartEndCommand(shooter::runInAuto, shooter::stopInAuto, shooter)
       )
     );

@@ -23,49 +23,54 @@ public class FourBall extends SequentialCommandGroup {
 
       /** Drive out of box and pickup 2nd ball */
       new ParallelRaceGroup(
-        new DriveByTime(drive, .5, .5), 
+        new WaitCommand(1.9),
+        new DriveByTime(drive, .6, .6), 
         new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
       ),
 
       /** Aim the Turret */
       new ParallelCommandGroup(
         new AutoAim(turret, shooter),
-        new WaitCommand(1.4)
+        new WaitCommand(1.2)
       ),
 
       /** Shoot 2 balls */
       new ParallelRaceGroup(
-        new WaitCommand(4), 
+        new WaitCommand(3),
         new StartEndCommand(shooter::runInAuto, shooter::stopInAuto, shooter)
       ),
 
-      /** Drive and turn to human player */
-      new TurnByGyro(drive, -21),
-      new DriveStraightByEncoder(drive, 3.75),
-      new TurnByGyro(drive, 40),
-
       /** Drive to human player and pickup waiting ball */
       new ParallelRaceGroup(
-        new DriveStraightByEncoder(drive, .52), 
+        new WaitCommand(1),
+        new DriveByTime(drive, .7, .6), 
+        new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
+      ),
+
+      new ParallelRaceGroup(
+        new WaitCommand(3),
+        new DriveByTime(drive, .65, .7), 
         new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
       ),
 
       /** Wait for human player to deposit 2nd ball */
-      new WaitCommand(3),
+      new WaitCommand(2),
 
       /** Get into shooting position */
-      new TurnByGyro(drive, -40),
-      new DriveStraightByEncoder(drive, -3.1),//Backup away from human player towards hub
+      new ParallelRaceGroup(
+        new WaitCommand(2),
+        new DriveByTime(drive, -.7, -.8)
+      ),
 
       /** Aim the Turret */
       new ParallelCommandGroup(
         new AutoAim(turret, shooter),
-        new WaitCommand(1.4)
+        new WaitCommand(1.2)
       ),
 
       /** Shoot 2 balls */
       new ParallelRaceGroup(
-        new WaitCommand(4), 
+        new WaitCommand(3), 
         new StartEndCommand(shooter::runInAuto, shooter::stopInAuto, shooter)
       )
     );
