@@ -14,10 +14,10 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax frontLeft, frontRight, backLeft, backRight;
 
   // The Encoders
-  private RelativeEncoder leftFrontEncoder = frontLeft.getEncoder();
-  private RelativeEncoder leftBackEncoder = backLeft.getEncoder();
-  private RelativeEncoder rightFrontEncoder = frontRight.getEncoder();
-  private RelativeEncoder rightBackEncoder = backRight.getEncoder();
+  private RelativeEncoder leftFrontEncoder,
+                          leftBackEncoder, 
+                          rightFrontEncoder, 
+                          rightBackEncoder;
 
   //The gyro sensor
   public final Gyro m_gyro = new ADXRS450_Gyro();
@@ -28,6 +28,11 @@ public class Drivetrain extends SubsystemBase {
     this.frontRight = frontRight;
     this.backLeft = backLeft;
     this.backRight = backRight;
+
+    this.leftFrontEncoder = frontLeft.getEncoder();
+    this.leftBackEncoder = backLeft.getEncoder();
+    this.rightFrontEncoder = frontRight.getEncoder();
+    this.rightBackEncoder = backRight.getEncoder();
 
     resetEncoders();
   }

@@ -17,7 +17,7 @@ public class TwoBall extends SequentialCommandGroup {
     addCommands(
       /** Deploy intake */
       new ParallelRaceGroup(
-        new WaitCommand(1.6),
+        new WaitCommand(1.5),
         new StartEndCommand(climb::RotateArmsForwards, climb::StopArmsRotate, climb)
       ),
 

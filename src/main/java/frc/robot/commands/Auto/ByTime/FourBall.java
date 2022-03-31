@@ -1,5 +1,4 @@
-package frc.robot.commands.Auto.Encoder;
-
+package frc.robot.commands.Auto.ByTime;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
@@ -24,7 +23,7 @@ public class FourBall extends SequentialCommandGroup {
 
       /** Drive out of box and pickup 2nd ball */
       new ParallelRaceGroup(
-        new DriveStraightByEncoder(drive, 1.2), 
+        new DriveByTime(drive, .5, .5), 
         new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
       ),
 
