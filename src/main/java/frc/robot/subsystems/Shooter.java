@@ -33,11 +33,12 @@ public class Shooter extends SubsystemBase {
     
 
     hoodAngle[0] = 0.1;
-    hoodAngle[1] = 12.9;
+    hoodAngle[1] = 9.9;
+    // 1 could be 9.9, need to test
     hoodAngle[2] = 12.785; 
     hoodAngle[3] = 21.86;
     hoodAngle[4] = 21.8;
-    hoodAngle[5] = 28.499; 
+    hoodAngle[5] = 25.499; 
     hoodAngle[6] = 32.786;
     hoodAngle[7] = 55.263;
 
@@ -103,8 +104,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.79);
       } else if (m_limelight.ty < -2.3 && m_limelight.ty >= -5.5) {
         moveHoodToTarget(5);
-        shooterRight.set(0.8);
-        shooterLeft.set(0.8);
+        shooterRight.set(0.82);
+        shooterLeft.set(0.82);
       } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -6.9) {
         moveHoodToTarget(6);
         shooterRight.set(0.84);
@@ -135,6 +136,7 @@ public class Shooter extends SubsystemBase {
       angle.set(0);
     }
     SmartDashboard.putBoolean("Hood in Position", Math.abs(error) < 2);
+    SmartDashboard.putBoolean("I Am High", target != 7);
   }
 
   public void setAngle(double speed) {
