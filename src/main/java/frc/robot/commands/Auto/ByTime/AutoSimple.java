@@ -1,10 +1,11 @@
-package frc.robot.commands.Auto;
+package frc.robot.commands.Auto.ByTime;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Limelight;
 import frc.robot.PIDController;
+import frc.robot.Constants.Motors;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -15,7 +16,7 @@ public class AutoSimple extends CommandBase {
   private Shooter shooter;
   private Climber climber;
   private Turret turret;
-  private boolean IAlreadRan = false;
+  private boolean IAlreadRan, iMissed = false;
   private boolean TurretCenterd;
   String breek = "no";
   double m_s_seepd = 0.4;
@@ -101,45 +102,48 @@ public class AutoSimple extends CommandBase {
     return false;
   }
 
-  private final PIDController rotationController = new PIDController(6e-3, 0, 0);
-  public double TurretClimbMax = -100;
+    private final PIDController rotationController = new PIDController(6e-3, 0, 0);
+    public double TurretClimbMax = -100;
+    
+    private void moveTurret() {
+      iMissed = (Motors.TURRET.getEncoder().getPosition() < -50 || Motors.TURRET.getEncoder().getPosition() > 50);
   
-  private void moveTurret() {
-    if(TurretCenterd) return;
-    Limelight.Target m_limelight = Limelight.getTarget();
-
-    double error = m_limelight.tx;
-    double offset = rotationController.getCorrection(error);
-
-    turnTurret(-offset);
-  }
-
-  public void turnTurret(double m_t_seepd) {
-    Limelight.Target m_limelight = Limelight.getTarget();
-
-    if (m_limelight.tv == 1){
-
-      if ( (m_limelight.tx >= -0.5) && (m_limelight.tx <= 0.5)){ // THIS THING CHANGED IT WAS 0.75
-        turret.turretSet(0);
-        breek = "no";
-        TurretCenterd = true;
-      }
-
-      else if (m_limelight.tx > 0.5){//change to right side of camera screen // THIS THING CHANGED IT WAS 0.75
-        turret.turretSet(m_t_seepd);
-      }  
-
-      else if (m_limelight.tx < -0.5){//change to left side of camera screen // THIS THING CHANGED IT WAS 0.75
-        turret.turretSet(m_t_seepd);
-      }
+      if(TurretCenterd || iMissed) return; 
+  
+      Limelight.Target m_limelight = Limelight.getTarget();
+  
+      double error = m_limelight.tx;
+      double offset = rotationController.getCorrection(error);
+  
+      turnTurret(-offset);
     }
-    else {
-      if(breek == "no" || breek == "right"){
-        turret.turretSet(m_s_seepd);
+  
+    public void turnTurret(double m_t_seepd) {
+      Limelight.Target m_limelight = Limelight.getTarget();
+  
+      if (m_limelight.tv == 1){
+  
+        if ( (m_limelight.tx >= -0.5) && (m_limelight.tx <= 0.5)){ // THIS THING CHANGED IT WAS 0.75
+          turret.turretSet(0);
+          breek = "no";
+          TurretCenterd = true;
+        }
+  
+        else if (m_limelight.tx > 0.5){//change to right side of camera screen // THIS THING CHANGED IT WAS 0.75
+          turret.turretSet(m_t_seepd);
+        }  
+  
+        else if (m_limelight.tx < -0.5){//change to left side of camera screen // THIS THING CHANGED IT WAS 0.75
+          turret.turretSet(m_t_seepd);
+        }
       }
-      else{
-        turret.turretSet(-m_s_seepd);
+      else {
+        if(breek == "no" || breek == "right"){
+          turret.turretSet(m_s_seepd);
+        }
+        else{
+          turret.turretSet(-m_s_seepd);
+        }
       }
-    }
   }
 }

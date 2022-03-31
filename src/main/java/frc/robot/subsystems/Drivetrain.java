@@ -1,23 +1,35 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DriveByJoysticks;
 
 public class Drivetrain extends SubsystemBase {
+  //Motors
   private CANSparkMax frontLeft, frontRight, backLeft, backRight;
-  /** Creates a new Drivetrain. */
+
+  // The Encoders
+  private RelativeEncoder leftFrontEncoder = frontLeft.getEncoder();
+  private RelativeEncoder leftBackEncoder = backLeft.getEncoder();
+  private RelativeEncoder rightFrontEncoder = frontRight.getEncoder();
+  private RelativeEncoder rightBackEncoder = backRight.getEncoder();
+
+  //The gyro sensor
+  public final Gyro m_gyro = new ADXRS450_Gyro();
+
   public Drivetrain(CANSparkMax frontLeft, CANSparkMax frontRight, CANSparkMax backLeft, CANSparkMax backRight) {
     setDefaultCommand(new DriveByJoysticks(this));
     this.frontLeft = frontLeft;
     this.frontRight = frontRight;
     this.backLeft = backLeft;
     this.backRight = backRight;
+
+    resetEncoders();
   }
 
   @Override
@@ -47,9 +59,6 @@ public class Drivetrain extends SubsystemBase {
     
     SmartDashboard.putNumber("Back Right", (ySpeed + xSpeed - zRotation));
     backRight.set(-(ySpeed + xSpeed - zRotation));
-
-    // MathUtil.applyDeadband(xSpeed, 0.02);
-    // MathUtil.applyDeadband(ySpeed, 0.02);
   }
 
   public void TankDrive(double leftSpeed, double rightSpeed) {
@@ -65,5 +74,16 @@ public class Drivetrain extends SubsystemBase {
 
   public void Stop() {
     TankDrive(0, 0);
+  }
+
+  public void resetEncoders() {
+    this.leftFrontEncoder.setPosition(0);
+    this.leftBackEncoder.setPosition(0);
+    this.rightFrontEncoder.setPosition(0);
+    this.rightBackEncoder.setPosition(0);
+  }
+
+  public double getAverageEncoderDistance() {
+    return ((leftFrontEncoder.getPosition() + -rightFrontEncoder.getPosition()) / 2.0);
   }
 }

@@ -47,7 +47,7 @@ public class Turret extends SubsystemBase {
 
     if (m_limelight.tv == 1){
 
-      if ( (m_limelight.tx >= -0.1) && (m_limelight.tx <= 0.1)){ // THIS THING CHANGED IT WAS 0.75
+      if ( (m_limelight.tx >= -1) && (m_limelight.tx <= 1)){ // THIS THING CHANGED IT WAS 0.75
         turretMotor.set(0);
         breek = "no";
         TurretCenterd = true;

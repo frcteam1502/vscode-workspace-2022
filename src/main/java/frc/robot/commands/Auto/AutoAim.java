@@ -42,6 +42,6 @@ public class AutoAim extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return RobotContainer.TurretCenterd && RobotContainer.hoodInPos;
+    return RobotContainer.TurretCenterd;
   }
 }
