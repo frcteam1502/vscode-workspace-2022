@@ -36,7 +36,7 @@ public class Shooter extends SubsystemBase {
     hoodAngle[1] = 9.9;
     // 1 could be 9.9, need to test
     hoodAngle[2] = 12.785; 
-    hoodAngle[3] = 21.86;
+    hoodAngle[3] = 17.56;
     hoodAngle[4] = 21.8;
     hoodAngle[5] = 25.499; 
     hoodAngle[6] = 32.786;
@@ -97,8 +97,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.75);
       } else if (m_limelight.ty < 0.9 && m_limelight.ty >= -0.4) {
         moveHoodToTarget(3);
-        shooterRight.set(0.75);
-        shooterLeft.set(0.75);
+        shooterRight.set(0.8);
+        shooterLeft.set(0.8);
       } else if (m_limelight.ty < -0.4 && m_limelight.ty >= -1.9) {
         moveHoodToTarget(4);
         shooterRight.set(0.79);
