@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
@@ -21,7 +22,7 @@ public class Drivetrain extends SubsystemBase {
                           rightBackEncoder;
 
   //The gyro sensor
-  public final Gyro m_gyro = new ADXRS450_Gyro();
+  public final AHRS m_gyro = new AHRS();
 
   public Drivetrain(CANSparkMax frontLeft, CANSparkMax frontRight, CANSparkMax backLeft, CANSparkMax backRight) {
     setDefaultCommand(new DriveByJoysticks(this));
