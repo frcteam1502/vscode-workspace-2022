@@ -16,59 +16,60 @@ import frc.robot.subsystems.Turret;
 public class FourBall extends SequentialCommandGroup {
   public FourBall(Drivetrain drive, Intake intake, Shooter shooter, Climber climb, Turret turret) {
     addCommands(
-      /** Deploy intake */
-      new ParallelRaceGroup(
-        new WaitCommand(1.5), 
-        new StartEndCommand(climb::RotateArmsForwards, climb::StopArmsRotate, climb)
-      ),
+      // /** Deploy intake */
+      // new ParallelRaceGroup(
+      //   new WaitCommand(1.5), 
+      //   new StartEndCommand(climb::RotateArmsForwards, climb::StopArmsRotate, climb)
+      // ),
 
-      /** Drive out of box and pickup 2nd ball */
-      new ParallelRaceGroup(
-        new DriveStraightByEncoder(drive, 1.2), 
-        new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
-      ),
+      // /** Drive out of box and pickup 2nd ball */
+      // new ParallelRaceGroup(
+      //   new DriveStraightByEncoder(drive, 1.5),
+      //   new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
+      // ),
 
-      /** Aim the Turret */
-      new ParallelCommandGroup(
-        new AutoAim(turret, shooter),
-        new WaitCommand(1.4)
-      ),
+      // /** Aim the Turret */
+      // new ParallelRaceGroup(
+      //   new AutoAim(turret, shooter),
+      //   new WaitCommand(1.4)
+      // ),
 
-      /** Shoot 2 balls */
-      new ParallelRaceGroup(
-        new WaitCommand(4), 
-        new StartEndCommand(shooter::runInAuto, shooter::stopInAuto, shooter)
-      ),
+      // /** Shoot 2 balls */
+      // new ParallelRaceGroup(
+      //   new WaitCommand(4), 
+      //   new StartEndCommand(shooter::runInAuto, shooter::stopInAuto, shooter)
+      // ),
 
-      /** Drive and turn to human player */
-      new TurnByGyro(drive, -21),
-      new DriveStraightByEncoder(drive, 3.75),
-      new TurnByGyro(drive, 40),
+      //TODO: Up until here is solid
+      // /** Drive and turn to human player */
+      // new TurnByGyro(drive, -21),
+      new DriveStraightByEncoder(drive, 3.85)//,
+      // new TurnByGyro(drive, 40),
 
-      /** Drive to human player and pickup waiting ball */
-      new ParallelRaceGroup(
-        new DriveStraightByEncoder(drive, .52), 
-        new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
-      ),
+      // /** Drive to human player and pickup waiting ball */
+      // new ParallelRaceGroup(
+      //   new DriveStraightByEncoder(drive, .52), 
+      //   new StartEndCommand(intake::moveIntake, intake::stopIntake, intake)
+      // ),
 
-      /** Wait for human player to deposit 2nd ball */
-      new WaitCommand(3),
+      // /** Wait for human player to deposit 2nd ball */
+      // new WaitCommand(3),
 
-      /** Get into shooting position */
-      new TurnByGyro(drive, -40),
-      new DriveStraightByEncoder(drive, -3.1),//Backup away from human player towards hub
+      // /** Get into shooting position */
+      // new TurnByGyro(drive, -40),
+      // new DriveStraightByEncoder(drive, -3.1),//Backup away from human player towards hub
 
-      /** Aim the Turret */
-      new ParallelCommandGroup(
-        new AutoAim(turret, shooter),
-        new WaitCommand(1.4)
-      ),
+      // /** Aim the Turret */
+      // new ParallelRaceGroup(
+      //   new AutoAim(turret, shooter),
+      //   new WaitCommand(1.4)
+      // ),
 
-      /** Shoot 2 balls */
-      new ParallelRaceGroup(
-        new WaitCommand(4), 
-        new StartEndCommand(shooter::runInAuto, shooter::stopInAuto, shooter)
-      )
+      // /** Shoot 2 balls */
+      // new ParallelRaceGroup(
+      //   new WaitCommand(4), 
+      //   new StartEndCommand(shooter::runInAuto, shooter::stopInAuto, shooter)
+      // )
     );
   }
 }

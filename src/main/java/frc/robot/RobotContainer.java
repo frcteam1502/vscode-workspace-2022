@@ -30,7 +30,7 @@ public class RobotContainer {
   public static boolean hoodInPos;
   public static boolean TurretCenterd;
 
-  private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
+  public Drivetrain drive = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
   Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.LEFT_BABY, Motors.RIGHT_BABY);
   private Turret turret = new Turret(Motors.TURRET);
@@ -40,7 +40,7 @@ public class RobotContainer {
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(encoderValues);
   private Limelight limelight = new Limelight();
-  private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
+  private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drive);
   public MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
@@ -50,9 +50,9 @@ public class RobotContainer {
   
   public AutoSimple simpleAuto = new AutoSimple(intake, shooter, climber, turret);
 
-  public TwoBall twoBall = new TwoBall(climber, drivetrain, intake, turret, shooter);
+  public TwoBall twoBall = new TwoBall(climber, drive, intake, turret, shooter);
 
-  public FourBall fourBall = new FourBall(drivetrain, intake, shooter, climber, turret);
+  public FourBall fourBall = new FourBall(drive, intake, shooter, climber, turret);
 
   public RobotContainer() {
     configureButtonBindings();
