@@ -98,21 +98,21 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.75);
       } else if (m_limelight.ty < 0.9 && m_limelight.ty >= -0.4) {
         moveHoodToTarget(3);
-        shooterRight.set(0.795);
-        shooterLeft.set(0.795);
+        shooterRight.set(0.765);
+        shooterLeft.set(0.765);
       } else if (m_limelight.ty < -0.4 && m_limelight.ty >= -1.9) {
         moveHoodToTarget(4);
         shooterRight.set(0.79);
         shooterLeft.set(0.79);
       } else if (m_limelight.ty < -1.9 && m_limelight.ty >= -3.1) {
         moveHoodToTarget(8);
-        shooterRight.set(0.825);
-        shooterLeft.set(0.825);  
+        shooterRight.set(0.805);
+        shooterLeft.set(0.805);  
       } else if (m_limelight.ty < -3.1 && m_limelight.ty >= -5.5) {
         moveHoodToTarget(5);
         shooterRight.set(0.82);
         shooterLeft.set(0.82);
-      } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -6.9) {
+      } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -8.9) {
         moveHoodToTarget(6);
         shooterRight.set(0.84);
         shooterLeft.set(0.84);
