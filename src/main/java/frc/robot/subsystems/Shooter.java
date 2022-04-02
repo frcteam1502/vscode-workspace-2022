@@ -16,7 +16,7 @@ import frc.robot.commands.Shoot;
 public class Shooter extends SubsystemBase {
 
   private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
-  private final PIDController angleController = new PIDController(20e-3, 0, 0);
+  private final PIDController angleController = new PIDController(23e-3, 0, 0);
   double[] hoodAngle;
   
   
@@ -36,7 +36,8 @@ public class Shooter extends SubsystemBase {
     hoodAngle[1] = 9.9;
     // 1 could be 9.9, need to test
     hoodAngle[2] = 12.785; 
-    hoodAngle[3] = 17.56;
+    hoodAngle[3] = 15.56;
+    //needs to be tested, values were changed, but robot broke before it was tested
     hoodAngle[4] = 21.8;
     hoodAngle[5] = 25.499; 
     hoodAngle[6] = 32.786;
@@ -97,8 +98,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.75);
       } else if (m_limelight.ty < 0.9 && m_limelight.ty >= -0.4) {
         moveHoodToTarget(3);
-        shooterRight.set(0.8);
-        shooterLeft.set(0.8);
+        shooterRight.set(0.795);
+        shooterLeft.set(0.795);
       } else if (m_limelight.ty < -0.4 && m_limelight.ty >= -1.9) {
         moveHoodToTarget(4);
         shooterRight.set(0.79);
@@ -142,6 +143,7 @@ public class Shooter extends SubsystemBase {
     }
     SmartDashboard.putBoolean("Hood in Position", Math.abs(error) < 2);
     SmartDashboard.putBoolean("I Am High", target != 7);
+    SmartDashboard.putNumber("Zone", target);
   }
 
   public void setAngle(double speed) {

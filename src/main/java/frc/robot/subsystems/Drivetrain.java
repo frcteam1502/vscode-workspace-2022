@@ -34,9 +34,10 @@ public class Drivetrain extends SubsystemBase {
     xSpeed = MathUtil.applyDeadband(xSpeed, 0.01);
     zRotation = MathUtil.applyDeadband(zRotation, 0.01);
  
-    xSpeed *= 0.6;
-    ySpeed *= 0.6;
-    zRotation *= 0.6;
+    // Max Speeds
+    xSpeed *= 0.9;
+    ySpeed *= 0.9;
+    zRotation *= 0.5;
 
     // SmartDashboard.putNumber("xSpeed", xSpeed);
     // SmartDashboard.putNumber("ySpeed", ySpeed);
