@@ -46,7 +46,7 @@ public class RobotContainer {
   //Autonomous Commands
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
-  public AutoSimple simpleAuto = new AutoSimple(intake, shooter, climber, turret);
+  public AutoSimple simpleAuto = new AutoSimple();
 
   public RobotContainer() {
     configureButtonBindings();
