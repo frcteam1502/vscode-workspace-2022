@@ -16,7 +16,7 @@ import frc.robot.commands.Shoot;
 public class Shooter extends SubsystemBase {
 
   private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
-  private final PIDController angleController = new PIDController(23e-3, 0, 0);
+  private final PIDController angleController = new PIDController(20e-3, 0, 0);
   double[] hoodAngle;
   
   
