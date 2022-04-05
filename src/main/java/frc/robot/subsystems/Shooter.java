@@ -37,7 +37,6 @@ public class Shooter extends SubsystemBase {
     // 1 could be 9.9, need to test
     hoodAngle[2] = 12.785; 
     hoodAngle[3] = 15.56;
-    //needs to be tested, values were changed, but robot broke before it was tested
     hoodAngle[4] = 21.8;
     hoodAngle[5] = 25.499; 
     hoodAngle[6] = 32.786;
