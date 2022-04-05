@@ -39,7 +39,7 @@ public class Shooter extends SubsystemBase {
     hoodAngle[4] = 21.8;
     hoodAngle[5] = 28.499; 
     hoodAngle[6] = 32.786;
-    hoodAngle[7] = 55.263;
+    hoodAngle[7] = 0; //55.263;
 
     
     

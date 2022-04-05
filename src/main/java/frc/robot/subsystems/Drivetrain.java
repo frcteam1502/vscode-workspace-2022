@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,7 +23,7 @@ public class Drivetrain extends SubsystemBase {
                           rightBackEncoder;
 
   //The gyro sensor
-  public final AHRS m_gyro = new AHRS();
+  public final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
   public Drivetrain(CANSparkMax frontLeft, CANSparkMax frontRight, CANSparkMax backLeft, CANSparkMax backRight) {
     setDefaultCommand(new DriveByJoysticks(this));

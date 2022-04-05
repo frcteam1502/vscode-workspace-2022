@@ -8,7 +8,7 @@ import frc.robot.subsystems.Drivetrain;
 public class TurnByGyro extends CommandBase {
   private Drivetrain drive;
   private double turnAngle;
-  private PIDController turnController = new PIDController(7.5e-3, 0, 0);
+  private PIDController turnController = new PIDController(8.25e-3, 0, 0);
   
   public TurnByGyro(Drivetrain drive, double turnAngle) {
     addRequirements(drive);
@@ -22,7 +22,7 @@ public class TurnByGyro extends CommandBase {
     //set up turnController
     turnController.reset();
     turnController.setSetpoint(turnAngle);
-    turnController.setTolerance(3);
+    turnController.setTolerance(2.5);
     turnController.setIntegratorRange(-.2, .2);
   }
 
