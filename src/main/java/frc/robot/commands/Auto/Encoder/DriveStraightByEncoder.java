@@ -6,8 +6,8 @@ import frc.robot.subsystems.Drivetrain;
 
 public class DriveStraightByEncoder extends CommandBase {
   private Drivetrain drive;
-  public PIDController distanceController = new PIDController(5.3e-1, 0, 0);
-  private PIDController rotationController = new PIDController(5e-2, 0, 0);
+  public PIDController distanceController = new PIDController(5.4e-1, 0, 0);
+  private PIDController rotationController = new PIDController(4.8e-2, 0, 0);
   private double goalDistance;
 
   public DriveStraightByEncoder(Drivetrain drive, double goalDistanceMeters) {
