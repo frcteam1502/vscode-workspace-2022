@@ -160,5 +160,12 @@ public class Shooter extends SubsystemBase {
   public void stopInAuto() {
     stopAngle();
     indexBallStop();
+    noShoot();
+  }
+
+  //TODO: Get Kate to tell us which value we need
+  public void shootInAuto() {
+    shoot(.7);
+    indexBall();
   }
 }

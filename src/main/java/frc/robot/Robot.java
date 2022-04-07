@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -11,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private Timer timer;
 
   @Override
   public void robotInit() {
@@ -37,7 +39,10 @@ public class Robot extends TimedRobot {
     Constants.Motors.DRIVE_FRONT_LEFT.setIdleMode(CANSparkMax.IdleMode.kBrake);
     Constants.Motors.DRIVE_FRONT_RIGHT.setIdleMode(CANSparkMax.IdleMode.kBrake);
     Constants.Motors.DRIVE_BACK_RIGHT.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // timer = new Timer();
+    // timer.start();
   
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -45,7 +50,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    // if(timer.hasElapsed(1.5)) Motors.INTAKE.set(.75);
+  }
 
   @Override
   public void teleopInit() {
