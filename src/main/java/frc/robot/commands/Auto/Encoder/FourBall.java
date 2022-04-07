@@ -36,8 +36,9 @@ public class FourBall extends SequentialCommandGroup {
 
       /** Shoot 2 balls */
       new ParallelRaceGroup(
+        new StartEndCommand(intake::moveIntake, intake::stopIntake, intake),
         new StartEndCommand(shooter::shootInAuto, shooter::stopInAuto, shooter),
-        new WaitCommand(3)
+        new WaitCommand(2.9)
       ),
 
       /** Drive to human player and pickup waiting ball */
@@ -53,7 +54,7 @@ public class FourBall extends SequentialCommandGroup {
       ),
 
       /** Get into shooting position */
-      new DriveStraightByEncoder(drive, -4.1),
+      new DriveStraightByEncoder(drive, -4),
 
       /** Aim the Turret */
       new ParallelRaceGroup(
@@ -63,7 +64,7 @@ public class FourBall extends SequentialCommandGroup {
 
       /** Shoot 2 balls */
       new ParallelRaceGroup(
-        new WaitCommand(3), 
+        new WaitCommand(2.9), 
         new StartEndCommand(shooter::shootInAuto, shooter::stopInAuto, shooter)
       )
     );

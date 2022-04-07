@@ -1,6 +1,7 @@
 package frc.robot.commands.Auto;
 
 import frc.robot.PIDController;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Limelight;
 import frc.robot.subsystems.Turret;
@@ -36,6 +37,7 @@ public class AutoCenter extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    Limelight.Target m_limelight = Limelight.getTarget();
+    return RobotContainer.TurretCenterd || m_limelight.tv != 1;
   }
 }
