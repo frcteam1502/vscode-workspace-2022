@@ -13,10 +13,14 @@ import frc.robot.Constants.Motors;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.commands.DriveByJoysticks;
 import frc.robot.commands.MoveTurret;
+import frc.robot.commands.RunActiveIndex;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateEncoders;
-import frc.robot.commands.Auto.AutoSimple;
+import frc.robot.commands.Auto.ByTime.AutoSimple;
+import frc.robot.commands.Auto.ByTime.TwoBall;
+import frc.robot.commands.Auto.Encoder.FourBall;
+import frc.robot.subsystems.ActiveIndex;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.EncoderValues;
@@ -25,26 +29,35 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
 public class RobotContainer {
+  public static boolean hoodInPos;
+  public static boolean TurretCenterd;
+
+  public Drivetrain drive = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   
-  private final Drivetrain drivetrain = new Drivetrain(Motors.DRIVE_FRONT_LEFT, Motors.DRIVE_FRONT_RIGHT, Motors.DRIVE_BACK_LEFT, Motors.DRIVE_BACK_RIGHT);
   private Climber climber = new Climber(
   Motors.LEFT_ARM_EXTENDER, Motors.RIGHT_ARM_EXTENDER, Motors.LEFT_ARM_ANGLE, Motors.RIGHT_ARM_ANGLE, Motors.BABIES);
   private Turret turret = new Turret(Motors.TURRET);
-  private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX, Motors.ANGLE, Motors.ACTIVE_INDEX);
+  private Shooter shooter = new Shooter(Motors.SHOOTER_RIGHT, Motors.SHOOTER_LEFT, Motors.INDEX, Motors.ANGLE);
+  private ActiveIndex activeIndex = new ActiveIndex(Motors.ACTIVE_INDEX);
   private Intake intake = new Intake(Motors.INTAKE);
   private EncoderValues encoderValues = new EncoderValues();
 
   private UpdateEncoders updateEncoders = new UpdateEncoders(encoderValues);
   private Limelight limelight = new Limelight();
-  private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drivetrain);
+  private DriveByJoysticks driveByJoysticks = new DriveByJoysticks(drive);
   public MoveTurret moveTurret = new MoveTurret(turret);
   private Shoot shoot = new Shoot(shooter);
   private RunIntake runIntake = new RunIntake(intake);
+  private RunActiveIndex runActiveIndex = new RunActiveIndex(activeIndex);
 
   //Autonomous Commands
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   
-  public AutoSimple simpleAuto = new AutoSimple(intake, shooter, climber, turret);
+  public AutoSimple simpleAuto = new AutoSimple(intake, shooter, climber, turret, activeIndex);
+
+  public TwoBall twoBall = new TwoBall(climber, drive, intake, turret, shooter);
+
+  public FourBall fourBall = new FourBall(drive, intake, shooter, climber, turret, activeIndex);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -106,6 +119,8 @@ public class RobotContainer {
 
   private void setUpMChooser() {
     m_chooser.setDefaultOption("Simple Auto", simpleAuto);
+    m_chooser.addOption("2 Ball", twoBall);
+    m_chooser.addOption("4 Ball", fourBall);
     SmartDashboard.putData(m_chooser);
   }
   

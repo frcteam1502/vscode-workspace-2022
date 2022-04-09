@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
@@ -15,20 +11,19 @@ import frc.robot.commands.Shoot;
 
 public class Shooter extends SubsystemBase {
 
-  private CANSparkMax shooterRight, shooterLeft, indexWheel, angle, activeIndex;
+  private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
   private final PIDController angleController = new PIDController(20e-3, 0, 0);
   double[] hoodAngle;
   
   
 
 
-  public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel, CANSparkMax angle, CANSparkMax activeIndex) {
+  public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel, CANSparkMax angle) {
     setDefaultCommand(new Shoot(this));
     this.shooterRight = shooterRight;
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
     this.angle = angle;
-    this.activeIndex = activeIndex;
     hoodAngle = new double[9];
     
     
@@ -58,13 +53,11 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shoot(double speed){
-
       shooterRight.set(speed);
       shooterLeft.set(speed);
     }
   
   public void noShoot(){
-
       shooterRight.set(0);
       shooterLeft.set(0);
   }
@@ -162,11 +155,19 @@ public class Shooter extends SubsystemBase {
     angle.set(0);
   }
 
-  public void runIndex() {
-     activeIndex.set(-0.4);
-    
+  public void runInAuto() {
+    moveHoodAutomatically();
+    indexBall();
   }
-  public void stopIndex(){
-     activeIndex.set(0);
+
+  public void stopInAuto() {
+    stopAngle();
+    indexBallStop();
+    noShoot();
+  }
+
+  public void shootInAuto() {
+    shoot(.7);
+    indexBall();
   }
 }

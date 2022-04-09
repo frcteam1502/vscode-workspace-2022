@@ -3,14 +3,17 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.Motors;
 
 import com.revrobotics.CANSparkMax;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  public static boolean inAuto;
   UsbCamera camera;
 
   @Override
@@ -22,6 +25,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+
+    SmartDashboard.putNumber("Gyro", m_robotContainer.drive.m_gyro.getAngle());
+    SmartDashboard.putNumber("Average Encoder Pose", ((Motors.DRIVE_FRONT_LEFT.getEncoder().getPosition() + -Motors.DRIVE_FRONT_RIGHT.getEncoder().getPosition()) / 2.0));
   }
 
   @Override
@@ -36,6 +42,8 @@ public class Robot extends TimedRobot {
     Constants.Motors.DRIVE_FRONT_LEFT.setIdleMode(CANSparkMax.IdleMode.kBrake);
     Constants.Motors.DRIVE_FRONT_RIGHT.setIdleMode(CANSparkMax.IdleMode.kBrake);
     Constants.Motors.DRIVE_BACK_RIGHT.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    inAuto = true;
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
   
     if (m_autonomousCommand != null) {
@@ -44,7 +52,10 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    Motors.SHOOTER_LEFT.set(.71);
+    Motors.SHOOTER_RIGHT.set(.71);
+  }
 
   @Override
   public void teleopInit() {
@@ -52,6 +63,9 @@ public class Robot extends TimedRobot {
     Constants.Motors.DRIVE_FRONT_LEFT.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Constants.Motors.DRIVE_FRONT_RIGHT.setIdleMode(CANSparkMax.IdleMode.kCoast);
     Constants.Motors.DRIVE_BACK_RIGHT.setIdleMode(CANSparkMax.IdleMode.kCoast);
+
+    inAuto = false;
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

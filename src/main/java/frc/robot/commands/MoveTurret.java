@@ -17,16 +17,12 @@ import frc.robot.subsystems.EncoderValues;
 public class MoveTurret extends CommandBase {
   private boolean on = false;
   private final Turret turret;
- // private final AngleFlap angleFlap;
 
-  public MoveTurret(Turret tsubsystem/*, AngleFlap fsubsystem*/) {
-
-    addRequirements(tsubsystem/*, fsubsystem*/);
+  public MoveTurret(Turret tsubsystem) {
+    addRequirements(tsubsystem);
     turret = tsubsystem;
-    //angleFlap = fsubsystem;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     rotationController.reset();
@@ -34,7 +30,6 @@ public class MoveTurret extends CommandBase {
   public double TurretClimbMax = -100;
   private final PIDController rotationController = new PIDController(30e-3, 0, 0);
   private final PIDController climbAdjustController = new PIDController(3e-3, 0, 0);
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {  
     Limelight.Target m_limelight = Limelight.getTarget();
@@ -56,7 +51,6 @@ public class MoveTurret extends CommandBase {
     else{
       runManually();
     }
-    //angleFlap.Moveflap();
 
     // SmartDashboard.putBoolean("LEFT ARM MORE THAN 30", EncoderValues.leftArm > 30);
     // SmartDashboard.putBoolean("ClimbMode", Turret.climbMode);

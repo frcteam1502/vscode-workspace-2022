@@ -32,6 +32,8 @@ public class Turret extends SubsystemBase {
   double m_s_seepd = 0.4;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
+  public boolean TurretCenterd;
+
   public void turretSet(double speed) {
     turretMotor.set(speed);
   }
@@ -41,7 +43,7 @@ public class Turret extends SubsystemBase {
 
     if (m_limelight.tv == 1){
 
-      if ( (m_limelight.tx >= -0.1) && (m_limelight.tx <= 0.1)){ // THIS THING CHANGED IT WAS 0.75
+      if ( (m_limelight.tx >= -1) && (m_limelight.tx <= 1)){ // THIS THING CHANGED IT WAS 0.75
         turretMotor.set(0);
         breek = "no";
       }
