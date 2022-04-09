@@ -6,6 +6,7 @@ import frc.robot.Constants;
 import frc.robot.Limelight;
 import frc.robot.PIDController;
 import frc.robot.Constants.Motors;
+import frc.robot.subsystems.ActiveIndex;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -16,17 +17,19 @@ public class AutoSimple extends CommandBase {
   private Shooter shooter;
   private Climber climber;
   private Turret turret;
+  private ActiveIndex activeIndex;
   private boolean IAlreadRan, iMissed = false;
   private boolean TurretCenterd;
   String breek = "no";
   double m_s_seepd = 0.4;
 
-  public AutoSimple(Intake intake, Shooter shooter, Climber climber, Turret turret){
-    addRequirements(intake, shooter, climber);
+  public AutoSimple(Intake intake, Shooter shooter, Climber climber, Turret turret, ActiveIndex activeIndex){
+    addRequirements(intake, shooter, climber, turret, activeIndex);
     this.intake = intake;
     this.shooter = shooter;
     this.climber = climber;
     this.turret = turret;
+    this.activeIndex = activeIndex;
   }
 
   @Override
@@ -34,9 +37,6 @@ public class AutoSimple extends CommandBase {
 
   @Override
   public void execute() {
-    // while(!TurretCenterd) moveTurret();
-    // drive(0.1);
-    // Timer.delay(1);
     if(IAlreadRan) return;
     /* 
     Start
@@ -51,43 +51,38 @@ public class AutoSimple extends CommandBase {
     */
 
     //start shooter
-    shooter.shoot(.7);
-    //start intake
-    
+    shooter.shoot(.71);
+
     //drop intake
     climber.RotateArmsForwards();
-    Timer.delay(1.8);
+    Timer.delay(1.3);
     climber.StopArmsRotate();
+
+    //Start intake and active indexer
     intake.moveIntake();
+    activeIndex.runIndex();
+
     //move out of box and pickup 2nd ball
     drive(.2);
     Timer.delay(1.5);
+
     //stop driving
     drive(0);
-    while(!TurretCenterd) moveTurret();
-    //Aim
-    //while(!turret.turnTurret(.3));
+    while(!TurretCenterd && !iMissed) moveTurret();
+    turret.turretSet(0);
+
     //shoot
     shooter.indexBall();
-    Timer.delay(3);
-    //stop index
-    shooter.indexBallStop();
-    Timer.delay(2);
-    //shoot
-    shooter.indexBall();
-    Timer.delay(2);
+    Timer.delay(4);
+
+    //Drive further out
     drive(0.2);
     Timer.delay(.75);
     drive(0);
     IAlreadRan = true;
   }
 
-  public void drive(double power) {
-    Constants.Motors.DRIVE_FRONT_LEFT.set(power);
-    Constants.Motors.DRIVE_FRONT_RIGHT.set(-power);
-    Constants.Motors.DRIVE_BACK_LEFT.set(power);
-    Constants.Motors.DRIVE_BACK_RIGHT.set(-power);
-  }
+  
 
   @Override
   public void end(boolean interrupted) {
@@ -95,11 +90,19 @@ public class AutoSimple extends CommandBase {
     shooter.indexBallStop();
     shooter.noShoot();
     climber.StopArmsRotate();
+    activeIndex.stopIndex();
   }
 
   @Override
   public boolean isFinished() {
     return false;
+  }
+  
+  public void drive(double power) {
+    Constants.Motors.DRIVE_FRONT_LEFT.set(power);
+    Constants.Motors.DRIVE_FRONT_RIGHT.set(-power);
+    Constants.Motors.DRIVE_BACK_LEFT.set(power);
+    Constants.Motors.DRIVE_BACK_RIGHT.set(-power);
   }
 
     private final PIDController rotationController = new PIDController(6e-3, 0, 0);

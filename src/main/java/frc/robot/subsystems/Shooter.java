@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import frc.robot.PIDController;
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
@@ -13,6 +12,7 @@ import frc.robot.commands.Shoot;
 public class Shooter extends SubsystemBase {
 
   private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
+  private final PIDController angleController = new PIDController(20e-3, 0, 0);
   double[] hoodAngle;
   
   
@@ -24,18 +24,20 @@ public class Shooter extends SubsystemBase {
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
     this.angle = angle;
-    hoodAngle = new double[8];
+    hoodAngle = new double[9];
     
     
 
     hoodAngle[0] = 0.1;
-    hoodAngle[1] = 12.9;
-    hoodAngle[2] = 12.785; 
-    hoodAngle[3] = 21.86;
+    hoodAngle[1] = 9.9;
+    // 1 could be 9.9, need to test
+    hoodAngle[2] = 14.785; 
+    hoodAngle[3] = 15.56;
     hoodAngle[4] = 21.8;
-    hoodAngle[5] = 28.499; 
+    hoodAngle[5] = 25.499; 
     hoodAngle[6] = 32.786;
-    hoodAngle[7] = 0; //55.263;
+    hoodAngle[7] = 55.263;
+    hoodAngle[8] = 23.7;
 
     
     
@@ -89,20 +91,24 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.75);
       } else if (m_limelight.ty < 0.9 && m_limelight.ty >= -0.4) {
         moveHoodToTarget(3);
-        shooterRight.set(0.75);
-        shooterLeft.set(0.75);
-      } else if (m_limelight.ty < -0.4 && m_limelight.ty >= -2.3) {
+        shooterRight.set(0.765);
+        shooterLeft.set(0.765);
+      } else if (m_limelight.ty < -0.4 && m_limelight.ty >= -1.9) {
         moveHoodToTarget(4);
+        shooterRight.set(0.785);
+        shooterLeft.set(0.785);
+      } else if (m_limelight.ty < -1.9 && m_limelight.ty >= -3.1) {
+        moveHoodToTarget(8);
         shooterRight.set(0.79);
-        shooterLeft.set(0.79);
-      } else if (m_limelight.ty < -2.3 && m_limelight.ty >= -5.5) {
+        shooterLeft.set(0.79);  
+      } else if (m_limelight.ty < -3.1 && m_limelight.ty >= -5.5) {
         moveHoodToTarget(5);
-        shooterRight.set(0.8);
-        shooterLeft.set(0.8);
-      } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -6.9) {
+        shooterRight.set(0.82);
+        shooterLeft.set(0.82);
+      } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -8.9) {
         moveHoodToTarget(6);
-        shooterRight.set(0.84);
-        shooterLeft.set(0.84);
+        shooterRight.set(0.83);
+        shooterLeft.set(0.83);
       } else {
         shooterRight.set(0.6);
         shooterLeft.set(0.6);
@@ -112,13 +118,12 @@ public class Shooter extends SubsystemBase {
       moveHoodToTarget(7);
       shooterRight.set(0.4);
        shooterLeft.set(0.4);
+      //  SmartDashboard.putNumber("limelight in code", m_limelight.ty);
     }
   }
-  double dummy;
-  private PIDController angleController = new PIDController(9e-3, 0, 0);
+  
   
   private void moveHoodToTarget(int target) {
-    RobotContainer.hoodInPos = false;
     double error = EncoderValues.angle - hoodAngle[target];
     double offset = angleController.getCorrection(error);
 
@@ -127,13 +132,11 @@ public class Shooter extends SubsystemBase {
     } else if (EncoderValues.angle > hoodAngle[target]) {
       angle.set(-offset);
     } else {
-      RobotContainer.hoodInPos = true;
       angle.set(0);
     }
-    
-    dummy = angle.get();
-    SmartDashboard.putNumber("angle motor power", dummy);
-    SmartDashboard.putBoolean("Hood in Position", RobotContainer.hoodInPos);
+    SmartDashboard.putBoolean("Hood in Position", Math.abs(error) < 2);
+    SmartDashboard.putBoolean("I Am High", target != 7);
+    SmartDashboard.putNumber("Zone", target);
   }
 
   public void setAngle(double speed) {
@@ -163,7 +166,6 @@ public class Shooter extends SubsystemBase {
     noShoot();
   }
 
-  //TODO: Get Kate to tell us which value we need
   public void shootInAuto() {
     shoot(.7);
     indexBall();

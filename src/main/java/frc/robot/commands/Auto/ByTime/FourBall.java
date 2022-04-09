@@ -13,7 +13,8 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
 public class FourBall extends SequentialCommandGroup {
-  public FourBall(Drivetrain drive, Intake intake, Shooter shooter, Climber climb, Turret turret) {
+
+public FourBall(Drivetrain drive, Intake intake, Shooter shooter, Climber climb, Turret turret) {
     addCommands(
       /** Deploy intake */
       new ParallelRaceGroup(
