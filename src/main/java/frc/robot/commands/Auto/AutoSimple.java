@@ -19,7 +19,7 @@ public class AutoSimple extends CommandBase {
   
 
   // TODO: Make false before matches
-  private boolean IAlreadRan = false;
+  private boolean IAlreadRan = true;
 
   private boolean TurretCenterd = false;
   public static boolean iMissed = false;

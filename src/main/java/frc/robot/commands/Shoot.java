@@ -37,6 +37,8 @@ public class Shoot extends CommandBase {
       shooter.noShoot();
       return;
     }
+    if(Joysticks.MANIP_CONTROLLER.getLeftY() < -0.9)shooter.runIndex();
+    else shooter.stopIndex();
 
     if (XboxButtons.BACK.get() && backButtonHasBeenReleased) {
       backButtonHasBeenReleased = false;

@@ -15,19 +15,20 @@ import frc.robot.commands.Shoot;
 
 public class Shooter extends SubsystemBase {
 
-  private CANSparkMax shooterRight, shooterLeft, indexWheel, angle;
+  private CANSparkMax shooterRight, shooterLeft, indexWheel, angle, activeIndex;
   private final PIDController angleController = new PIDController(20e-3, 0, 0);
   double[] hoodAngle;
   
   
 
 
-  public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel, CANSparkMax angle) {
+  public Shooter(CANSparkMax shooterRight, CANSparkMax shooterLeft, CANSparkMax indexWheel, CANSparkMax angle, CANSparkMax activeIndex) {
     setDefaultCommand(new Shoot(this));
     this.shooterRight = shooterRight;
     this.shooterLeft = shooterLeft;
     this.indexWheel = indexWheel;
     this.angle = angle;
+    this.activeIndex = activeIndex;
     hoodAngle = new double[9];
     
     
@@ -159,5 +160,13 @@ public class Shooter extends SubsystemBase {
   
   public void stopAngle() {
     angle.set(0);
+  }
+
+  public void runIndex() {
+     activeIndex.set(-0.4);
+    
+  }
+  public void stopIndex(){
+     activeIndex.set(0);
   }
 }
