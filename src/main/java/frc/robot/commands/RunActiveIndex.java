@@ -23,7 +23,10 @@ public class RunActiveIndex extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Joysticks.MANIP_CONTROLLER.getLeftY() < -0.9)activeIndex.runIndex();
+    // if(Joysticks.MANIP_CONTROLLER.getLeftY() < -0.9) activeIndex.runIndex();
+    // else activeIndex.stopIndex();
+    
+    if(Joysticks.DRIVE_CONTROLLER.getLeftBumper()) activeIndex.runIndex();
     else activeIndex.stopIndex();
   }
 
