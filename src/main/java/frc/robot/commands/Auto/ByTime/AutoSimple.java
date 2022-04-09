@@ -34,9 +34,6 @@ public class AutoSimple extends CommandBase {
 
   @Override
   public void execute() {
-    // while(!TurretCenterd) moveTurret();
-    // drive(0.1);
-    // Timer.delay(1);
     if(IAlreadRan) return;
     /* 
     Start
@@ -64,7 +61,8 @@ public class AutoSimple extends CommandBase {
     Timer.delay(1.5);
     //stop driving
     drive(0);
-    while(!TurretCenterd) moveTurret();
+    while(!TurretCenterd && !iMissed) moveTurret();
+    turret.turretSet(0);
     //Aim
     //while(!turret.turnTurret(.3));
     //shoot

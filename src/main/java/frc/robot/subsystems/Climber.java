@@ -11,16 +11,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.XboxButtons;
 
 public class Climber extends SubsystemBase {
-  private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, leftBaby, rightBaby;
+  private final CANSparkMax leftExtender, rightExtender, leftAngle, rightAngle, babies;
   public boolean individualMode = false;
 
-  public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax leftBaby, CANSparkMax rightBaby) {
+  public Climber(CANSparkMax leftExtender, CANSparkMax rightExtender, CANSparkMax leftArmAngle, CANSparkMax rightArmAngle, CANSparkMax babies) {
     this.leftExtender = leftExtender;
     this.rightExtender = rightExtender;
     this.leftAngle = leftArmAngle;
     this.rightAngle = rightArmAngle;
-    this.leftBaby = leftBaby;
-    this.rightBaby = rightBaby;
+    this.babies = babies;
   }
 
   @Override
@@ -56,14 +55,10 @@ public class Climber extends SubsystemBase {
   }
   public void StopBabies() {
     if(XboxButtons.BUTTON_X.get() || XboxButtons.BUTTON_B.get()) return;
-    leftBaby.set(0);
-    rightBaby.set(0);
+    babies.set(0);
   }
-  public void StopLeftBaby() {
-    leftBaby.set(0);
-  }
-  public void StopRightBaby() {
-    rightBaby.set(0);
+  public void Stopbabies() {
+    babies.set(0);
   }
 
 
@@ -71,10 +66,10 @@ public class Climber extends SubsystemBase {
   public void ExtendArms() {
     leftExtender.set(0.5);
     rightExtender.set(0.5);
-  }
+  } // actually is contract ^
   public void ContractArms() {
-    leftExtender.set(-0.45);
-    rightExtender.set(-0.45);
+    leftExtender.set(-0.65);
+    rightExtender.set(-0.65);
   }
   public void MoveLeftArm(double speed) {
     leftExtender.set(speed);
@@ -103,11 +98,9 @@ public class Climber extends SubsystemBase {
 
   // Rotate Babies
   public void RotateBabyFowards() {
-    leftBaby.set(0.45);
-    rightBaby.set(0.45);
+    babies.set(0.6);
   }
   public void RotateBabyBackwards() {
-    leftBaby.set(-0.45);
-    rightBaby.set(-0.45);
+    babies.set(-0.6);
   }
 }

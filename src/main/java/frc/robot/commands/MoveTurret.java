@@ -4,21 +4,17 @@
 
 package frc.robot.commands;
 
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Limelight;
 import frc.robot.subsystems.Turret;
 import frc.robot.PIDController;
 import frc.robot.Constants.Joysticks;
-//import frc.robot.subsystems.AngleFlap;
 import frc.robot.Constants.XboxButtons;
 import frc.robot.subsystems.EncoderValues;
 
 
 public class MoveTurret extends CommandBase {
   private boolean on = false;
-  private boolean off = false;
   private final Turret turret;
 
   public MoveTurret(Turret tsubsystem) {
@@ -47,14 +43,8 @@ public class MoveTurret extends CommandBase {
     } else if(!XboxButtons.START.get()) {
       on = false;
     }
-    if(Joysticks.MANIP_CONTROLLER.getPOV() == 0) {
-      off = true;
-    } else if(!XboxButtons.START.get()) {
-      off = false;
-    }
 
     
-    SmartDashboard.putBoolean("on", on);
     if(on) {
       turret.turnTurret(-offset);
     }
@@ -62,9 +52,9 @@ public class MoveTurret extends CommandBase {
       runManually();
     }
 
-    SmartDashboard.putBoolean("LEFT ARM MORE THAN 30", EncoderValues.leftArm > 30);
-    SmartDashboard.putBoolean("ClimbMode", Turret.climbMode);
-    SmartDashboard.putNumber("ClimbAjustOffset", climbAdjustOffset);
+    // SmartDashboard.putBoolean("LEFT ARM MORE THAN 30", EncoderValues.leftArm > 30);
+    // SmartDashboard.putBoolean("ClimbMode", Turret.climbMode);
+    // SmartDashboard.putNumber("ClimbAjustOffset", climbAdjustOffset);
     if(EncoderValues.leftArm > 30 || Turret.climbMode) {
       turret.RotateToClimbMode(-climbAdjustOffset);
     }

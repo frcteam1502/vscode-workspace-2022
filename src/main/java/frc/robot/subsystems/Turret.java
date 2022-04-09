@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Limelight;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.Joysticks;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,16 +32,11 @@ public class Turret extends SubsystemBase {
   double m_s_seepd = 0.4;
   String breek = "no"; //this helps breek free form the hub/target on left and right side
   
-  public boolean TurretCenterd;
-
   public void turretSet(double speed) {
     turretMotor.set(speed);
   }
 
   public void turnTurret(double m_t_seepd){
-    TurretCenterd = false;
-    RobotContainer.TurretCenterd = false;
-    
     Limelight.Target m_limelight = Limelight.getTarget();
 
     if (m_limelight.tv == 1){
@@ -50,8 +44,6 @@ public class Turret extends SubsystemBase {
       if ( (m_limelight.tx >= -1) && (m_limelight.tx <= 1)){ // THIS THING CHANGED IT WAS 0.75
         turretMotor.set(0);
         breek = "no";
-        TurretCenterd = true;
-        RobotContainer.TurretCenterd = true;
       }
 
       else if (!rightlimitSwitch.get()){//trys to go to left 
@@ -91,10 +83,6 @@ public class Turret extends SubsystemBase {
         turretMotor.set(-m_s_seepd);
       }
     }
-
-    SmartDashboard.putNumber("Turretmotor", turretMotor.get());
-    SmartDashboard.putNumber("m_t_seepd", m_t_seepd);
-    SmartDashboard.putBoolean("Turret Centerd", TurretCenterd);
   }
 
   public void turnTurretmanual(){

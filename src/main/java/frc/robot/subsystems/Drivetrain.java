@@ -4,10 +4,8 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.PathFindingConstants.DriveConstants;
 import frc.robot.commands.DriveByJoysticks;
@@ -53,24 +51,29 @@ public class Drivetrain extends SubsystemBase {
     if (Math.abs(ySpeed) < 0.01) ySpeed = 0;
     if (Math.abs(zRotation) < 0.01) zRotation = 0;
 
-    xSpeed *= 0.6;
-    ySpeed *= 0.6;
-    zRotation *= 0.6;
+    ySpeed = MathUtil.applyDeadband(ySpeed, 0.01);
+    xSpeed = MathUtil.applyDeadband(xSpeed, 0.01);
+    zRotation = MathUtil.applyDeadband(zRotation, 0.01);
+ 
+    // Max Speeds
+    xSpeed *= 0.9;
+    ySpeed *= 0.9;
+    zRotation *= 0.5;
 
-    SmartDashboard.putNumber("xSpeed", xSpeed);
-    SmartDashboard.putNumber("ySpeed", ySpeed);
-    SmartDashboard.putNumber("zRotation", zRotation);
+    // SmartDashboard.putNumber("xSpeed", xSpeed);
+    // SmartDashboard.putNumber("ySpeed", ySpeed);
+    // SmartDashboard.putNumber("zRotation", zRotation);
 
-    SmartDashboard.putNumber("Front Left", (ySpeed + xSpeed + zRotation));
+    // SmartDashboard.putNumber("Front Left", (ySpeed + xSpeed + zRotation));
     frontLeft.set((ySpeed + xSpeed + zRotation));
 
-    SmartDashboard.putNumber("Back Left", (ySpeed - xSpeed + zRotation));
+    // SmartDashboard.putNumber("Back Left", (ySpeed - xSpeed + zRotation));
     backLeft.set((ySpeed - xSpeed + zRotation));
     
-    SmartDashboard.putNumber("Front Right", (ySpeed - xSpeed - zRotation));
+    // SmartDashboard.putNumber("Front Right", (ySpeed - xSpeed - zRotation));
     frontRight.set(-(ySpeed - xSpeed - zRotation));
     
-    SmartDashboard.putNumber("Back Right", (ySpeed + xSpeed - zRotation));
+    // SmartDashboard.putNumber("Back Right", (ySpeed + xSpeed - zRotation));
     backRight.set(-(ySpeed + xSpeed - zRotation));
   }
 

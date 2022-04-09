@@ -27,8 +27,7 @@ public final class Constants {
         RightArmAngleEncoder (Motors.RIGHT_ARM_ANGLE.getEncoder()),
         LeftExtenderEncoder (Motors.LEFT_ARM_EXTENDER.getEncoder()),
         RightExtenderEncoder (Motors.RIGHT_ARM_EXTENDER.getEncoder()),
-        LeftBabyEncoder (Motors.LEFT_BABY.getEncoder()),
-        RightBabyEncoder (Motors.RIGHT_BABY.getEncoder()),
+        BabiesEncoder (Motors.BABIES.getEncoder()),
         AngleEncoder (Motors.ANGLE.getEncoder()),
         TurretEncoder (Motors.TURRET.getEncoder());
     
@@ -52,8 +51,7 @@ public final class Constants {
         public static final CANSparkMax RIGHT_ARM_ANGLE = new CANSparkMax(3, MotorType.kBrushless);
         public static final CANSparkMax LEFT_ARM_EXTENDER = new CANSparkMax(22, MotorType.kBrushless);
         public static final CANSparkMax RIGHT_ARM_EXTENDER = new CANSparkMax(9, MotorType.kBrushless);
-        public static final CANSparkMax LEFT_BABY = new CANSparkMax(8, MotorType.kBrushless);
-        public static final CANSparkMax RIGHT_BABY = new CANSparkMax(7, MotorType.kBrushless);
+        public static final CANSparkMax BABIES = new CANSparkMax(7, MotorType.kBrushless);
 
         // Shooter
         public static final CANSparkMax SHOOTER_RIGHT = new CANSparkMax(13, MotorType.kBrushless);
@@ -65,6 +63,7 @@ public final class Constants {
 
         public static final CANSparkMax INDEX = new CANSparkMax(6, MotorType.kBrushless);
         public static final CANSparkMax INTAKE = new CANSparkMax(1, MotorType.kBrushless);
+        public static final CANSparkMax ACTIVE_INDEX = new CANSparkMax(8, MotorType.kBrushless);
     }
 
     public final static class Joysticks {
@@ -88,6 +87,8 @@ public final class Constants {
         public static final JoystickButton RIGHT_JOYSTICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 13);
         public static final JoystickButton LEFT_STICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 14);
         public static final JoystickButton RIGHT_STICK = new JoystickButton(Joysticks.MANIP_CONTROLLER, 15);
+
+        
     }
 
     public static final class EncoderMaxes {
