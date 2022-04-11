@@ -26,8 +26,9 @@ public class RunActiveIndex extends CommandBase {
     // if(Joysticks.MANIP_CONTROLLER.getLeftY() < -0.9) activeIndex.runIndex();
     // else activeIndex.stopIndex();
     
-    if(Joysticks.DRIVE_CONTROLLER.getLeftBumper()) activeIndex.runIndex();
+    if (Joysticks.MANIP_CONTROLLER.getLeftY() < -0.9) activeIndex.runIndex();
     else activeIndex.stopIndex();
+
   }
 
   // Called once the command ends or is interrupted.

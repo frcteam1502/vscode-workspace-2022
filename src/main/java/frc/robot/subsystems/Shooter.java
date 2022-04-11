@@ -65,6 +65,7 @@ public class Shooter extends SubsystemBase {
   public void indexBall(){
     indexWheel.set(0.9);
   }
+  
 
   public void indexBallStop(){
     indexWheel.set(0);
@@ -95,8 +96,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.765);
       } else if (m_limelight.ty < -0.4 && m_limelight.ty >= -1.9) {
         moveHoodToTarget(4);
-        shooterRight.set(0.785);
-        shooterLeft.set(0.785);
+        shooterRight.set(0.775);
+        shooterLeft.set(0.775);
       } else if (m_limelight.ty < -1.9 && m_limelight.ty >= -3.1) {
         moveHoodToTarget(8);
         shooterRight.set(0.79);
