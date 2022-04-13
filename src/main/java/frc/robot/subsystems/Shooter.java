@@ -108,8 +108,8 @@ public class Shooter extends SubsystemBase {
         shooterLeft.set(0.82);
       } else if (m_limelight.ty < -5.5 && m_limelight.ty >= -8.9) {
         moveHoodToTarget(6);
-        shooterRight.set(0.83);
-        shooterLeft.set(0.83);
+        shooterRight.set(0.82);
+        shooterLeft.set(0.82);
       } else {
         shooterRight.set(0.6);
         shooterLeft.set(0.6);
