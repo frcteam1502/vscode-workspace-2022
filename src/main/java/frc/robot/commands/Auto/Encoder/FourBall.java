@@ -21,6 +21,8 @@ public class FourBall extends SequentialCommandGroup {
         new StartEndCommand(climb::RotateArmsForwards, climb::StopArmsRotate, climb)
       ),
 
+      new WaitCommand(0.5),
+
       /** Drive out of box and pickup 2nd ball */
       new ParallelRaceGroup(
         new StartEndCommand(intake::moveIntake, intake::stopIntake, intake),

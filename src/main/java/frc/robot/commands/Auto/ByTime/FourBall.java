@@ -22,6 +22,8 @@ public FourBall(Drivetrain drive, Intake intake, Shooter shooter, Climber climb,
         new StartEndCommand(climb::RotateArmsForwards, climb::StopArmsRotate, climb)
       ),
 
+      new WaitCommand(0.5),
+
       /** Drive out of box and pickup 2nd ball */
       new ParallelRaceGroup(
         new WaitCommand(1.9),
