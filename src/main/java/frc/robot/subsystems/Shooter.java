@@ -63,7 +63,7 @@ public class Shooter extends SubsystemBase {
   }
 // HELP MY LEG
   public void indexBall(){
-    indexWheel.set(0.9);
+    indexWheel.set(0.85);
   }
   
 
