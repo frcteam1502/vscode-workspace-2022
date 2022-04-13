@@ -57,11 +57,11 @@ public class AutoSimple extends CommandBase {
     climber.RotateArmsForwards();
     Timer.delay(1.3);
     climber.StopArmsRotate();
-
+    Timer.delay(0.5);
     //Start intake and active indexer
     intake.moveIntake();
     activeIndex.runIndex();
-
+    
     //move out of box and pickup 2nd ball
     drive(.2);
     Timer.delay(1.5);
