@@ -113,10 +113,10 @@ public class Shooter extends SubsystemBase {
       } else {
         shooterRight.set(0.6);
         shooterLeft.set(0.6);
-        moveHoodToTarget(7);
+        moveHoodToTarget(0);
       }
     } else {
-      moveHoodToTarget(7);
+      moveHoodToTarget(0);
       shooterRight.set(0.4);
        shooterLeft.set(0.4);
       //  SmartDashboard.putNumber("limelight in code", m_limelight.ty);
